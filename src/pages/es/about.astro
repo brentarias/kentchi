@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import { t } from '../../i18n';
+
+const i = t('es');
+---
+
+<Layout title={i.about.title} lang="es">
+  <Hero heading={i.about.heading} />
+  <SectionBlock>
+    <p class="text-center text-lg text-brand-warm-gray italic">{i.about.placeholder}</p>
+  </SectionBlock>
+</Layout>

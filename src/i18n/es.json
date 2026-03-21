@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca",
+    "gatherings": "Ceremonias",
+    "artMusic": "Arte y Música",
+    "store": "Tienda",
+    "contact": "Contacto"
+  },
+  "home": {
+    "title": "Inicio | Kentchi",
+    "missionHeading": "La Misión de Kentchi",
+    "missionText": "Ayudar a las personas a despertar y sostener la vida de lo divino infantil interior, para que la expresión artística y musical fluya libre y abundantemente",
+    "offeringsHeading": "Lo que Ofrece Kentchi",
+    "ceremoniesTitle": "Ceremonias y Encuentros",
+    "ceremoniesText": "Experimenta ceremonias transformadoras de hongos y ayahuasca guiadas con humildad, cuidado y profundo respeto por las tradiciones de sabiduría indígena.",
+    "ceremoniesLink": "Saber más",
+    "artTitle": "Arte Visionario y Música",
+    "artText": "Explora pinturas inspiradas en plantas, música original y décadas de expresión creativa guiada por sueños, ceremonias y los maestros vegetales.",
+    "artLink": "Explorar",
+    "storeTitle": "El Oráculo Shinan",
+    "storeText": "Cuatro años en creación — un oráculo bilingüe y libro que se nutre de la sabiduría Kené Shipibo y la tradición chamánica amazónica.",
+    "storeLink": "Tienda",
+    "followHeading": "Sigue el Camino",
+    "followText": "Conéctate con el mundo de Kentchi a través de dos canales de Instagram.",
+    "inkentationsTitle": "Música y Ceremonia",
+    "inkentationsText": "Canciones originales, ícaros y sanación con sonido — Inkentations es el viaje musical de Kentchi, moldeado por ceremonias de medicina de plantas y años de despertar creativo.",
+    "inkentationsCta": "@inkentations",
+    "shinanArtTitle": "Arte Visionario",
+    "shinanArtText": "Pinturas inspiradas en plantas, geometría sagrada y diseños Kené Shipibo — el mundo visual de Shinan Visionary Arts.",
+    "shinanArtCta": "@shinan_visionary_arts",
+    "testimonialHeading": "De la Comunidad",
+    "testimonial": "\"Kentchi sostiene el espacio tan divinamente, sin esfuerzo, está en su alma, en su naturaleza... Mi corazón estaba tan lleno de amor y alegría después de conectar con su increíble Medicina Kai Kai Kuna.\""
+  },
+  "about": {
+    "title": "Acerca | Kentchi",
+    "heading": "Acerca de Kentchi",
+    "placeholder": "Contenido próximamente."
+  },
+  "gatherings": {
+    "title": "Ceremonias | Kentchi",
+    "mushroomHeading": "Ceremonias de Hongos Mágicos — Kai Kai Kuna",
+    "mushroomText1": "Las ceremonias de hongos mágicos son dirigidas por Kentchi y varios músicos talentosos. Estas ceremonias se llevan a cabo con gran humildad y respeto. Kentchi cuida mucho de proveer un contenedor sólido en el que la sanación y la iluminación puedan ocurrir.",
+    "mushroomText2": "Kentchi viajó a Oaxaca para estudiar con el chamán zapoteca de hongos, Don Jorge, en San José Del Pacífico. Este guardián de sabiduría indígena compartió procesos de purificación que incluyen ayuno, temazcal y consumo de hongos frescos y potentes. Después de estos procesos chamánicos, Don Jorge dio permiso a Kentchi para dirigir las ceremonias Kai Kai Kuna.",
+    "mushroomText3": "Los hongos ofrecidos son una variedad llamada Taj Mahal — son famosos por su claridad cristalina y vibración de alta frecuencia.",
+    "mushroomText4": "Las ceremonias Kai Kai Kuna incluyen meditación silenciosa, sanación con sonido, cantos e ícaros, y frecuentemente elementos de danza y celebración.",
+    "ayahuascaHeading": "Ceremonias de Ayahuasca — Shinameti",
+    "ayahuascaText1": "Las ceremonias de Ayahuasca son guiadas por Kentchi y músicos invitados que han completado varias dietas de plantas en la Amazonía peruana. Informadas por las tradiciones Shipibo, Mestizo y Bhakti de la India, estas ceremonias son transformadoras, sanadoras e iluminadoras.",
+    "ayahuascaText2": "Las ceremonias Shinameti comienzan estableciendo intenciones y bendiciendo la Ayahuasca con tabaco Mapacho. Luego entran en meditación silenciosa por 15-30 minutos y comienzan a conectar con la energía de la medicina. Después de esta conexión silenciosa, comienzan a introducir música suave y aumentan la energía a medida que avanza la noche.",
+    "ayahuascaText3": "Los músicos y colaboradores armonizan y entrelazan sus voces y melodías para crear una noche verdaderamente sanadora e inspiradora, inolvidablemente hermosa.",
+    "testimonialHeading": "Testimonios",
+    "testimonial": "\"Kentchi sostiene el espacio tan divinamente, sin esfuerzo, está en su alma, en su naturaleza... Mi corazón estaba tan lleno de amor y alegría después de conectar con su increíble Medicina Kai Kai Kuna.\""
+  },
+  "artMusic": {
+    "title": "Arte y Música | Kentchi",
+    "artHeading": "Arte Visionario",
+    "artText": "Me siento muy afortunado de tener tantos maestros de plantas y maestros humanos que me guían para crear tanto arte. Comencé a dibujar a la edad de 5 años y recuerdo que muchos niños en mi clase admiraban mi habilidad para dibujar las Tortugas Ninja Mutantes Adolescentes, y se me ocurrió que podría tener algún tipo de poderes artísticos que podrían desarrollarse. En la secundaria usé lápices de colores con frecuencia hasta la universidad donde comencé a trabajar con acuarelas y luego acrílico. Estuve expuesto a muchos pintores y maestros talentosos pero sentí que gran parte de mi desarrollo fue autodidacta, ya que generalmente intentaba hacer algo diferente y tenía una naturaleza algo rebelde. He encontrado gran inspiración trabajando con medicinas de plantas como medio para recibir nuevas ideas de pintura, así como mi mundo onírico que se ha vuelto cada vez más revelador y útil en mi expresión artística. ¡Gracias por tomarte el tiempo de ver mi arte, y el mayor cumplido para mí es si mi arte te inspira a crear el tuyo!",
+    "musicHeading": "El Viaje Musical de Kentchi",
+    "musicText": "Fui bendecido con una madre pianista, y ella tocaba mucha música para mí cuando estaba en su vientre. Cuando nací, me ponía en la cuna junto al piano y tocaba para mí, así que absorbí mucha música a una edad muy sensible. A medida que crecía, me llevaba a musicales y obras de teatro, inspirándome con la magia del teatro. También tomé clases de piano con ella, pero al crecer esto no era lo 'más cool' a los ojos de mis compañeros, así que dejé después de aproximadamente un año y medio. En la secundaria, toqué el clarinete durante dos años, pero no me inspiraba tocar partituras y a menudo encontraba la clase aburrida. Me acostumbré a la mediocridad musical. Eventualmente dejé la banda y me convencí de que no era músico ni cantante y nunca lo sería. Mantuve esta creencia hasta los 28 años cuando tomé hongos mágicos solo en los bosques cerca de Portland, Oregón. Durante este viaje en solitario escuché letras de canciones entrar en mi cabeza. Al principio eran solo palabras, pero luego me di cuenta de que era poesía que quería ser acompañada de ritmo y melodía. Comencé a grabar estas letras y escribí algunas canciones. Esta latencia persistió hasta mi primera dieta de Ayahuasca a los 31 años, donde tomé una planta llamada Huayanchi que me ayudó a abrir mi voz y mi creatividad musical. En un corto período de tiempo, comencé a cantar y componer canciones. Mi música se llama Inkentations en SoundCloud, ¡y tengo mi primer álbum cerca de completarse! ¡Espero compartirlo todo con ustedes pronto!",
+    "galleryHeading": "Galería"
+  },
+  "store": {
+    "title": "Tienda | Kentchi",
+    "heading": "El Oráculo y Libro Shinan",
+    "description1": "Estos dos proyectos tomaron aproximadamente cuatro años para que nuestro equipo los completara. Representan innumerables horas de trabajo duro y dedicación de docenas de colaboradores. El libro Shinan y el Oráculo Shinan han sido un gran éxito desde su lanzamiento en la primavera de 2019, y han desempeñado un papel importante en el diálogo sobre antropología chamánica en la selva amazónica.",
+    "description2": "Si bien el libro Shinan comparte una gran cantidad de información con el Oráculo Shinan, son diferentes en algunos aspectos clave. El libro Shinan es principalmente de naturaleza antropológica, representando cuatro años de entrevistas en la Amazonía peruana con maestros y madres Shipibo. Los pueblos indígenas compartieron mucha información sobre sus diseños tradicionales Kené, así como sobre espíritus animales y vegetales, diferentes tipos de maestros y las herramientas ceremoniales que usan.",
+    "description3": "El Oráculo Shinan deriva la mayor parte de su información e inspiración de las investigaciones que componen el libro Shinan, pero utiliza una voz más personalizada y directa, proporcionando orientación sobre cómo cada carta del oráculo puede ser utilizada para elevar, empoderar e inspirar.",
+    "pricingHeading": "Precios",
+    "price1": "Libro Shinan (inglés, tapa blanda) — $20 USD",
+    "price2": "Libro Shinan (español, tapa dura) — $30 USD",
+    "price3": "Oráculo Shinan y guía (bilingüe) — $45 USD",
+    "price4": "Oráculo Shinan y guía (inglés, tapa blanda) — $30 USD",
+    "cta": "Si desea comprar una copia del libro Shinan o del Oráculo Shinan, por favor envíe un correo a ayahuaskent@gmail.com y le enviaremos una copia rápidamente."
+  },
+  "contact": {
+    "title": "Contacto | Kentchi",
+    "heading": "Contacto",
+    "nameLabel": "Nombre",
+    "emailLabel": "Correo Electrónico",
+    "messageLabel": "Mensaje",
+    "submitButton": "Enviar",
+    "info": "Para consultas, por favor envíe un correo a ayahuaskent@gmail.com"
+  },
+  "footer": {
+    "copyright": "©2021 por Kentchi."
+  }
+}

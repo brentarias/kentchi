@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import { t } from '../../i18n';
+
+const i = t('es');
+---
+
+<Layout title={i.store.title} lang="es">
+  <Hero heading={i.store.heading} />
+
+  <SectionBlock>
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+      <div class="space-y-4 text-base leading-relaxed">
+        <p>{i.store.description1}</p>
+        <p>{i.store.description2}</p>
+        <p>{i.store.description3}</p>
+      </div>
+      <div>
+        <img
+          src="/images/shinan-product.jpg"
+          alt="El Oráculo y Libro Shinan"
+          class="rounded-lg shadow-lg w-full"
+        />
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock heading={i.store.pricingHeading} class="bg-brand-light">
+    <ul class="space-y-3 text-lg max-w-xl mx-auto">
+      <li class="font-semibold">{i.store.price1}</li>
+      <li class="font-semibold">{i.store.price2}</li>
+      <li class="font-semibold">{i.store.price3}</li>
+      <li class="font-semibold">{i.store.price4}</li>
+    </ul>
+    <p class="mt-6 text-center italic text-brand-purple">
+      {i.store.cta.split('ayahuaskent@gmail.com')[0]}
+      <a href="mailto:ayahuaskent@gmail.com" class="underline hover:text-brand-gold">ayahuaskent@gmail.com</a>
+      {i.store.cta.split('ayahuaskent@gmail.com')[1]}
+    </p>
+  </SectionBlock>
+</Layout>

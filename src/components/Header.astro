@@ -1,0 +1,100 @@
+---
+import { t, type Lang, defaultLang, languages, getLocalizedPath } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const i = t(lang);
+
+const navItems = [
+  { label: i.nav.home, href: getLocalizedPath('/', lang) },
+  { label: i.nav.about, href: getLocalizedPath('/about', lang) },
+  { label: i.nav.gatherings, href: getLocalizedPath('/gatherings', lang) },
+  { label: i.nav.artMusic, href: getLocalizedPath('/art-music', lang) },
+  { label: i.nav.store, href: getLocalizedPath('/store', lang) },
+  { label: i.nav.contact, href: getLocalizedPath('/contact', lang) },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="relative">
+  <!-- Muting overlay over fixed body background -->
+  <div class="absolute inset-0 -z-10" style="background-color: rgba(213, 215, 201, 0.8);"></div>
+
+  <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col items-center gap-4">
+    <!-- Logo -->
+    <a href={getLocalizedPath('/', lang)}>
+      <img
+        src="/images/logo.png"
+        alt="Kentchi"
+        class="w-40 h-auto"
+      />
+    </a>
+
+    <!-- Navigation -->
+    <nav aria-label="Site">
+      <!-- Mobile hamburger -->
+      <button
+        id="menu-toggle"
+        class="md:hidden p-2 text-brand-dark"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <ul id="nav-menu" class="hidden md:flex flex-wrap justify-center gap-x-6 gap-y-2 text-base font-bold tracking-wide">
+        {navItems.map(({ label, href }) => (
+          <li>
+            <a
+              href={href}
+              class:list={[
+                'hover:text-brand-rust hover:underline hover:decoration-brand-rust hover:decoration-2 hover:underline-offset-4 transition-all uppercase text-brand-dark',
+                currentPath === href || (href !== '/' && currentPath.startsWith(href))
+                  ? 'underline decoration-brand-rust decoration-2 underline-offset-4 font-semibold'
+                  : '',
+              ]}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Language switcher -->
+    <div class="flex gap-2 text-xs">
+      {Object.entries(languages).map(([code, name]) => (
+        <a
+          href={code === defaultLang ? currentPath.replace(`/${lang}`, '') || '/' : `/${code}${currentPath.replace(`/${lang}`, '') || '/'}`}
+          class:list={[
+            'px-2 py-1 rounded',
+            lang === code ? 'bg-brand-dark text-white' : 'text-brand-dark hover:bg-brand-light',
+          ]}
+        >
+          {name}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('nav-menu');
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    menu?.classList.toggle('hidden');
+    menu?.classList.toggle('flex');
+    menu?.classList.toggle('flex-col');
+    menu?.classList.toggle('items-center');
+    menu?.classList.toggle('gap-4');
+    menu?.classList.toggle('py-4');
+  });
+</script>

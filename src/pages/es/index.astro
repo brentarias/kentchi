@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import { t } from '../../i18n';
+
+const i = t('es');
+---
+
+<Layout title={i.home.title} lang="es">
+  <Hero heading={i.home.missionHeading} text={i.home.missionText} />
+</Layout>

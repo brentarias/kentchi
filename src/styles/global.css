@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-dark: #27211E;
+  --color-brand-gold: #D0AC68;
+  --color-brand-sage: #7D8260;
+  --color-brand-warm-gray: #9F8C82;
+  --color-brand-light: #F7F7F7;
+  --color-brand-purple: #34045C;
+  --color-brand-rust: #a84b1f;
+
+  --font-heading: 'Futura LT W01 Book', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+  --font-body: 'Futura LT W01 Light', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-brand-dark);
+  background-color: #fff;
+  background-image: url('/images/pattern-med.avif');
+  background-attachment: fixed;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}

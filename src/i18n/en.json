@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "gatherings": "Gatherings & Ceremony",
+    "artMusic": "Art and Music",
+    "store": "Store",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Home | Kentchi",
+    "missionHeading": "Kentchi's Mission",
+    "missionText": "To help individuals in empowering awakening and sustaining life of the childlike divine within, so that artistic and musical expression flows freely and abundantly",
+    "offeringsHeading": "What Kentchi Offers",
+    "ceremoniesTitle": "Gatherings & Ceremony",
+    "ceremoniesText": "Experience transformative mushroom and ayahuasca ceremonies led with humility, care, and deep respect for indigenous wisdom traditions.",
+    "ceremoniesLink": "Learn more",
+    "artTitle": "Visionary Art & Music",
+    "artText": "Explore plant-inspired paintings, original music, and decades of creative expression guided by dreams, ceremony, and the plant teachers.",
+    "artLink": "Explore",
+    "storeTitle": "The Shinan Oracle",
+    "storeText": "Four years in the making — a bilingual oracle deck and book drawing on Shipibo Kene wisdom and Amazonian shamanic tradition.",
+    "storeLink": "Shop",
+    "followHeading": "Follow the Journey",
+    "followText": "Stay connected with Kentchi's world across two Instagram channels.",
+    "inkentationsTitle": "Music & Ceremony",
+    "inkentationsText": "Original songs, icaros, and sound healing — Inkentations is Kentchi's musical journey, shaped by plant-medicine ceremonies and years of creative awakening.",
+    "inkentationsCta": "@inkentations",
+    "shinanArtTitle": "Visionary Art",
+    "shinanArtText": "Plant-inspired paintings, sacred geometry, and Shipibo Kene designs — the visual world of Shinan Visionary Arts.",
+    "shinanArtCta": "@shinan_visionary_arts",
+    "testimonialHeading": "From the Community",
+    "testimonial": "\"Kentchi holds space so divinely, effortlessly, it's in his soul, in his nature... My heart was so full of love and joy after connecting with his amazing Kai Kai Kuna Medicine.\""
+  },
+  "about": {
+    "title": "About | Kentchi",
+    "heading": "About Kentchi",
+    "placeholder": "Content coming soon."
+  },
+  "gatherings": {
+    "title": "Retreats | Kentchi",
+    "mushroomHeading": "Magic Mushroom Ceremonies — Kai Kai Kuna",
+    "mushroomText1": "Their magic mushroom ceremonies are led by Kentchi and various talented musicians. These mushroom ceremonies are conducted with great humility and respect. Kentchi takes great care in providing a solid container in which healing and enlightenment can occur.",
+    "mushroomText2": "Kentchi traveled to Oaxaca to study with Zapotec mushroom shaman, Don Jorge, in San Jose Del Pacifico. This indigenous wisdom keeper shared purification processes involving fasting, temezcal and eating fresh, potent mushrooms. After these shamanic processes, Don Jorge gave permission to Kentchi to lead the Kai Kai Kuna ceremonies.",
+    "mushroomText3": "The mushrooms offered are a variety called Taj Mahal — they are famous for their crystal clarity and high frequency vibration.",
+    "mushroomText4": "Kai Kai Kuna ceremonies feature silent meditation, sound healing, chants and icaros, and often elements of dance and celebration.",
+    "ayahuascaHeading": "Ayahuasca Ceremonies — Shinameti",
+    "ayahuascaText1": "The Ayahuasca ceremonies are guided by Kentchi and guest musicians who have completed various plant dietas in the Peruvian Amazon. Informed by Shipibo, Mestizo, and Bhakti traditions from India, these ceremonies are transformative, healing and enlightening.",
+    "ayahuascaText2": "Shinameti ceremonies begin with setting intentions and blessing the Ayahuasca with Mapacho tobacco. They then enter silent meditation for 15-30 minutes and start to connect with the energy of the medicine. After this silent connection they start to introduce gentle music and pick up the energy as the night goes on.",
+    "ayahuascaText3": "The musicians and collaborators harmonize and braid their voices and melodies to create a truly healing and inspiring night that is unforgettably beautiful.",
+    "testimonialHeading": "Testimonials",
+    "testimonial": "\"Kentchi holds space so divinely, effortlessly, its in his soul, in his nature... My heart was so full of love and joy after connecting with his amazing Kai Kai Kuna Medicine.\""
+  },
+  "artMusic": {
+    "title": "Art and Music | Kentchi",
+    "artHeading": "Visionary Art",
+    "artText": "I feel so fortunate to have so many plant teachers and human teachers guide me to make so much artwork. I started with drawing at the age of 5 and recall that a lot of kids in my class admired my ability to draw Teenage Mutant Ninja Turtles, and it occurred to me that I might have some sort of artistic powers that could be developed. In middle school I used colored pencils often until college where I started working with watercolors and then acrylic. I was exposed to many talented painters and teachers but I felt that much of my development was self taught, as I usually tried to do something different and had a sort of rebellious nature. I have found great inspiration with working with plant medicines as a means of receiving new painting ideas, as well as my dream world which has become increasingly revealing and helpful to me in my artistic expression. Thanks for taking the time to check out my artwork, and the biggest compliment for me is if my artwork makes you want to make your own!",
+    "musicHeading": "Kentchi's Musical Journey",
+    "musicText": "I was blessed with having a mother who is a pianist, and she would play a lot of music for me when I was in her womb. When I was born she would set me up in the crib next to the piano and play for me, so I absorbed a lot of music at a very sensitive age. As I grew older she brought me to musicals, plays, inspiring me with the magic of theater. I also took piano lessons with her, but as I grew older this wasn't the \"coolest\" thing to be doing in the eyes of my peers, and so I stopped after about a year and a half. In middle school, I played the clarinet for two years, but I was not inspired by playing sheet music and often found the class boring. I accustomed myself to musical mediocrity. I eventually dropped out of band and became convinced that I wasn't a musician or a singer and I never would be. I maintained this belief until the age of 28 when I took some magic mushrooms by myself in the forests outside Portland, Oregon. During this solo journey I heard song lyrics enter my head. At first they were just words, but then I realized they were poetry that wanted to be accompanied by rhythm and melody. I started to record these lyrics, and I wrote a few songs. This dormancy persisted until my first Ayahuasca dieta at the age of 31, where I took a plant called Huayanchi that helped me open up my voice and my musical creativity. In a short period of time, I started to sing and compose songs. My music is called Inkentations on SoundCloud, and I have my first album nearing completion! I look forward to sharing it all with you soon!",
+    "galleryHeading": "Gallery"
+  },
+  "store": {
+    "title": "Store | Kentchi",
+    "heading": "The Shinan Oracle and Book",
+    "description1": "These two projects took about four years for our team to complete. They represent countless hours of hard work and dedication from dozens of collaborators. The Shinan book and Shinan Oracle have been a huge success when released in spring of 2019, and have played an important role in the dialogue about shamanic anthropology in the Amazon rainforest.",
+    "description2": "While the Shinan book shares a great amount of information with the Shinan Oracle, they are different in some key ways. The Shinan book is mostly anthropologic in nature, representing four years of interviews in the Peruvian Amazon with Shipibo maestros and madres. The indigenous people shared a great deal of information about their traditional Kene designs, as well as discussed animal and plant spirits, as well as different types of maestros and the ceremonial tools they use. Each page of the Shinan book is illustrated by a custom-made piece of embroidery created by many different Shipibo women in the vicinity of Pucallpa, Peru between 2013-2018.",
+    "description3": "The Shinan Oracle derives most of its information and inspiration from investigations composing the Shinan book, yet uses a more personalized and direct voice, providing personalized guidance as to how each oracle card can be used to uplift, empower, and inspire.",
+    "pricingHeading": "Pricing",
+    "price1": "Shinan Book (English softcover) — $20 USD",
+    "price2": "Shinan Book (Spanish hardcover) — $30 USD",
+    "price3": "Shinan Oracle and guidebook (Bilingual) — $45 USD",
+    "price4": "Shinan Oracle and guidebook (English soft cover) — $30 USD",
+    "cta": "If you would like to purchase a copy of the Shinan book or Shinan Oracle please email at ayahuaskent@gmail.com and we will send you a copy promptly!"
+  },
+  "contact": {
+    "title": "Contact | Kentchi",
+    "heading": "Contact",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "submitButton": "Send",
+    "info": "For inquiries, please email ayahuaskent@gmail.com"
+  },
+  "footer": {
+    "copyright": "©2021 by Kentchi."
+  }
+}

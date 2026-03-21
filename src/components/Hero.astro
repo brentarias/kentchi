@@ -1,0 +1,31 @@
+---
+interface Props {
+  heading?: string;
+  text?: string;
+  bgImage?: string;
+}
+
+const { heading, text, bgImage } = Astro.props;
+---
+
+{bgImage ? (
+  <section class="relative min-h-[54vh] md:min-h-[67vh] flex items-center justify-center overflow-hidden">
+    <div
+      class="absolute inset-0"
+      style={`background-image: url('${bgImage}'); background-repeat: repeat-x; background-position: center; background-size: auto 100%;`}
+    ></div>
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center text-white">
+      {heading && <h2 class="text-3xl md:text-5xl font-heading mb-6">{heading}</h2>}
+      {text && <p class="text-lg md:text-2xl leading-relaxed font-body italic">{text}</p>}
+      <slot />
+    </div>
+  </section>
+) : (
+  <section class="py-24 md:py-36 flex items-center justify-center">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      {heading && <h2 class="text-3xl md:text-5xl font-heading mb-6">{heading}</h2>}
+      {text && <p class="text-lg md:text-2xl leading-relaxed font-body italic">{text}</p>}
+      <slot />
+    </div>
+  </section>
+)}
