@@ -10,10 +10,11 @@ const i = t(lang);
 
 const navItems = [
   { label: i.nav.home, href: getLocalizedPath('/', lang) },
+  { label: i.nav.decks, href: getLocalizedPath('/decks', lang) },
+  { label: i.nav.art, href: getLocalizedPath('/art', lang) },
+  { label: i.nav.events, href: getLocalizedPath('/events', lang) },
+  { label: i.nav.music, href: getLocalizedPath('/music', lang) },
   { label: i.nav.about, href: getLocalizedPath('/about', lang) },
-  { label: i.nav.gatherings, href: getLocalizedPath('/gatherings', lang) },
-  { label: i.nav.artMusic, href: getLocalizedPath('/art-music', lang) },
-  { label: i.nav.store, href: getLocalizedPath('/store', lang) },
   { label: i.nav.contact, href: getLocalizedPath('/contact', lang) },
 ];
 
@@ -21,22 +22,14 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header class="relative">
-  <!-- Muting overlay over fixed body background -->
   <div class="absolute inset-0 -z-10" style="background-color: rgba(213, 215, 201, 0.8);"></div>
 
   <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col items-center gap-4">
-    <!-- Logo -->
     <a href={getLocalizedPath('/', lang)}>
-      <img
-        src="/images/logo.png"
-        alt="Kentchi"
-        class="w-40 h-auto"
-      />
+      <img src="/images/logo.png" alt="Kentchi" class="w-40 h-auto" />
     </a>
 
-    <!-- Navigation -->
     <nav aria-label="Site" class="flex flex-col items-center">
-      <!-- Mobile hamburger -->
       <button
         id="menu-toggle"
         class="md:hidden p-2 text-brand-dark"
@@ -67,7 +60,6 @@ const currentPath = Astro.url.pathname;
       </ul>
     </nav>
 
-    <!-- Language switcher -->
     <div class="flex gap-2 text-xs">
       {Object.entries(languages).map(([code, name]) => (
         <a

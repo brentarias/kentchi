@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import { t } from '../../i18n';
+
+const i = t('es');
+---
+
+<Layout title={i.music.title} lang="es">
+  <Hero heading={i.music.heading} />
+
+  <SectionBlock>
+    <p class="text-center text-lg leading-relaxed max-w-2xl mx-auto">{i.music.intro}</p>
+  </SectionBlock>
+
+  <SectionBlock heading={i.music.listenHeading} class="bg-brand-light">
+    <div class="max-w-lg mx-auto">
+      <iframe
+        width="100%"
+        height="450"
+        scrolling="no"
+        frameborder="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/kent-ucky&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+      ></iframe>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock heading={i.music.connectionHeading}>
+    <p class="text-center text-lg leading-relaxed max-w-2xl mx-auto">{i.music.connectionText}</p>
+  </SectionBlock>
+</Layout>

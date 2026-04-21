@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(curl -s \"https://www.wix.com/_api/wix-public-html-info-webapp/pages/50c3af56-a3aa-4c65-ac42-5eb0c87c54f7/2b593b08-3809-4e63-943f-e791a29a2719/rbcms\")"
+      "Bash(curl -s \"https://www.wix.com/_api/wix-public-html-info-webapp/pages/50c3af56-a3aa-4c65-ac42-5eb0c87c54f7/2b593b08-3809-4e63-943f-e791a29a2719/rbcms\")",
+      "Bash(npm run *)"
     ]
   }
 }

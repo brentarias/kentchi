@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import SectionBlock from '../components/SectionBlock.astro';
+import { t } from '../i18n';
+
+const i = t('en');
+---
+
+<Layout title={i.events.title}>
+  <Hero heading={i.events.heading} />
+
+  <SectionBlock>
+    <p class="text-center text-lg leading-relaxed max-w-2xl mx-auto">{i.events.intro}</p>
+  </SectionBlock>
+
+  <SectionBlock heading={i.events.offeringsHeading} class="bg-brand-light">
+    <ul class="max-w-md mx-auto space-y-4">
+      {[i.events.offering1, i.events.offering2, i.events.offering3, i.events.offering4, i.events.offering5].map((offering) => (
+        <li class="flex items-start gap-3">
+          <span class="text-brand-gold font-heading text-lg mt-0.5">&#10022;</span>
+          <span class="text-base leading-relaxed">{offering}</span>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock>
+    <div class="text-center">
+      <a href="/contact" class="inline-block px-8 py-3 bg-brand-dark text-white font-heading uppercase tracking-wide text-sm hover:bg-brand-gold hover:text-brand-dark transition-colors">{i.events.ctaContact}</a>
+    </div>
+  </SectionBlock>
+</Layout>
