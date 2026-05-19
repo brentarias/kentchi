@@ -42,24 +42,14 @@ const igTiles = [
       aria-hidden="true"
     ></div>
 
-    <!-- Quetzalcoatl: flex-centered inside a bottom band so it sits clear of Kent's face.
-         JPG has no alpha channel — a radial mask-image fades the edges to transparent so
-         it blends into the Kentchi background rather than sitting as a hard rectangle.
-         Vertical nudge knob: edit `top: 0px` on the img (positive = down, negative = up).
-         `position: relative` + `top` offsets the image visually AFTER flex layout, so it
-         doesn't interfere with flex centering OR with the pulse animation's transform. -->
-    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] md:h-[66%] flex items-center justify-center" aria-hidden="true">
-      <img
-        src="/images/quetzalcoatl.jpg"
-        alt=""
-        class="quetz-feather block w-[min(88vw,720px)] h-auto anim-pulse-soft"
-        style="position: relative; top: 120px"
-        loading="eager"
-      />
-    </div>
-
-    <!-- keep face glowing at top, fade to dark at the bottom so text is legible -->
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#140a18]/95" aria-hidden="true"></div>
+    <!-- layered scrim: heavier at top + bottom, lighter in middle -->
+    <div class="absolute inset-0 bg-linear-to-b from-[#140a18]/55 via-[#140a18]/20 to-[#140a18]/90" aria-hidden="true"></div>
+    <!-- vignette focuses the eye on the central copy card -->
+    <div
+      class="absolute inset-0"
+      style="background: radial-gradient(ellipse at center, rgba(20,10,24,0) 25%, rgba(20,10,24,0.6) 100%);"
+      aria-hidden="true"
+    ></div>
 
     <!-- floating color orbs (echo the vibrance of Kent's art, not his face) -->
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -69,19 +59,21 @@ const igTiles = [
       <span class="orb absolute bottom-[40%] right-[35%] w-44 h-44 rounded-full bg-violet-500/30 blur-3xl anim-float-slow"></span>
     </div>
 
-    <!-- bottom-weighted copy band -->
+    <!-- bottom-weighted copy band: frosted glass card keeps text crisp over the busy portrait -->
     <div class="relative z-10 w-full px-6 pb-12 md:pb-16">
-      <div class="max-w-4xl mx-auto text-center text-white">
-        <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-amber-300/90 mb-4 anim-rise">Visionary Art · Oracle Decks · AR · Music · Circles</p>
-        <h1 class="text-3xl md:text-6xl font-heading leading-tight mb-4 anim-rise">
-          <span class="block">{i.home.heroHeadline.split('–')[0].trim()}</span>
-          <span class="block bg-gradient-to-r from-amber-300 via-fuchsia-400 to-teal-300 bg-clip-text text-transparent">{i.home.heroHeadline.split('–')[1]?.trim()}</span>
-        </h1>
-        <p class="text-base md:text-xl max-w-2xl mx-auto leading-relaxed mb-8 text-white/90 anim-rise">{i.home.heroSubheadline}</p>
-        <div class="flex flex-wrap gap-3 justify-center anim-rise">
-          <a href="/decks"  class="btn-primary">{i.home.heroCtaDecks}</a>
-          <a href="/art"    class="btn-ghost">{i.home.heroCtaArt}</a>
-          <a href="/events" class="btn-ghost">{i.home.heroCtaEvents}</a>
+      <div class="mx-auto max-w-3xl">
+        <div class="hero-glass rounded-3xl px-6 py-10 md:px-12 md:py-14 text-center text-white">
+          <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-amber-300 mb-4 anim-rise">Visionary Art · Oracle Decks · AR · Music · Circles</p>
+          <h1 class="text-3xl md:text-6xl font-heading leading-tight mb-4 anim-rise drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+            <span class="block">{i.home.heroHeadline.split('–')[0].trim()}</span>
+            <span class="block bg-linear-to-r from-amber-300 via-fuchsia-400 to-teal-300 bg-clip-text text-transparent">{i.home.heroHeadline.split('–')[1]?.trim()}</span>
+          </h1>
+          <p class="text-base md:text-xl max-w-2xl mx-auto leading-relaxed mb-8 text-white/95 anim-rise">{i.home.heroSubheadline}</p>
+          <div class="flex flex-wrap gap-3 justify-center anim-rise">
+            <a href="/decks"  class="btn-primary">{i.home.heroCtaDecks}</a>
+            <a href="/art"    class="btn-ghost">{i.home.heroCtaArt}</a>
+            <a href="/events" class="btn-ghost">{i.home.heroCtaEvents}</a>
+          </div>
         </div>
       </div>
     </div>
@@ -197,37 +189,18 @@ const igTiles = [
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes pulse-soft {
-    0%, 100% { opacity: 0.88; transform: scale(1); }
-    50%      { opacity: 1;    transform: scale(1.02); }
-  }
-
-  /* Feather a plain JPG into its surroundings: a radial alpha mask turns the
-     opaque edges of the image into progressively-transparent ones, so the
-     quetzalcoatl seems to dissolve into the Kentchi portrait behind it.
-     Both WebKit and standard properties are set for cross-browser support. */
-  .quetz-feather {
-    -webkit-mask-image: radial-gradient(
-      ellipse 62% 58% at center,
-      rgba(0, 0, 0, 1) 30%,
-      rgba(0, 0, 0, 0.85) 50%,
-      rgba(0, 0, 0, 0.4) 75%,
-      rgba(0, 0, 0, 0) 92%
-    );
-            mask-image: radial-gradient(
-      ellipse 62% 58% at center,
-      rgba(0, 0, 0, 1) 30%,
-      rgba(0, 0, 0, 0.85) 50%,
-      rgba(0, 0, 0, 0.4) 75%,
-      rgba(0, 0, 0, 0) 92%
-    );
-    -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
+  .hero-glass {
+    background: linear-gradient(135deg, rgba(30, 10, 55, 0.55), rgba(10, 20, 45, 0.55));
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 30px 80px -30px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   .anim-float      { animation: float 9s ease-in-out infinite; }
   .anim-float-slow { animation: float-slow 13s ease-in-out infinite; }
-  .anim-pulse-soft { animation: pulse-soft 7s ease-in-out infinite; }
   .anim-rise       { animation: rise 0.9s ease-out both; }
   .anim-rise:nth-child(2) { animation-delay: 0.15s; }
   .anim-rise:nth-child(3) { animation-delay: 0.3s; }
@@ -273,6 +246,6 @@ const igTiles = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .anim-float, .anim-float-slow, .anim-rise, .anim-pulse-soft { animation: none; }
+    .anim-float, .anim-float-slow, .anim-rise { animation: none; }
   }
 </style>
