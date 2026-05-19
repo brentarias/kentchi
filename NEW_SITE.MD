@@ -1,4 +1,4 @@
-```markdown
+
 # Kentchi Website Rebuild Document
 **For Agentic Restructuring in VSCode**
 
@@ -154,10 +154,19 @@ Many of these decks come alive through **Artivive** — download the free app, p
 **Featured Decks**
 
 **Shinan Oracle**
-A beloved bilingual deck inspired by rich visionary traditions. Four years in the making, it continues to sell in stores across Mexico and beyond. Each card offers uplifting, personalized guidance that feels like a conversation with a wise, joyful friend.
+A bilingual deck born from years spent with Shipibo teachers and mothers in the Peruvian Amazon. At its heart: Kené (Kuh-nuh) — luminous geometric designs that hold the spirits of healing plants, glimpsed by shamans in visionary states and translated by voice into icaros, the sacred sung medicine of the tradition. Each card is a doorway into that living language of pattern, plant, and song.
 
 **Magnetic Magi**
-Kentchi's newest oracle creation — packed with magnetic energy, striking visuals, and that signature Artivive AR pop. Perfect for daily inspiration or deeper exploration. Available now.
+Rooted in the wisdom of Shipibo shamans of the Peruvian Amazon, the Magnetic Magi is a manifestation deck — your magnetic ally for calling in the life you long for. Each card helps dissolve limiting beliefs and quiet the thoughts that keep dreams at arm's length, so the visions you came here to live can take shape. Paired with Artivive, the magic literally moves.
+
+> **Canonical source — Kentchi's own words on the decks.**
+> The on-site copy above is a creative interpretation. The text below is what Kentchi provided verbatim and is the source of truth — any future rewrites must remain consistent with it (don't contradict the Shipibo lineage, the Kené / icaro relationship, the manifestation framing, etc.).
+>
+> **Shinan Oracle (verbatim):**
+> Much of the information in this oracle has been shared by Shipibo teachers and mothers in the Peruvian Amazon. These guardians of wisdom share significant insights about Kené (Kuh-nuh) designs, which are representations of the spirits of healing plants. Through visions induced by the ayahuasca plant, shamans frequently see these Kené designs, and by using their voices, these healers can translate the designs into chants called icaros.
+>
+> **Magnetic Magi (verbatim):**
+> This oracle is rooted in the teachings of the Shipibo shamans of the Peruvian Amazon rainforest. It was created as a tool to help people attract the reality they desire into their lives, allowing their dreams to come true. This oracle can help you overcome your limiting beliefs and inhibiting thoughts, so that you can be more successful in manifesting your visions, dreams, and desires.
 
 **Where to Find the Decks**
 Both decks are available on **Amazon** (links coming soon). If you're outside an area where Amazon ships conveniently — or if you'd simply like a more personal connection — [reach out to Kentchi directly](#contact). He ships to many countries and loves connecting with readers around the world.
@@ -285,4 +294,4 @@ For inquiries, please email **[ayahuaskent@gmail.com](mailto:ayahuaskent@gmail.c
 - **Organic artist:** Kentchi's art and oracle deck imagery is entirely hand-crafted by him. This is explicit in the Visionary Art and About pages and should never be contradicted elsewhere in copy or visuals.
 - **De-emphasized:** No mentions of specific plant medicines or ceremonies by name. Focus instead on circles, gatherings, and creative teaching.
 - **Spanish translation:** All pages will be built in English first. Once the English version is complete and approved, a full Spanish translation will be created following the existing i18n pattern (`src/i18n/en.json` / `src/i18n/es.json`) with mirrored pages under `src/pages/es/`.
-```
+

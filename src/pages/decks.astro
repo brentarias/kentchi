@@ -1,49 +1,337 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import SectionBlock from '../components/SectionBlock.astro';
 import { t } from '../i18n';
 
 const i = t('en');
 ---
 
 <Layout title={i.decks.title}>
-  <Hero heading={i.decks.heading} text={i.decks.subheading} />
+  <!-- ============================================================ -->
+  <!-- HERO — cosmic doorway: gallery art bleed, drifting orbs,     -->
+  <!-- sparkles, and a frosted glass portal card                    -->
+  <!-- ============================================================ -->
+  <section class="relative min-h-[78vh] overflow-hidden flex items-center justify-center text-white">
+    <div
+      class="absolute inset-0"
+      style="background-image: url('/images/gallery/art-7.jpg'); background-size: cover; background-position: center;"
+      aria-hidden="true"
+    ></div>
+    <div class="absolute inset-0 bg-linear-to-br from-[#1a0f2b]/92 via-brand-purple/85 to-[#0f0b1a]/95" aria-hidden="true"></div>
 
-  <SectionBlock>
-    <p class="text-center text-lg leading-relaxed max-w-2xl mx-auto">{i.decks.intro}</p>
-  </SectionBlock>
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute top-[14%] left-[8%]   w-56 h-56 rounded-full bg-amber-300/35 blur-3xl drift-a"></span>
+      <span class="absolute bottom-[18%] right-[10%] w-64 h-64 rounded-full bg-fuchsia-500/30 blur-3xl drift-b"></span>
+      <span class="absolute top-[42%] right-[42%] w-40 h-40 rounded-full bg-teal-400/25 blur-3xl drift-a"></span>
+    </div>
 
-  <SectionBlock heading={i.decks.featuredHeading} class="bg-brand-light">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-      <div class="space-y-4">
-        <div class="flex items-start gap-4">
-          <img src="/images/shinan-product.jpg" alt="Shinan Oracle" class="w-32 h-auto rounded shadow flex-shrink-0" />
-          <div class="space-y-2">
-            <h3 class="text-xl font-heading text-brand-gold">{i.decks.shinanTitle}</h3>
-            <p class="text-base leading-relaxed">{i.decks.shinanText}</p>
-          </div>
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="sparkle" style="top:18%;left:12%"></span>
+      <span class="sparkle" style="top:30%;left:78%;animation-delay:1.2s"></span>
+      <span class="sparkle" style="top:62%;left:22%;animation-delay:2.1s"></span>
+      <span class="sparkle" style="top:74%;left:68%;animation-delay:0.6s"></span>
+      <span class="sparkle" style="top:42%;left:50%;animation-delay:1.7s"></span>
+    </div>
+
+    <div class="relative z-10 mx-6 w-full max-w-3xl">
+      <div class="hero-glass rounded-4xl px-6 py-12 md:px-14 md:py-16 text-center">
+        <p class="text-xs uppercase tracking-[0.35em] text-amber-200 mb-5">Featured Creations</p>
+        <h1 class="text-4xl md:text-6xl font-heading leading-[1.05] mb-5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+          <span class="block">Unlock Your</span>
+          <span class="block bg-linear-to-r from-amber-200 via-rose-300 to-fuchsia-300 bg-clip-text text-transparent">Inner Oracle</span>
+        </h1>
+        <p class="text-base md:text-xl max-w-xl mx-auto leading-relaxed text-white/95 italic mb-8">
+          {i.decks.subheading}
+        </p>
+        <a href="#decks" class="btn-glow">Meet the decks ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- INTRO — soft pastel conic-mesh wash, editorial framing       -->
+  <!-- ============================================================ -->
+  <section class="relative py-24 px-4 md:px-8 overflow-hidden bg-white">
+    <div
+      class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,900px)] h-105 rounded-[40%] opacity-70 blur-3xl"
+      style="background: conic-gradient(from 120deg at 50% 50%, #fde8c8, #f8d4d8, #e9d5f5, #d6ecef, #fde8c8);"
+      aria-hidden="true"
+    ></div>
+    <div class="relative max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 text-brand-rust mb-4">
+        <span class="h-px w-8 bg-brand-rust"></span>
+        <span class="text-xs uppercase tracking-[0.3em]">The Living Cards</span>
+        <span class="h-px w-8 bg-brand-rust"></span>
+      </div>
+      <p class="text-lg md:text-2xl leading-relaxed text-brand-dark">{i.decks.intro}</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SHINAN ORACLE — Amazon/forest palette, image left, content   -->
+  <!-- right. Glow-haloed product image, lineage tag, feature chips -->
+  <!-- ============================================================ -->
+  <section id="decks" class="relative py-24 px-4 md:px-8 overflow-hidden bg-linear-to-br from-[#10261c] via-[#13363a] to-[#1a1028] text-white">
+    <div class="pointer-events-none absolute -top-20 -left-24 w-96 h-96 rounded-full bg-amber-300/15 blur-3xl drift-a" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -bottom-24 right-0 w-md h-112 rounded-full bg-emerald-500/15 blur-3xl drift-b" aria-hidden="true"></div>
+
+    <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+      <div class="relative">
+        <div class="absolute -inset-4 rounded-4xl bg-linear-to-br from-amber-300/30 via-rose-400/20 to-emerald-500/30 blur-2xl" aria-hidden="true"></div>
+        <div class="relative overflow-hidden rounded-4xl ring-1 ring-amber-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]">
+          <img src="/images/shinan-product.jpg" alt="Shinan Oracle" class="w-full aspect-square object-cover" loading="lazy" />
+          <div class="absolute inset-0 mix-blend-overlay opacity-35 bg-linear-to-br from-amber-300 via-rose-300 to-emerald-400" aria-hidden="true"></div>
         </div>
       </div>
-      <div class="space-y-4">
-        <h3 class="text-xl font-heading text-brand-gold">{i.decks.magneticTitle}</h3>
-        <p class="text-base leading-relaxed">{i.decks.magneticText}</p>
+
+      <div>
+        <span class="inline-block px-3 py-1 rounded-full bg-amber-300/15 text-amber-200 text-[11px] uppercase tracking-[0.25em] mb-4 ring-1 ring-amber-200/30">
+          Shipibo · Peruvian Amazon
+        </span>
+        <h2 class="text-3xl md:text-5xl font-heading mb-5">
+          <span class="bg-linear-to-r from-amber-200 via-rose-300 to-emerald-300 bg-clip-text text-transparent">{i.decks.shinanTitle}</span>
+        </h2>
+        <p class="text-white/90 leading-relaxed mb-6 text-base md:text-lg">{i.decks.shinanText}</p>
+        <div class="flex flex-wrap gap-2 mb-7">
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Bilingual</span>
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Kené Designs</span>
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Icaros</span>
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">AR · Artivive</span>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="#order" class="btn-glow">Get the Shinan</a>
+          <a href="/contact" class="btn-outline">Reach Kentchi</a>
+        </div>
       </div>
     </div>
-  </SectionBlock>
+  </section>
 
-  <SectionBlock heading={i.decks.whereHeading}>
-    <p class="text-center text-lg leading-relaxed max-w-2xl mx-auto mb-6">{i.decks.whereText}</p>
-    <div class="text-center">
-      <a href="/contact" class="inline-block px-8 py-3 bg-brand-dark text-white font-heading uppercase tracking-wide text-sm hover:bg-brand-gold hover:text-brand-dark transition-colors">{i.decks.whereCtaContact}</a>
-    </div>
-  </SectionBlock>
+  <!-- ============================================================ -->
+  <!-- MAGNETIC MAGI — cosmic violet/fuchsia, content left, image   -->
+  <!-- right. Pulsing magnetic rings behind the card.               -->
+  <!-- ============================================================ -->
+  <section class="relative py-24 px-4 md:px-8 overflow-hidden bg-linear-to-br from-[#0f0b1a] via-brand-purple to-[#1a0a2b] text-white">
+    <div class="pointer-events-none absolute top-0 -right-20 w-md h-112 rounded-full bg-fuchsia-500/20 blur-3xl drift-a" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -bottom-24 -left-24 w-md h-112 rounded-full bg-violet-400/20 blur-3xl drift-b" aria-hidden="true"></div>
 
-  <SectionBlock heading={i.decks.teachingHeading} class="bg-brand-light">
-    <p class="text-center text-lg leading-relaxed max-w-2xl mx-auto mb-8">{i.decks.teachingText}</p>
-    <div class="flex flex-wrap justify-center gap-4">
-      <a href="/events" class="inline-block px-6 py-3 border border-brand-dark text-brand-dark font-heading uppercase tracking-wide text-sm hover:bg-brand-dark hover:text-white transition-colors">{i.decks.ctaEvents}</a>
-      <a href="/contact" class="inline-block px-6 py-3 bg-brand-dark text-white font-heading uppercase tracking-wide text-sm hover:bg-brand-gold hover:text-brand-dark transition-colors">{i.decks.ctaContact}</a>
+    <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+      <div class="md:order-1 order-2">
+        <span class="inline-block px-3 py-1 rounded-full bg-fuchsia-400/15 text-fuchsia-200 text-[11px] uppercase tracking-[0.25em] mb-4 ring-1 ring-fuchsia-300/30">
+          Manifestation Deck
+        </span>
+        <h2 class="text-3xl md:text-5xl font-heading mb-5">
+          <span class="bg-linear-to-r from-amber-200 via-fuchsia-300 to-violet-300 bg-clip-text text-transparent">{i.decks.magneticTitle}</span>
+        </h2>
+        <p class="text-white/90 leading-relaxed mb-6 text-base md:text-lg">{i.decks.magneticText}</p>
+        <div class="flex flex-wrap gap-2 mb-7">
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Magnetic Energy</span>
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Manifestation</span>
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">AR · Artivive</span>
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Available Now</span>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="#order" class="btn-glow">Get the Magi</a>
+          <a href="/contact" class="btn-outline">Reach Kentchi</a>
+        </div>
+      </div>
+
+      <div class="relative md:order-2 order-1">
+        <!-- pulsing magnetic rings -->
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden="true">
+          <span class="absolute w-[110%] h-[110%] rounded-full border border-amber-300/15 ring-pulse-1"></span>
+          <span class="absolute w-[125%] h-[125%] rounded-full border border-fuchsia-300/12 ring-pulse-2"></span>
+        </div>
+        <div class="absolute -inset-4 rounded-4xl bg-linear-to-br from-amber-300/25 via-fuchsia-400/30 to-violet-500/30 blur-2xl" aria-hidden="true"></div>
+        <div class="relative overflow-hidden rounded-4xl ring-1 ring-fuchsia-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]">
+          <img src="/images/magnetic-magi-product.jpg" alt="Magnetic Magi" class="w-full aspect-square object-cover" loading="lazy" />
+          <div class="absolute inset-0 mix-blend-overlay opacity-30 bg-linear-to-br from-amber-300 via-fuchsia-400 to-violet-500" aria-hidden="true"></div>
+        </div>
+      </div>
     </div>
-  </SectionBlock>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- WHERE TO FIND — immersive brand-purple card with sparkles    -->
+  <!-- ============================================================ -->
+  <section id="order" class="relative py-20 px-4 md:px-8 overflow-hidden bg-white">
+    <div class="relative max-w-5xl mx-auto rounded-3xl bg-brand-purple text-white py-16 px-6 md:py-20 md:px-14 overflow-hidden shadow-[0_30px_80px_-30px_rgba(52,4,92,0.55)]">
+      <div
+        class="absolute inset-0"
+        style="background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(208,172,104,0.28) 0%, transparent 70%);"
+        aria-hidden="true"
+      ></div>
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <span class="absolute -top-10 -left-12 w-60 h-60 rounded-full bg-fuchsia-500/30 blur-3xl drift-a"></span>
+        <span class="absolute -bottom-10 -right-14 w-72 h-72 rounded-full bg-amber-300/25 blur-3xl drift-b"></span>
+      </div>
+      <span aria-hidden="true" class="absolute top-6  left-8  text-brand-gold/80 text-2xl select-none">✦</span>
+      <span aria-hidden="true" class="absolute top-10 right-10 text-brand-gold/70 text-3xl select-none">✧</span>
+      <span aria-hidden="true" class="absolute bottom-8 left-14 text-brand-gold/70 text-xl select-none">✦</span>
+      <span aria-hidden="true" class="absolute bottom-12 right-20 text-brand-gold/80 text-2xl select-none">✧</span>
+
+      <div class="relative text-center max-w-2xl mx-auto">
+        <p class="text-xs uppercase tracking-[0.35em] text-brand-gold mb-4">Find the Decks</p>
+        <h2 class="text-2xl md:text-4xl font-heading mb-6">{i.decks.whereHeading}</h2>
+        <p class="text-lg leading-relaxed text-white/95 mb-8">{i.decks.whereText}</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="#" class="btn-glow">Find on Amazon</a>
+          <a href="/contact" class="btn-outline">{i.decks.whereCtaContact}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEACHING & PUBLISHING — editorial w/ wax-seal stamp + scribble -->
+  <!-- ============================================================ -->
+  <section class="relative py-24 px-4 md:px-8 overflow-hidden bg-brand-light">
+    <div class="absolute top-12 left-1/2 -translate-x-1/2" aria-hidden="true">
+      <div class="seal-stamp">★</div>
+    </div>
+    <div class="relative max-w-3xl mx-auto pt-12 text-center">
+      <p class="text-xs uppercase tracking-[0.3em] text-brand-rust mb-3">Co-Create</p>
+      <h2 class="text-3xl md:text-5xl font-heading text-brand-dark mb-6">{i.decks.teachingHeading}</h2>
+      <p class="text-lg md:text-xl leading-relaxed text-brand-dark/85 mb-8">{i.decks.teachingText}</p>
+      <svg class="block mx-auto mb-8 w-32 text-brand-rust/70" viewBox="0 0 140 14" fill="none" aria-hidden="true">
+        <path d="M2 9 Q 35 1 70 7 T 138 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/events" class="btn-glow-dark">{i.decks.ctaEvents}</a>
+        <a href="/contact" class="btn-outline-dark">{i.decks.ctaContact}</a>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  @keyframes drift-a {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(14px, -10px, 0) scale(1.06); }
+  }
+  @keyframes drift-b {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(-12px, 10px, 0) scale(1.08); }
+  }
+  @keyframes sparkle-pulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50%      { opacity: 1; transform: scale(1); }
+  }
+  @keyframes ring-pulse-1 {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50%      { opacity: 0.85; transform: scale(1.06); }
+  }
+  @keyframes ring-pulse-2 {
+    0%, 100% { opacity: 0.45; transform: scale(1); }
+    50%      { opacity: 0.9;  transform: scale(0.94); }
+  }
+
+  .drift-a       { animation: drift-a 11s ease-in-out infinite; }
+  .drift-b       { animation: drift-b 15s ease-in-out infinite; }
+  .ring-pulse-1  { animation: ring-pulse-1 6s ease-in-out infinite; }
+  .ring-pulse-2  { animation: ring-pulse-2 7s ease-in-out infinite; }
+
+  .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 14px 4px rgba(255, 230, 180, 0.85);
+    animation: sparkle-pulse 3.5s ease-in-out infinite;
+  }
+
+  .hero-glass {
+    background: linear-gradient(135deg, rgba(30, 10, 55, 0.65), rgba(10, 20, 45, 0.65));
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 30px 80px -30px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .seal-stamp {
+    width: 56px;
+    height: 56px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #D0AC68, #a84b1f);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 12px 30px -12px rgba(168, 75, 31, 0.45);
+  }
+
+  .btn-glow {
+    display: inline-block;
+    padding: 0.9rem 1.6rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #140a18;
+    background-image: linear-gradient(135deg, #ffd773, #ff8fb2 55%, #a78bfa);
+    border-radius: 9999px;
+    box-shadow: 0 12px 40px -10px rgba(255, 143, 178, 0.65);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+  .btn-glow:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.07);
+    box-shadow: 0 18px 50px -12px rgba(167, 139, 250, 0.6);
+  }
+
+  .btn-glow-dark {
+    display: inline-block;
+    padding: 0.9rem 1.6rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #fff;
+    background-image: linear-gradient(135deg, #34045C, #a84b1f);
+    border-radius: 9999px;
+    box-shadow: 0 12px 40px -10px rgba(52, 4, 92, 0.5);
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
+  .btn-glow-dark:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 0.9rem 1.6rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(6px);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+  .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.95);
+    color: #140a18;
+    border-color: #fff;
+  }
+
+  .btn-outline-dark {
+    display: inline-block;
+    padding: 0.9rem 1.6rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #27211E;
+    border: 1px solid #27211E;
+    border-radius: 9999px;
+    background: transparent;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .btn-outline-dark:hover { background: #27211E; color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .drift-a, .drift-b, .ring-pulse-1, .ring-pulse-2, .sparkle { animation: none; }
+  }
+</style>
