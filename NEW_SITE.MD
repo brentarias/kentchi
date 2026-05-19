@@ -5,7 +5,7 @@
 **Author:** Prepared for Brent Arias  
 **Date:** April 2026  
 **Purpose:** This document provides a complete site map and ready-to-use copy/messaging for the new website.  
-The tone is exciting, fun, magical, and inviting — positioning **Kentchi (Kent Osborn)** as the vibrant, creative force at the center: a visionary artist, oracle deck creator, teacher, and joyful co-creator who sparks wonder through art, decks, augmented reality, music, and community circles.
+The tone is exciting, fun, magical, and inviting — positioning **Kent Osborn** (known to friends and fans as **Kentchi**) as the vibrant, creative force at the center: a visionary artist, oracle deck creator, teacher, and joyful co-creator who sparks wonder through art, decks, augmented reality, music, and community circles.
 
 **Core Brand Message (use across the site):**  
 Kentchi invites you into a playful, living world of mystic creation. Through stunning oracle decks, vibrant paintings, enchanting augmented reality experiences, soul-stirring music, and inspiring events & circles, he helps you awaken your own inner magic — and guides you to bring *your* visionary ideas to life as mystic books, oracle decks, and more.
@@ -104,7 +104,7 @@ Ready to play? Let's create some magic together.
 [Join an Event](#)
 
 #### Welcome Section
-Kentchi is more than an artist — he's a spark. Through his Shinan Oracle Deck and the vibrant Magnetic Magi, breathtaking paintings that pop with augmented reality, soulful music, and heartfelt circles, he invites you to co-create a more beautiful, playful, and inspired world.
+Kent Osborn — known to friends and fans as Kentchi — is more than an artist. He's a spark. Through his Shinan Oracle Deck and the vibrant Magnetic Magi, breathtaking paintings that pop with augmented reality, soulful music, and heartfelt circles, he invites you to co-create a more beautiful, playful, and inspired world.
 
 His work draws from deep wells of inspiration while staying rooted in joy, experimentation, and the pure delight of bringing visions into form.
 
@@ -245,7 +245,7 @@ Many pieces were born alongside paintings or during circles. The music and visua
 ### About Kentchi Page
 
 **Headline:**
-Meet Kentchi – Artist, Teacher, Magic-Maker
+Meet Kent Osborn – Artist, Teacher, Magic-Maker
 
 **Body:**
 Kent Osborn, known affectionately as Kentchi, has been creating since he could hold a pencil. From childhood drawings through years of musical exploration and visionary art, his path has always been guided by wonder and a desire to help others awaken their own creative spirit.
@@ -285,6 +285,7 @@ For inquiries, please email **[ayahuaskent@gmail.com](mailto:ayahuaskent@gmail.c
 
 ## Additional Notes for Implementation
 
+- **Naming convention — Kent Osborn vs Kentchi:** The site emphasizes **Kent Osborn** as the primary name so visitors arriving from oracle-deck referrals immediately recognize the author. **Kentchi** remains the warm, familiar nickname and appears freely in body copy, section eyebrows, and many CTAs — but high-signal surfaces lead with the full name: page titles (`<Page> | Kent Osborn`), the About hero heading, the home-page Welcome paragraph (which introduces both names within the first sentence), the footer copyright, the header logo alt text, and at least one prominent CTA per page. The on-site copy never says "Kent" alone without "Osborn" — single-name uses are reserved for "Kentchi" or "Kent Osborn".
 - **Tone throughout:** Warm, exciting, fun, accessible. Use words like spark, wonder, play, come alive, joy, co-create, magic. Avoid overly serious or heavy language.
 - **Instagram Placement:** All four accounts are referenced on the Home page and can be repeated or specialized on relevant pages (e.g., @shinanoraculo on the Decks page). Confirmed handles: @Inkentations, @magnetic_magi_oracle, @shinan_visionary_arts, @shinanoraculo.
 - **Artivive:** Always reference by name wherever AR is mentioned. It is a free third-party app available on iOS and Android. Do not describe it generically as "a mobile app" — name it every time.
