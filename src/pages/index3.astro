@@ -79,15 +79,42 @@ const igTiles = [
     </div>
   </section>
 
-  <!-- ========== WELCOME ========== -->
-  <section class="relative py-20 px-6 overflow-hidden">
-    <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-fuchsia-400/10 blur-3xl" aria-hidden="true"></div>
-    <div class="absolute -bottom-32 -right-16 w-96 h-96 rounded-full bg-teal-400/10 blur-3xl" aria-hidden="true"></div>
-    <div class="relative max-w-3xl mx-auto text-center">
-      <p class="text-xs uppercase tracking-[0.3em] text-brand-rust mb-4">Welcome</p>
-      <p class="text-lg md:text-2xl leading-relaxed font-body text-brand-dark">
-        {i.home.welcomeText}
-      </p>
+  <!-- ========== WELCOME — editorial pull-quote with parchment card ========== -->
+  <section class="relative py-24 px-4 md:px-8 overflow-hidden">
+    <!-- soft pastel mesh wash behind the card -->
+    <div
+      class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,900px)] h-105 rounded-[40%] opacity-80 blur-3xl"
+      style="background: conic-gradient(from 120deg at 50% 50%, #fde8c8, #f8d4d8, #e9d5f5, #d6ecef, #fde8c8);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative max-w-3xl mx-auto">
+      <!-- oversized opening quote (decorative) -->
+      <span
+        aria-hidden="true"
+        class="absolute -top-10 -left-3 md:-top-16 md:-left-10 font-heading text-[9rem] md:text-[14rem] leading-none text-brand-gold/40 select-none pointer-events-none"
+      >&ldquo;</span>
+      <!-- oversized closing quote (decorative) -->
+      <span
+        aria-hidden="true"
+        class="absolute -bottom-20 -right-3 md:-bottom-24 md:-right-10 font-heading text-[9rem] md:text-[14rem] leading-none text-brand-gold/40 select-none pointer-events-none"
+      >&rdquo;</span>
+
+      <!-- parchment-like glass card -->
+      <div class="relative rounded-3xl bg-white/85 backdrop-blur-sm px-7 py-12 md:px-14 md:py-16 ring-1 ring-brand-gold/40 shadow-[0_20px_60px_-20px_rgba(52,4,92,0.25)] text-center">
+        <div class="inline-flex items-center gap-3 text-brand-rust mb-6">
+          <span class="text-base">✦</span>
+          <span class="text-xs uppercase tracking-[0.3em]">Welcome</span>
+          <span class="text-base">✦</span>
+        </div>
+        <p class="text-lg md:text-2xl leading-relaxed font-body text-brand-dark">
+          {i.home.welcomeText}
+        </p>
+        <!-- hand-drawn squiggle underline -->
+        <svg class="block mx-auto mt-8 w-32 text-brand-rust/70" viewBox="0 0 140 14" fill="none" aria-hidden="true">
+          <path d="M2 9 Q 35 1 70 7 T 138 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </div>
     </div>
   </section>
 

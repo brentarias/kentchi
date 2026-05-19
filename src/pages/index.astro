@@ -45,11 +45,27 @@ const i = t('en');
     </div>
   </SectionBlock>
 
-  <section class="relative py-16 px-6">
-    <div class="absolute inset-0" style="background-color: rgba(213, 215, 201, 0.6);"></div>
-    <div class="relative max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl md:text-4xl font-heading mb-6">{i.home.arHeading}</h2>
-      <p class="text-lg leading-relaxed max-w-2xl mx-auto">{i.home.arText}</p>
+  <section class="relative py-20 px-4 md:px-8 overflow-hidden">
+    <div class="relative max-w-5xl mx-auto rounded-3xl bg-brand-purple text-white py-16 px-6 md:py-20 md:px-14 overflow-hidden shadow-[0_30px_80px_-30px_rgba(52,4,92,0.55)]">
+      <div
+        class="absolute inset-0"
+        style="background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(208,172,104,0.28) 0%, transparent 70%);"
+        aria-hidden="true"
+      ></div>
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <span class="ar-orb absolute -top-10 -left-12 w-60 h-60 rounded-full bg-fuchsia-500/30 blur-3xl"></span>
+        <span class="ar-orb-slow absolute -bottom-10 -right-14 w-72 h-72 rounded-full bg-amber-300/25 blur-3xl"></span>
+      </div>
+      <span aria-hidden="true" class="absolute top-6  left-8  text-brand-gold/80 text-2xl select-none">✦</span>
+      <span aria-hidden="true" class="absolute top-10 right-10 text-brand-gold/70 text-3xl select-none">✧</span>
+      <span aria-hidden="true" class="absolute bottom-8 left-14 text-brand-gold/70 text-xl select-none">✦</span>
+      <span aria-hidden="true" class="absolute bottom-12 right-20 text-brand-gold/80 text-2xl select-none">✧</span>
+
+      <div class="relative text-center max-w-2xl mx-auto">
+        <p class="text-xs uppercase tracking-[0.35em] text-brand-gold mb-4">Powered by Artivive</p>
+        <h2 class="text-2xl md:text-4xl font-heading mb-6">{i.home.arHeading}</h2>
+        <p class="text-lg leading-relaxed text-white/95">{i.home.arText}</p>
+      </div>
     </div>
   </section>
 
@@ -91,3 +107,20 @@ const i = t('en');
     </p>
   </SectionBlock>
 </Layout>
+
+<style>
+  @keyframes ar-drift-a {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(14px, -10px, 0) scale(1.06); }
+  }
+  @keyframes ar-drift-b {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(-12px, 10px, 0) scale(1.08); }
+  }
+  .ar-orb      { animation: ar-drift-a 11s ease-in-out infinite; }
+  .ar-orb-slow { animation: ar-drift-b 15s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ar-orb, .ar-orb-slow { animation: none; }
+  }
+</style>
