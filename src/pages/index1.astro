@@ -71,15 +71,55 @@ const igTiles = [
     </div>
   </section>
 
-  <!-- ========== WELCOME ========== -->
-  <section class="relative py-20 px-6 overflow-hidden">
-    <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-fuchsia-400/10 blur-3xl" aria-hidden="true"></div>
-    <div class="absolute -bottom-32 -right-16 w-96 h-96 rounded-full bg-teal-400/10 blur-3xl" aria-hidden="true"></div>
-    <div class="relative max-w-3xl mx-auto text-center">
-      <p class="text-xs uppercase tracking-[0.3em] text-brand-rust mb-4">Welcome</p>
-      <p class="text-lg md:text-2xl leading-relaxed font-body text-brand-dark">
-        {i.home.welcomeText}
-      </p>
+  <!-- ========== WELCOME — Living Diorama (single artwork, fake-depth parallax) ========== -->
+  <section
+    data-parallax-section
+    class="diorama relative min-h-[88vh] overflow-hidden flex items-center justify-center"
+  >
+    <!-- BACK LAYER: blurred, atmospheric distance (slowest) -->
+    <div
+      data-parallax="0.25"
+      class="diorama-back absolute inset-0"
+      style="background-image: url('/images/gallery/art-16.jpeg'); background-size: cover; background-position: center;"
+      aria-hidden="true"
+    ></div>
+
+    <!-- MID LAYER: clean art, primary depth plane -->
+    <div
+      data-parallax="0.7"
+      class="diorama-mid absolute inset-0"
+      style="background-image: url('/images/gallery/art-16.jpeg'); background-size: cover; background-position: center;"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Atmospheric haze for legibility + depth -->
+    <div class="absolute inset-0 bg-linear-to-b from-[#0f0b1a]/45 via-transparent to-[#0f0b1a]/65" aria-hidden="true"></div>
+    <div
+      class="absolute inset-0"
+      style="background: radial-gradient(ellipse at center, rgba(20,10,24,0) 30%, rgba(20,10,24,0.5) 100%);"
+      aria-hidden="true"
+    ></div>
+
+    <!-- FRONT LAYER: floating planets + sparkles (fastest, leads) -->
+    <div data-parallax="1.35" class="diorama-front absolute inset-0 pointer-events-none" aria-hidden="true">
+      <span class="absolute top-[18%] right-[8%]  w-24 h-24 rounded-full bg-amber-300/55 blur-2xl orb-drift-a"></span>
+      <span class="absolute top-[58%] left-[6%]   w-28 h-28 rounded-full bg-fuchsia-500/45 blur-2xl orb-drift-b"></span>
+      <span class="absolute top-[34%] left-[42%]  w-16 h-16 rounded-full bg-teal-300/45 blur-2xl orb-drift-a"></span>
+      <span class="tw absolute top-[14%] left-[14%]  w-2.5 h-2.5 rounded-full bg-amber-200"></span>
+      <span class="tw absolute top-[28%] right-[22%] w-2 h-2 rounded-full bg-fuchsia-200" style="animation-delay:1.1s"></span>
+      <span class="tw absolute top-[68%] left-[28%]  w-2.5 h-2.5 rounded-full bg-teal-200"   style="animation-delay:2.2s"></span>
+      <span class="tw absolute bottom-[18%] right-[18%] w-2 h-2 rounded-full bg-amber-200"   style="animation-delay:0.7s"></span>
+      <span class="tw absolute top-[48%] right-[40%] w-2 h-2 rounded-full bg-white"          style="animation-delay:1.6s"></span>
+    </div>
+
+    <!-- Copy card -->
+    <div class="relative z-10 mx-6 w-full max-w-2xl">
+      <div class="diorama-glass rounded-3xl px-7 py-12 md:px-14 md:py-16 text-center text-white">
+        <p class="text-xs uppercase tracking-[0.35em] text-amber-200 mb-5">Welcome</p>
+        <p class="text-lg md:text-2xl leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)]">
+          {i.home.welcomeText}
+        </p>
+      </div>
     </div>
   </section>
 
@@ -228,7 +268,82 @@ const igTiles = [
     border-color: #fff;
   }
 
+  /* ===== Living Diorama (parallax welcome) ===== */
+  .diorama-back {
+    transform: translateY(var(--py, 0)) scale(1.18);
+    filter: blur(22px) saturate(115%) brightness(0.95);
+    will-change: transform;
+  }
+  .diorama-mid {
+    transform: translateY(var(--py, 0)) scale(1.04);
+    will-change: transform;
+  }
+  .diorama-front {
+    transform: translateY(var(--py, 0));
+    will-change: transform;
+  }
+  .diorama-glass {
+    background: linear-gradient(135deg, rgba(30, 10, 55, 0.6), rgba(10, 20, 45, 0.6));
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 30px 80px -30px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  @keyframes orb-drift-a {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(14px, -10px, 0) scale(1.07); }
+  }
+  @keyframes orb-drift-b {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(-12px, 12px, 0) scale(1.09); }
+  }
+  @keyframes tw {
+    0%, 100% { opacity: 0.2; transform: scale(0.7); }
+    50%      { opacity: 1;   transform: scale(1.25); }
+  }
+  .orb-drift-a { animation: orb-drift-a 11s ease-in-out infinite; }
+  .orb-drift-b { animation: orb-drift-b 14s ease-in-out infinite; }
+  .tw {
+    animation: tw 3.2s ease-in-out infinite;
+    box-shadow: 0 0 12px 3px currentColor;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .anim-float, .anim-float-slow, .anim-rise { animation: none; }
+    .anim-float, .anim-float-slow, .anim-rise,
+    .orb-drift-a, .orb-drift-b, .tw { animation: none; }
+    .diorama-back, .diorama-mid, .diorama-front { transform: none; }
   }
 </style>
+
+<script>
+  (function () {
+    const items = document.querySelectorAll('[data-parallax]');
+    if (!items.length) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let raf = 0;
+    function update() {
+      items.forEach((el) => {
+        const speed = parseFloat(el.getAttribute('data-parallax') || '1');
+        const section = el.closest('[data-parallax-section]') || el.parentElement;
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        // When section's top scrolls past viewport top, rect.top is negative.
+        // (1 - speed) > 0 makes the layer lag (background); < 0 makes it lead (foreground).
+        const offset = -rect.top * (1 - speed);
+        el.style.setProperty('--py', offset.toFixed(2) + 'px');
+      });
+      raf = 0;
+    }
+
+    function schedule() {
+      if (!raf) raf = requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    update();
+  })();
+</script>
