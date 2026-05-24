@@ -20,7 +20,7 @@ Kentchi invites you into a playful, living world of mystic creation. Through stu
 - **Home**
 - **Oracle Decks & Mystic Books**
 - **Visionary Art**
-- **Events & Circles**
+- **Experiences**
 - **Music**
 - **About Kentchi**
 - **Contact**
@@ -29,7 +29,7 @@ Kentchi invites you into a playful, living world of mystic creation. Through stu
 - Home
 - Oracle Decks & Mystic Books
 - Visionary Art
-- Events & Circles
+- Experiences
 - Music
 - About Kentchi
 - Instagram Links (grouped or separate)
@@ -58,10 +58,10 @@ Kentchi invites you into a playful, living world of mystic creation. Through stu
    - Creative Process & Inspiration
    - Stickers & Other Creations
 
-4. **Events & Circles**
-   - Current & Upcoming Gatherings, Workshops, Retreats
-   - Focus on teaching oracle deck creation, mystic book making, visionary art, and circles
-   - Community & Co-Creation Emphasis
+4. **Experiences** (route: `/experiences`)
+   - ImaginArte Experiences — two collaborative art offerings (Live Interactive Painting, Mural Painting)
+   - Cinematic interlude with art-in-motion footage
+   - "…and more on the horizon" footer (placeholder for future sound circles, retreats, etc.)
 
 5. **Music**
    - Kentchi's Musical Journey
@@ -201,26 +201,47 @@ From childhood drawings to a decades-long self-taught mastery, Kentchi's art flo
 
 ---
 
-### Events & Circles Page
+### Experiences Page (formerly "Events & Circles")
+
+> **Renamed and refocused.** The page is now **ImaginArte Experiences**, served at `/experiences` (route + i18n key both renamed via `git mv` to preserve file history; English nav label is "Experiences"). The earlier offerings list (Oracle Deck Creation Workshops, Mystic Book Making Circles, Visionary Art & AR Play Sessions, Community Gatherings & Sound Circles, Private or Group Mentorship) was retired — at Kent's request the page now focuses tightly on **two collaborative art experiences**, with a deliberate "…and more on the horizon" footer so future offerings (sound circles, retreats) can be reintroduced without redesign.
+>
+> **Two design variants exist** for Kent to pick from (same pattern as the home-page experiments):
+> - `experiences.astro` — *Festival Night.* Cosmic immersive: featured art bleeds behind a glass-card hero anchored by the ImaginArte logo, two large alternating experience blocks each pair a video (or art piece) with a content card, a full-bleed cinematic interlude with the art-promo video sits between content and CTA.
+> - `experiences1.astro` — *Atelier Daylight.* Bright editorial: cream/warm-white masthead with the ImaginArte logo as a magazine banner, two magazine spreads (video + editorial sidebar), polaroid-style frames, hand-drawn squiggle dividers, wax-seal CTA.
+>
+> Two videos are used (live-painting + art-promo). They live in `public/videos/` and are git-ignored — they're staged manually for now and will migrate to Contentful when wired.
 
 **Hero:**
-**Gather, Create, and Spark Together**
+**ImaginArte Experiences**
+*Where art becomes encounter.*
 
 **Intro:**
-Kentchi leads heartfelt circles, workshops, and retreats where creativity and community meet.
+Some of Kent's best work doesn't happen in a studio — it happens in the open air, on a borrowed wall, in the middle of an unexpected conversation. ImaginArte Experiences are the moments where his brush meets your day, and something new takes shape between you.
 
-Come for an evening of oracle exploration, a weekend workshop on designing your own deck, or a longer retreat focused on mystic book-making and visionary art. The emphasis is on *your* creative awakening — with Kentchi as enthusiastic guide and co-creator.
+**Experience 1 — Live Interactive Painting**
+*Outdoors · Spontaneous · Collaborative*
 
-Expect music, laughter, deep sharing, and plenty of "I can't believe I made this!" moments.
+Find Kent in the wild — a sunny park, a plaza, a vibrant corner — easel up and canvas open. Anyone passing through is invited to add a stroke, a swirl, a thought. Kent paints back. You paint forward. Soon two strangers (sometimes more!) are weaving a single piece together, while the conversation runs as warm as the colors. By the time someone walks away, they leave with stories, a few brushstrokes inside a larger world, and maybe a friend.
 
-**Upcoming / Types of Offerings**
-- Oracle Deck Creation Workshops
-- Mystic Book Making Circles
-- Visionary Art & AR Play Sessions
-- Community Gatherings & Sound Circles
-- Private or Group Mentorship
+CTA: *Find Kent's next pop-up →*
 
-**CTA:** See the calendar • Host a workshop • [Collaborate with Kentchi](#contact)
+**Experience 2 — Mural Painting**
+*Walls · Ceilings · Bespoke*
+
+Got a wall (or a ceiling, or anywhere unexpected) that's been waiting for a story? Kent transforms blank surfaces into living visionary compositions — bold, layered, and tuned to the place. The making itself is the second gift: stop by while he works, share a thought, ask a question, watch the piece dream itself into being. Each mural is unique to its location and the conversations that shaped it.
+
+CTA: *Commission a mural →*
+
+**Cinematic interlude (design A only):**
+*Kent's work in motion · Painting that breathes.*
+
+**…and more on the horizon (footer hint):**
+Brushes and walls aren't the only doorways. Sound circles, retreats, and other gatherings unfold throughout the year — ask Kent what's brewing.
+
+**Final CTA:**
+**Be part of the next adventure.**
+Kent offers a variety of collaborative artistic events. Reach out to be there for the next one — or to dream up something new with him.
+*Button: Reach Kent Osborn*
 
 ---
 

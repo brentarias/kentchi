@@ -1,0 +1,397 @@
+---
+/*
+  EXPERIMENT B — "Carnival of Vision"
+  Psychedelic, color-saturated treatment of the ImaginArte Experiences
+  page, built around portrait-orientation videos. Each section gets its
+  own saturated palette (sunset / aurora / chromatic). Portrait videos
+  sit centered in gradient-bordered halo frames with hue-shifting glow
+  and continuous orb drift. Same i18n copy as design A — only the
+  visual language changes.
+*/
+import Layout from '../layouts/Layout.astro';
+import { t } from '../i18n';
+
+const i = t('en');
+---
+
+<Layout title={`${i.experiences.title} — Carnival`}>
+  <!-- ============================================================ -->
+  <!-- HERO — chromatic, gradient-meshed, ImaginArte logo anchored  -->
+  <!-- ============================================================ -->
+  <section class="relative min-h-[88vh] overflow-hidden flex items-center justify-center text-white">
+    <!-- art piece bleed, heavily desaturated under chromatic wash -->
+    <div
+      class="absolute inset-0"
+      style="background-image: url('/images/featured/26-owl-transformation.jpg'); background-size: cover; background-position: center;"
+      aria-hidden="true"
+    ></div>
+    <!-- the chromatic wash itself -->
+    <div class="absolute inset-0 chromatic-wash" aria-hidden="true"></div>
+
+    <!-- floating saturated orbs -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute top-[10%]  left-[6%]    w-72 h-72 rounded-full bg-amber-300/55  blur-3xl orb-drift-a"></span>
+      <span class="absolute bottom-[10%] right-[8%] w-80 h-80 rounded-full bg-fuchsia-500/55 blur-3xl orb-drift-b"></span>
+      <span class="absolute top-[44%]  left-[44%]   w-56 h-56 rounded-full bg-teal-400/50    blur-3xl orb-drift-a"></span>
+      <span class="absolute top-[20%]  right-[18%]  w-48 h-48 rounded-full bg-violet-500/55  blur-3xl orb-drift-b"></span>
+      <span class="absolute bottom-[28%] left-[26%] w-40 h-40 rounded-full bg-rose-500/50    blur-3xl orb-drift-a"></span>
+    </div>
+
+    <!-- sparkles -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="sparkle" style="top:14%;left:14%"></span>
+      <span class="sparkle" style="top:22%;right:16%;animation-delay:1.2s"></span>
+      <span class="sparkle" style="top:84%;left:34%;animation-delay:2.1s"></span>
+      <span class="sparkle" style="top:78%;right:24%;animation-delay:0.6s"></span>
+      <span class="sparkle" style="top:8%;left:46%;animation-delay:1.7s"></span>
+      <span class="sparkle" style="top:48%;left:18%;animation-delay:0.3s"></span>
+      <span class="sparkle" style="top:60%;right:18%;animation-delay:2.5s"></span>
+    </div>
+
+    <div class="relative z-10 mx-6 w-full max-w-3xl text-center">
+      <!-- logo with rainbow halo -->
+      <div class="relative inline-block mb-7">
+        <div class="absolute -inset-6 rounded-full bg-linear-to-br from-amber-300/60 via-fuchsia-400/60 to-violet-500/60 blur-2xl hue-cycle" aria-hidden="true"></div>
+        <div class="relative rounded-full inline-block p-2 md:p-3 bg-white/95 shadow-[0_18px_50px_-18px_rgba(0,0,0,0.7)] leading-0">
+          <img
+            src="/images/imaginarte-logo.jpg"
+            alt="ImaginArte"
+            class="block w-48 md:w-64 h-auto rounded-full"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-heading leading-[1.05] mb-5 drop-shadow-[0_2px_18px_rgba(0,0,0,0.6)]">
+        <span class="block bg-linear-to-r from-amber-200 via-fuchsia-300 to-teal-300 bg-clip-text text-transparent">{i.experiences.heading}</span>
+      </h1>
+      <p class="text-lg md:text-2xl italic text-white mb-6 drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)]">{i.experiences.subheading}</p>
+      <p class="text-base md:text-lg text-white/95 leading-relaxed max-w-2xl mx-auto drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)]">{i.experiences.intro}</p>
+      <a href="#experiences" class="mt-9 inline-block text-xs uppercase tracking-[0.35em] text-amber-200 hover:text-white transition-colors">↓ Step inside</a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- EXPERIENCE 1 — Live Interactive Painting (SUNSET palette)     -->
+  <!-- Portrait video on the left, content card on the right         -->
+  <!-- ============================================================ -->
+  <section
+    id="experiences"
+    class="relative py-24 px-4 md:px-8 overflow-hidden text-white"
+  >
+    <!-- sunset gradient backdrop -->
+    <div class="absolute inset-0 bg-linear-to-br from-[#3a0f3a] via-[#7c2222] to-[#1a0a2b]" aria-hidden="true"></div>
+    <div class="absolute inset-0 mix-blend-overlay opacity-50 bg-linear-to-br from-amber-400 via-rose-400 to-violet-500" aria-hidden="true"></div>
+
+    <!-- drifting orbs -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute -top-20 -left-24  w-96 h-96 rounded-full bg-amber-300/40   blur-3xl orb-drift-a"></span>
+      <span class="absolute -bottom-24 right-0 w-md h-112 rounded-full bg-rose-500/40   blur-3xl orb-drift-b"></span>
+      <span class="absolute top-[40%] left-[8%] w-48 h-48 rounded-full bg-fuchsia-500/45 blur-3xl orb-drift-a"></span>
+    </div>
+
+    <!-- decorative star glyphs -->
+    <span aria-hidden="true" class="absolute top-[18%] right-[10%] text-4xl text-amber-200/70 tw-sparkle">✦</span>
+    <span aria-hidden="true" class="absolute bottom-[20%] left-[12%] text-3xl text-fuchsia-200/70 tw-sparkle" style="animation-delay: 1.3s">✧</span>
+    <span aria-hidden="true" class="absolute top-[60%] right-[20%] text-2xl text-rose-200/70 tw-sparkle" style="animation-delay: 0.7s">✦</span>
+
+    <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 md:gap-16 items-center">
+      <!-- PORTRAIT VIDEO with rainbow halo + hue-shifting glow -->
+      <div class="relative mx-auto">
+        <!-- gradient halo behind -->
+        <div class="absolute -inset-8 rounded-[2.5rem] bg-linear-to-br from-amber-400/60 via-fuchsia-500/60 to-violet-500/60 blur-3xl hue-cycle" aria-hidden="true"></div>
+        <!-- gradient ring border -->
+        <div class="rainbow-frame relative rounded-4xl p-0.75 hue-cycle-slow">
+          <div class="rounded-[1.85rem] overflow-hidden bg-black">
+            <video
+              src="/videos/live-painting.mp4"
+              poster="/images/posters/live-painting-poster.jpg"
+              class="block aspect-9/16 w-72 md:w-80 h-auto object-cover"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+        </div>
+        <!-- "LIVE" pill sticker -->
+        <div class="absolute -top-3 -right-3 px-3 py-1 rounded-full bg-amber-300 text-brand-dark text-[10px] uppercase tracking-[0.25em] font-heading shadow-lg rotate-6">★ Live ★</div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="text-center md:text-left">
+        <span class="inline-block px-3 py-1 rounded-full bg-amber-300/20 text-amber-200 text-[11px] uppercase tracking-[0.25em] mb-5 ring-1 ring-amber-200/40">
+          {i.experiences.livePaintingBadge}
+        </span>
+        <h2 class="text-4xl md:text-6xl font-heading mb-5 leading-[1.05]">
+          <span class="bg-linear-to-r from-amber-200 via-rose-300 to-fuchsia-300 bg-clip-text text-transparent">{i.experiences.livePaintingTitle}</span>
+        </h2>
+        <p class="text-white/95 leading-relaxed text-base md:text-lg mb-7 max-w-xl">{i.experiences.livePaintingBody}</p>
+        <a href="/contact" class="btn-glow">Find Kent's next pop-up</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- EXPERIENCE 2 — Mural Painting (AURORA palette)                -->
+  <!-- Content card on the left, portrait art on the right           -->
+  <!-- ============================================================ -->
+  <section class="relative py-24 px-4 md:px-8 overflow-hidden text-white">
+    <!-- aurora gradient backdrop -->
+    <div class="absolute inset-0 bg-linear-to-br from-[#0a2545] via-brand-purple to-[#0f0b1a]" aria-hidden="true"></div>
+    <div class="absolute inset-0 mix-blend-overlay opacity-55 bg-linear-to-tr from-teal-400 via-indigo-500 to-fuchsia-500" aria-hidden="true"></div>
+
+    <!-- drifting orbs -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute top-0 -right-20  w-md h-112 rounded-full bg-fuchsia-500/40 blur-3xl orb-drift-a"></span>
+      <span class="absolute -bottom-24 -left-24 w-md h-112 rounded-full bg-violet-400/45 blur-3xl orb-drift-b"></span>
+      <span class="absolute top-[40%] right-[6%] w-48 h-48 rounded-full bg-teal-400/50 blur-3xl orb-drift-a"></span>
+      <span class="absolute bottom-[30%] left-[20%] w-40 h-40 rounded-full bg-cyan-300/45 blur-3xl orb-drift-b"></span>
+    </div>
+
+    <!-- decorative star glyphs -->
+    <span aria-hidden="true" class="absolute top-[16%] left-[10%] text-4xl text-cyan-200/70 tw-sparkle">✧</span>
+    <span aria-hidden="true" class="absolute bottom-[18%] right-[14%] text-3xl text-violet-200/70 tw-sparkle" style="animation-delay: 1.5s">✦</span>
+    <span aria-hidden="true" class="absolute top-[55%] left-[18%] text-2xl text-fuchsia-200/70 tw-sparkle" style="animation-delay: 0.4s">✧</span>
+
+    <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 md:gap-16 items-center">
+      <!-- CONTENT (left on desktop, second on mobile) -->
+      <div class="md:order-1 order-2 text-center md:text-right">
+        <span class="inline-block px-3 py-1 rounded-full bg-fuchsia-400/20 text-fuchsia-200 text-[11px] uppercase tracking-[0.25em] mb-5 ring-1 ring-fuchsia-300/40">
+          {i.experiences.muralBadge}
+        </span>
+        <h2 class="text-4xl md:text-6xl font-heading mb-5 leading-[1.05]">
+          <span class="bg-linear-to-r from-cyan-200 via-fuchsia-300 to-violet-300 bg-clip-text text-transparent">{i.experiences.muralTitle}</span>
+        </h2>
+        <p class="text-white/95 leading-relaxed text-base md:text-lg mb-7 max-w-xl md:ml-auto">{i.experiences.muralBody}</p>
+        <a href="/contact" class="btn-glow">Commission a mural</a>
+      </div>
+
+      <!-- PORTRAIT ART with rainbow halo (right on desktop, first on mobile) -->
+      <div class="relative md:order-2 order-1 mx-auto">
+        <div class="absolute -inset-8 rounded-[2.5rem] bg-linear-to-br from-cyan-400/60 via-fuchsia-500/60 to-violet-500/60 blur-3xl hue-cycle" aria-hidden="true"></div>
+        <div class="rainbow-frame relative rounded-4xl p-0.75 hue-cycle-slow">
+          <div class="rounded-[1.85rem] overflow-hidden bg-black">
+            <img
+              src="/images/featured/29-spaceship-maloka.jpg"
+              alt="One of Kent's cosmic compositions, evocative of mural work"
+              class="block aspect-9/16 w-72 md:w-80 h-auto object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="absolute -top-3 -left-3 px-3 py-1 rounded-full bg-fuchsia-300 text-brand-dark text-[10px] uppercase tracking-[0.25em] font-heading shadow-lg -rotate-6">✦ Bespoke ✦</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- INTERLUDE — chromatic, portrait art-promo video centered      -->
+  <!-- ============================================================ -->
+  <section class="relative py-24 px-4 md:px-8 overflow-hidden text-white">
+    <div class="absolute inset-0 chromatic-wash-deep" aria-hidden="true"></div>
+
+    <!-- big drifting orbs -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute -top-24 left-[5%]   w-md h-112 rounded-full bg-amber-300/40 blur-3xl orb-drift-a"></span>
+      <span class="absolute -bottom-24 right-[5%] w-120 h-120 rounded-full bg-fuchsia-500/40 blur-3xl orb-drift-b"></span>
+      <span class="absolute top-[35%] right-[35%] w-56 h-56 rounded-full bg-teal-400/40 blur-3xl orb-drift-a"></span>
+    </div>
+
+    <span aria-hidden="true" class="absolute top-[12%] left-[14%] text-5xl text-amber-200/80 tw-sparkle">✦</span>
+    <span aria-hidden="true" class="absolute top-[20%] right-[12%] text-4xl text-fuchsia-200/80 tw-sparkle" style="animation-delay: 0.8s">✧</span>
+    <span aria-hidden="true" class="absolute bottom-[18%] left-[18%] text-4xl text-violet-200/80 tw-sparkle" style="animation-delay: 1.6s">✦</span>
+    <span aria-hidden="true" class="absolute bottom-[22%] right-[16%] text-5xl text-teal-200/80 tw-sparkle" style="animation-delay: 2.2s">✧</span>
+
+    <div class="relative max-w-3xl mx-auto text-center">
+      <p class="text-xs md:text-sm uppercase tracking-[0.4em] text-amber-200 mb-3 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]">{i.experiences.interludeEyebrow}</p>
+      <h2 class="text-4xl md:text-6xl font-heading mb-10 drop-shadow-[0_2px_14px_rgba(0,0,0,0.55)]">
+        <span class="bg-linear-to-r from-amber-200 via-rose-300 to-violet-300 bg-clip-text text-transparent">{i.experiences.interludeHeading}</span>
+      </h2>
+
+      <div class="relative inline-block">
+        <div class="absolute -inset-10 rounded-[2.5rem] bg-linear-to-br from-amber-300/55 via-fuchsia-400/55 to-teal-400/55 blur-3xl hue-cycle" aria-hidden="true"></div>
+        <div class="rainbow-frame relative rounded-4xl p-0.75 hue-cycle-slow">
+          <div class="rounded-[1.85rem] overflow-hidden bg-black">
+            <video
+              src="/videos/art-promo.mp4"
+              poster="/images/posters/art-promo-poster.jpg"
+              class="block aspect-9/16 w-72 md:w-96 h-auto object-cover"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- AND MORE — colorful conic mesh, subtle hint                   -->
+  <!-- ============================================================ -->
+  <section class="relative py-20 px-6 overflow-hidden bg-brand-light">
+    <div
+      class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,1000px)] h-96 rounded-[40%] opacity-80 blur-3xl"
+      style="background: conic-gradient(from 120deg at 50% 50%, #ffd773, #ff8fb2, #a78bfa, #7dd3c0, #ffd773);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 text-brand-rust mb-4">
+        <span class="h-px w-10 bg-brand-rust"></span>
+        <span class="text-xs uppercase tracking-[0.35em]">…and more on the horizon</span>
+        <span class="h-px w-10 bg-brand-rust"></span>
+      </div>
+      <p class="text-base md:text-xl leading-relaxed text-brand-dark/90 italic">{i.experiences.moreHint}</p>
+      <svg class="block mx-auto mt-8 w-40 text-brand-rust/70" viewBox="0 0 140 14" fill="none" aria-hidden="true">
+        <path d="M2 9 Q 35 1 70 7 T 138 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FINAL CTA — saturated brand-purple inset card                 -->
+  <!-- ============================================================ -->
+  <section class="relative py-20 px-4 md:px-8 overflow-hidden bg-white">
+    <div class="relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-[0_30px_80px_-30px_rgba(52,4,92,0.6)]">
+      <!-- saturated layered gradient -->
+      <div class="absolute inset-0 bg-linear-to-br from-brand-purple via-[#7c1f6c] to-brand-rust" aria-hidden="true"></div>
+      <div class="absolute inset-0 mix-blend-overlay opacity-55 bg-linear-to-tr from-fuchsia-500 via-rose-400 to-amber-300" aria-hidden="true"></div>
+
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <span class="absolute -top-10 -left-12 w-72 h-72 rounded-full bg-fuchsia-500/55 blur-3xl orb-drift-a"></span>
+        <span class="absolute -bottom-10 -right-14 w-80 h-80 rounded-full bg-amber-300/55 blur-3xl orb-drift-b"></span>
+      </div>
+      <span aria-hidden="true" class="absolute top-6  left-8  text-brand-gold text-3xl tw-sparkle">✦</span>
+      <span aria-hidden="true" class="absolute top-10 right-10 text-brand-gold text-4xl tw-sparkle" style="animation-delay: 0.9s">✧</span>
+      <span aria-hidden="true" class="absolute bottom-8 left-14 text-brand-gold text-2xl tw-sparkle" style="animation-delay: 1.8s">✦</span>
+      <span aria-hidden="true" class="absolute bottom-12 right-20 text-brand-gold text-3xl tw-sparkle" style="animation-delay: 0.4s">✧</span>
+
+      <div class="relative text-center max-w-2xl mx-auto py-16 px-6 md:py-20 md:px-14 text-white">
+        <p class="text-xs uppercase tracking-[0.4em] text-amber-200 mb-4">The next adventure</p>
+        <h2 class="text-3xl md:text-5xl font-heading mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">{i.experiences.ctaHeading}</h2>
+        <p class="text-lg leading-relaxed text-white/95 mb-8">{i.experiences.ctaText}</p>
+        <a href="/contact" class="btn-glow">{i.experiences.ctaButton}</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* ============================================================ */
+  /* CHROMATIC BACKGROUND WASHES                                   */
+  /* ============================================================ */
+  .chromatic-wash {
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 30%, rgba(255, 143, 178, 0.55), transparent 60%),
+      radial-gradient(ellipse 55% 55% at 80% 25%, rgba(167, 139, 250, 0.55), transparent 60%),
+      radial-gradient(ellipse 50% 50% at 50% 80%, rgba(125, 211, 192, 0.45), transparent 60%),
+      linear-gradient(135deg, #1a0f2b, #34045C 50%, #0a1f2b);
+    animation: chromatic-shift 20s ease-in-out infinite alternate;
+  }
+  .chromatic-wash-deep {
+    background:
+      radial-gradient(ellipse 50% 50% at 30% 20%, rgba(255, 200, 80, 0.55), transparent 60%),
+      radial-gradient(ellipse 55% 55% at 70% 80%, rgba(255, 143, 178, 0.55), transparent 60%),
+      radial-gradient(ellipse 45% 45% at 50% 50%, rgba(167, 139, 250, 0.55), transparent 60%),
+      linear-gradient(135deg, #2a0a3a, #5a1450 50%, #0a1f3a);
+    animation: chromatic-shift 18s ease-in-out infinite alternate;
+  }
+  @keyframes chromatic-shift {
+    0%   { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(45deg); }
+  }
+
+  /* ============================================================ */
+  /* RAINBOW FRAME (gradient border + hue cycle)                  */
+  /* ============================================================ */
+  .rainbow-frame {
+    background-image: linear-gradient(135deg, #ffd773, #ff8fb2 25%, #a78bfa 50%, #7dd3c0 75%, #ffd773);
+    background-size: 300% 300%;
+    animation: rainbow-shift 9s linear infinite;
+  }
+  @keyframes rainbow-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .hue-cycle      { animation: hue-cycle 12s linear infinite; }
+  .hue-cycle-slow { animation: hue-cycle 18s linear infinite; }
+  @keyframes hue-cycle {
+    from { filter: hue-rotate(0deg); }
+    to   { filter: hue-rotate(360deg); }
+  }
+
+  /* ============================================================ */
+  /* ORBS & SPARKLES                                              */
+  /* ============================================================ */
+  @keyframes orb-drift-a {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(16px, -12px, 0) scale(1.07); }
+  }
+  @keyframes orb-drift-b {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(-14px, 14px, 0) scale(1.09); }
+  }
+  .orb-drift-a { animation: orb-drift-a 11s ease-in-out infinite; }
+  .orb-drift-b { animation: orb-drift-b 14s ease-in-out infinite; }
+
+  @keyframes sparkle-pulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50%      { opacity: 1; transform: scale(1); }
+  }
+  .sparkle {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 16px 5px rgba(255, 230, 180, 0.9);
+    animation: sparkle-pulse 3.2s ease-in-out infinite;
+  }
+
+  @keyframes tw-sparkle {
+    0%, 100% { opacity: 0.4; transform: scale(0.85) rotate(0deg); }
+    50%      { opacity: 1;   transform: scale(1.15) rotate(20deg); }
+  }
+  .tw-sparkle {
+    animation: tw-sparkle 3.6s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  /* ============================================================ */
+  /* GLOW CTA                                                     */
+  /* ============================================================ */
+  .btn-glow {
+    display: inline-block;
+    padding: 0.9rem 1.7rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.85rem;
+    color: #140a18;
+    background-image: linear-gradient(135deg, #ffd773, #ff8fb2 55%, #a78bfa);
+    border-radius: 9999px;
+    box-shadow: 0 14px 40px -10px rgba(255, 143, 178, 0.75);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+  .btn-glow:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    box-shadow: 0 20px 50px -12px rgba(167, 139, 250, 0.7);
+  }
+
+  /* ============================================================ */
+  /* REDUCED MOTION                                               */
+  /* ============================================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .orb-drift-a, .orb-drift-b, .sparkle, .tw-sparkle,
+    .hue-cycle, .hue-cycle-slow, .chromatic-wash, .chromatic-wash-deep,
+    .rainbow-frame { animation: none; }
+    video { opacity: 0.7; }
+  }
+</style>

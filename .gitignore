@@ -32,3 +32,8 @@ screenshots/
 # art pipeline: print-quality masters and processed derivatives
 # (everything here is sensitive or a build artifact; never commit)
 art-pipeline/
+
+# video assets — staged here for now, will move to Contentful when wired.
+# Files are dropped manually for staging deploys; posters and source-of-truth
+# live in the POD provider / Kentchi's personal archive (and art-pipeline/masters/).
+public/videos/

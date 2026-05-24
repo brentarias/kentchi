@@ -68,16 +68,22 @@
     "processText": "Every piece is hand-crafted — painted by Kent Osborn himself, without AI generation. The Artivive layer brings the art to life digitally, but the vision, the line, the color — all of it comes from his hand. From childhood drawings to a decades-long self-taught mastery, Kentchi's art flows from dreams, music, circles, and a lifelong love of making things that feel alive. No shortcuts, no filters — just a human spark translated into paint, pattern, and story."
   },
   "experiences": {
-    "title": "Experiences | Kent Osborn",
-    "heading": "Gather, Create, and Spark Together",
-    "intro": "Kentchi leads heartfelt circles, workshops, and retreats where creativity and community meet. Come for an evening of oracle exploration, a weekend workshop on designing your own deck, or a longer retreat focused on mystic book-making and visionary art. The emphasis is on your creative awakening — with Kentchi as enthusiastic guide and co-creator. Expect music, laughter, deep sharing, and plenty of \"I can't believe I made this!\" moments.",
-    "offeringsHeading": "Types of Offerings",
-    "offering1": "Oracle Deck Creation Workshops",
-    "offering2": "Mystic Book Making Circles",
-    "offering3": "Visionary Art & AR Play Sessions",
-    "offering4": "Community Gatherings & Sound Circles",
-    "offering5": "Private or Group Mentorship",
-    "ctaContact": "Collaborate with Kent Osborn"
+    "title": "ImaginArte Experiences | Kent Osborn",
+    "heading": "ImaginArte Experiences",
+    "subheading": "Where art becomes encounter.",
+    "intro": "Some of Kent's best work doesn't happen in a studio — it happens in the open air, on a borrowed wall, in the middle of an unexpected conversation. ImaginArte Experiences are the moments where his brush meets your day, and something new takes shape between you.",
+    "livePaintingBadge": "Outdoors · Spontaneous · Collaborative",
+    "livePaintingTitle": "Live Interactive Painting",
+    "livePaintingBody": "Find Kent in the wild — a sunny park, a plaza, a vibrant corner — easel up and canvas open. Anyone passing through is invited to add a stroke, a swirl, a thought. Kent paints back. You paint forward. Soon two strangers (sometimes more!) are weaving a single piece together, while the conversation runs as warm as the colors. By the time someone walks away, they leave with stories, a few brushstrokes inside a larger world, and maybe a friend.",
+    "muralBadge": "Walls · Ceilings · Bespoke",
+    "muralTitle": "Mural Painting",
+    "muralBody": "Got a wall (or a ceiling, or anywhere unexpected) that's been waiting for a story? Kent transforms blank surfaces into living visionary compositions — bold, layered, and tuned to the place. The making itself is the second gift: stop by while he works, share a thought, ask a question, watch the piece dream itself into being. Each mural is unique to its location and the conversations that shaped it.",
+    "interludeEyebrow": "Kent's work in motion",
+    "interludeHeading": "Painting that breathes.",
+    "moreHint": "Brushes and walls aren't the only doorways. Sound circles, retreats, and other gatherings unfold throughout the year — ask Kent what's brewing.",
+    "ctaHeading": "Be part of the next adventure.",
+    "ctaText": "Kent offers a variety of collaborative artistic events. Reach out to be there for the next one — or to dream up something new with him.",
+    "ctaButton": "Reach Kent Osborn"
   },
   "music": {
     "title": "Music | Kent Osborn",

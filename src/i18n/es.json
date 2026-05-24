@@ -68,16 +68,22 @@
     "processText": "Cada pieza está hecha a mano — pintada por el propio Kent Osborn, sin generación por IA. La capa de Artivive da vida al arte digitalmente, pero la visión, la línea, el color — todo proviene de su mano. Desde dibujos de infancia hasta una maestría autodidacta de décadas, el arte de Kentchi fluye de sueños, música, círculos y un amor de toda la vida por crear cosas que se sienten vivas. Sin atajos, sin filtros — solo una chispa humana traducida en pintura, patrón e historia."
   },
   "experiences": {
-    "title": "Experiencias | Kent Osborn",
-    "heading": "Reúnete, Crea y Enciende Juntos",
-    "intro": "Kentchi dirige círculos, talleres y retiros de corazón donde la creatividad y la comunidad se encuentran. Ven para una noche de exploración de oráculo, un taller de fin de semana para diseñar tu propio oráculo, o un retiro más largo enfocado en la creación de libros místicos y arte visionario. El énfasis está en tu despertar creativo — con Kentchi como guía entusiasta y co-creador. Espera música, risas, compartir profundo y muchos momentos de \"¡No puedo creer lo que hice!\"",
-    "offeringsHeading": "Tipos de Ofertas",
-    "offering1": "Talleres de Creación de Oráculos",
-    "offering2": "Círculos de Creación de Libros Místicos",
-    "offering3": "Sesiones de Arte Visionario y Juego con RA",
-    "offering4": "Encuentros Comunitarios y Círculos de Sonido",
-    "offering5": "Mentoría Individual o Grupal",
-    "ctaContact": "Colabora con Kent Osborn"
+    "title": "Experiencias ImaginArte | Kent Osborn",
+    "heading": "Experiencias ImaginArte",
+    "subheading": "Donde el arte se convierte en encuentro.",
+    "intro": "Parte del mejor trabajo de Kent no sucede en un estudio — sucede al aire libre, en una pared prestada, en medio de una conversación inesperada. Las Experiencias ImaginArte son los momentos donde su pincel se encuentra con tu día, y algo nuevo toma forma entre ustedes.",
+    "livePaintingBadge": "Al Aire Libre · Espontáneo · Colaborativo",
+    "livePaintingTitle": "Pintura Interactiva en Vivo",
+    "livePaintingBody": "Encuentra a Kent en libertad — un parque soleado, una plaza, una esquina vibrante — caballete listo y lienzo abierto. Cualquiera que pase está invitado a agregar un trazo, una espiral, un pensamiento. Kent responde con sus pinceladas. Tú avanzas con las tuyas. Pronto dos desconocidos (¡a veces más!) están tejiendo una sola pieza juntos, mientras la conversación corre tan cálida como los colores. Para cuando alguien se va, lleva consigo historias, algunas pinceladas dentro de un mundo más grande, y quizás un nuevo amigo.",
+    "muralBadge": "Muros · Techos · A Medida",
+    "muralTitle": "Pintura Mural",
+    "muralBody": "¿Tienes un muro (o un techo, o un rincón inesperado) que ha estado esperando una historia? Kent transforma superficies en blanco en composiciones visionarias vivas — audaces, en capas, sintonizadas con el lugar. El proceso mismo es el segundo regalo: pasa mientras trabaja, comparte un pensamiento, pregunta algo, mira cómo la pieza se sueña a sí misma. Cada mural es único para su ubicación y para las conversaciones que lo formaron.",
+    "interludeEyebrow": "El trabajo de Kent en movimiento",
+    "interludeHeading": "Pintura que respira.",
+    "moreHint": "Pinceles y muros no son las únicas puertas. Círculos de sonido, retiros y otros encuentros se despliegan a lo largo del año — pregúntale a Kent qué se está cocinando.",
+    "ctaHeading": "Sé parte de la próxima aventura.",
+    "ctaText": "Kent ofrece una variedad de eventos artísticos colaborativos. Comunícate para estar en el próximo — o para imaginar algo nuevo junto con él.",
+    "ctaButton": "Contactar a Kent Osborn"
   },
   "music": {
     "title": "Música | Kent Osborn",
