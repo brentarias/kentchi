@@ -20,6 +20,7 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
+    "cloudinary": "^2.10.0",
     "sharp": "^0.34.0"
   }
 }
