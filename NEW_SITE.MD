@@ -155,9 +155,19 @@ Many of these decks come alive through **Artivive** — download the free app, p
 
 **Shinan Oracle**
 A bilingual deck born from years spent with Shipibo teachers and mothers in the Peruvian Amazon. At its heart: Kené (Kuh-nuh) — luminous geometric designs that hold the spirits of healing plants, glimpsed by shamans in visionary states and translated by voice into icaros, the sacred sung medicine of the tradition. Each card is a doorway into that living language of pattern, plant, and song.
+*Published by Keyhole Mystic Publishing.*
 
 **Magnetic Magi**
 Rooted in the wisdom of Shipibo shamans of the Peruvian Amazon, the Magnetic Magi is a manifestation deck — your magnetic ally for calling in the life you long for. Each card helps dissolve limiting beliefs and quiet the thoughts that keep dreams at arm's length, so the visions you came here to live can take shape. Paired with Artivive, the magic literally moves.
+*Published by Keyhole Mystic Publishing.*
+
+**Through the Keyhole** — *coming soon*
+Sixteen years of hand-painted artworks (2010–2026), born during deep Shipibo dietas in the Peruvian Amazon and from Kent's visionary journeys through Colombia, Mexico, California, and beyond. The deck takes its name from the third eye — the inner aperture through which the visionary realms come into view, and which each card is a small key for. Built to open that door for anyone walking a path of spiritual growth, creative awakening, or inner exploration — no prior plant-medicine experience required. A guidebook, also by Kent, carries the meanings; the cards themselves carry a tidal wave of vivid artistic inspiration.
+*Forthcoming from Keyhole Mystic Publishing.*
+
+> **Visual treatment recommendation for Through the Keyhole.** Use the placeholder card Kent provided at `public/images/through-the-keyhole-preview.jpg` (1085 × 1600, ~137 KB, well within the project image-size cap). The piece is a Gothic-arched frame with a glowing keyhole and a staircase descending through it — portrait orientation, deep teal-to-purple, very on-brand and a pleasant rhyme with the Keyhole Mystic Publishing logo's own keyhole motif. Display it at roughly 60–70% the visual weight of the Shinan Oracle / Magnetic Magi product photos (this is a placeholder for an unreleased deck and shouldn't compete with the finished products), with a soft *Coming soon* pill in the corner.
+
+> **Trivia (not for the visitor).** The whole Visionary Art gallery on this site is artwork from *Through the Keyhole*. The site has been previewing the deck without saying so. We deliberately don't surface this on-page — it's a delightful detail that rewards curious eyes rather than something to announce — but the design team should know it in case future copy wants to wink at it.
 
 > **Canonical source — Kentchi's own words on the decks.**
 > The on-site copy above is a creative interpretation. The text below is what Kentchi provided verbatim and is the source of truth — any future rewrites must remain consistent with it (don't contradict the Shipibo lineage, the Kené / icaro relationship, the manifestation framing, etc.).
@@ -167,12 +177,65 @@ Rooted in the wisdom of Shipibo shamans of the Peruvian Amazon, the Magnetic Mag
 >
 > **Magnetic Magi (verbatim):**
 > This oracle is rooted in the teachings of the Shipibo shamans of the Peruvian Amazon rainforest. It was created as a tool to help people attract the reality they desire into their lives, allowing their dreams to come true. This oracle can help you overcome your limiting beliefs and inhibiting thoughts, so that you can be more successful in manifesting your visions, dreams, and desires.
+>
+> **Through the Keyhole (verbatim):**
+> Through the Keyhole Oracle is a collection of hand-painted artworks created by Kent Osborn between 2010 and 2026. Many of the paintings were completed in the Peruvian Amazon during Shipibo ayahuasca dietas, while others emerged throughout his colorful journeys in Colombia, Mexico, California, and beyond.
+>
+> While plant medicines played an influential role in the creation of this oracle, the accompanying guidebook—also written by the artist—offers meanings and messages intended for anyone walking a path of spiritual growth, creative awakening, and inner exploration. Whether or not one has experience with plant medicines, the wisdom and symbolism within these cards are designed to be accessible to all who are open to receiving a tidal wave of vivid artistic inspiration.
+>
+> **Through the Keyhole — additional context (from a voice message, not the written description above):** Kent indicated the deck's name — and its underlying intention — is a "visionary third-eye-activating" theme. The keyhole, in other words, is the inner aperture / third eye, and the deck is a set of keys for it. This framing isn't in the verbatim text, but Kent supplied it as additional source-of-truth context.
 
 **Where to Find the Decks**
-Both decks are available on **Amazon** (links coming soon). If you're outside an area where Amazon ships conveniently — or if you'd simply like a more personal connection — [reach out to Kentchi directly](#contact). He ships to many countries and loves connecting with readers around the world.
+The most reliable way to get a deck or *El Estimado* today is the most personal one: [reach out to Kent directly](#contact). He hand-mails copies to readers around the world, and is happy to make arrangements country by country. Broader distribution channels (such as Amazon, or fulfillment services like Amazon MCF) are on the horizon as the imprint matures — but for now, a personal note is how a deck travels from his studio to your hands.
 
-**The Publishing & Teaching Vision**
-Kentchi wants to help *you* bring your own mystic books and oracle decks into the world. Whether you have sketches, ideas, or a half-finished vision, he offers workshops, mentorship, and co-creation support — with the long-term dream of publishing visionary works created by a community of inspired makers.
+> **Implementation note — purchase mechanics, evolving.** As of now, all deck sales route through direct contact (reader emails Kent → Kent confirms shipment and receives payment → Kent mails the deck). This is intentionally clumsy for the moment because none of the obvious automated paths quite fit a hand-curated oracle deck. **Print-on-Demand (POD) integration is planned separately for prints/merchandise** (mugs, phone cases, t-shirts, posters, etc.) and will live on the Visionary Art page — see the planning note in that section. Decks themselves are not POD candidates and remain a "contact Kent" flow until something like Amazon Multi-Channel Fulfillment is wired up.
+
+**Keyhole Mystic Publishing — Kent's imprint**
+
+> **Strategy note — proposed addition, not yet implemented on the site.** This subsection replaces the older "Publishing & Teaching Vision" block on the Decks page. At Kent's direction, **all** of his published work — Shinan Oracle, Magnetic Magi, the forthcoming third oracle deck, and his new book *El Estimado* — lives under **Keyhole Mystic Publishing**, his own imprint. The page is structured so the imprint sits at the bottom of the Decks page as the unifying source rather than as a separate brand bolted on the side, with light publisher tags on the deck listings above to make the relationship visible without rewriting their well-honed descriptions. Throughout the copy, the full name "Keyhole Mystic Publishing" carries the weight — the acronym **KMP** appears only as natural shorthand and never dominates. A dedicated `/publishing` page is still a Phase 2 candidate once the model crystallizes (publisher vs. imprint vs. curatorial label vs. mentorship hub remains an open business question); for now everything related to the imprint lives inside this section. See the "Cross-page light touches" callout further down for the small mentions elsewhere on the site that keep this from feeling grafted.
+
+Every oracle deck and book on this page comes through one door: **Keyhole Mystic Publishing**. It's the publishing home Kent has been building — an imprint born from years of helping fellow visionaries shape their own decks and mystic books, and from the desire to give those works a place that fits them.
+
+**The catalog so far:**
+
+- ***Shinan Oracle*** — bilingual deck rooted in the Shipibo tradition.
+- ***Magnetic Magi*** — manifestation deck, AR-enhanced.
+- ***Through the Keyhole*** — Kent's next oracle deck, coming soon. (Eagle-eyed visitors may notice the artwork in this site's Visionary Art gallery has been quietly previewing it.)
+- ***El Estimado · Un viaje inesperado en México*** — Kent's new book: an illustrated memoir of an unexpected journey through Mexico, where every page is visionary art.
+
+Keyhole Mystic Publishing isn't just Kent's home — it's becoming a home for others, too. If you've been carrying around an oracle deck, a mystic book, or a visionary project that's been whispering to be made, and you're not sure where it belongs, Kent wants to hear from you. The door is open.
+
+**Featured visual element — "Newest title" callout card:**
+- Keyhole Mystic Publishing logo (small badge, top-left of card)
+- Eyebrow label: *Newest title · Keyhole Mystic Publishing*
+- Book covers: *El Estimado* front and back (side-by-side, or front prominent with back as a smaller "peek")
+- Title: **El Estimado**
+- Subtitle: *Un viaje inesperado en México*
+- Author: Kent Osborn
+- Body: An illustrated memoir woven through Mexico — its streets, its people, its mysteries. Visionary art on every page.
+- CTAs: *Reach out to Kent for a copy →* (links to contact)
+
+**Section CTAs:**
+- *Have a deck or book you'd like to make real?* → [Reach out to Kent](#contact)
+- *Want first word when Keyhole Mystic Publishing opens its doors more widely?* → [Get in touch](#contact)
+
+> **Cross-page light touches (proposed).**
+> A handful of small mentions elsewhere on the site keep the imprint feeling like a natural part of Kent's story rather than a grafted-on brand. None of these change page structure — only short copy edits.
+>
+> **1. Featured Decks subsection (this same page).** Already drafted above: each of the two existing deck descriptions now carries a single italic line — *"Published by Keyhole Mystic Publishing."* — directly beneath it. The minimum visible signal that those titles belong to the imprint without disturbing the existing prose.
+>
+> **2. Home page — `home.decksText` (i18n key).** Update the existing "Oracle Decks & Mystic Books" offer card. Replace the current closing sentence (*"…dreams of becoming a publishing home for visionary creators like you."*) with:
+> > **New ending:** "These decks — including the forthcoming *Through the Keyhole* — and Kent's new book all come from his own imprint, **Keyhole Mystic Publishing** (KMP), and its doors are opening for other visionary makers too."
+>
+> **3. About page — `about.body3` (i18n key).** Add one sentence near the end:
+> > **New sentence:** "Today his oracle decks, his paintings, and his new book *El Estimado* all live under his own imprint, **Keyhole Mystic Publishing** — an open door for other visionary makers too."
+>
+> **4. Footer (optional).** A small Keyhole Mystic Publishing badge sitting beside the social icons, with a tagline like *"A Keyhole Mystic Publishing project"* linking to the Decks page section. Genuinely optional — this would be the loudest cross-site mention; leave out if you'd rather keep the footer minimal at this stage.
+
+> **Assets needed for implementation** (not yet copied to `public/`):
+> - `art-pipeline/masters/Keyhole Mystic Publishing Logo.jpg` → `public/images/keyhole-mystic-publishing-logo.jpg` (size cap ≤1600px long side per image-protection rule)
+> - `art-pipeline/masters/El_Estimado.jpg` → `public/images/el-estimado-front.jpg`
+> - `art-pipeline/masters/El_Estimado_Back_Cover_Final.jpg` → `public/images/el-estimado-back.jpg`
 
 **CTA:** [Learn to create your own](#events) • [Join a workshop](#events) • [Reach out](#contact)
 
@@ -193,6 +256,8 @@ And the cherry on top? Many of them are enhanced with **Artivive**. Download the
 
 **Beyond Paintings**
 Stickers, prints, and small creations that let you carry a little piece of the magic with you.
+
+> **Implementation note — Print-on-Demand integration (planned).** The "prints, stickers, and small creations" mentioned above are slated to be served via a Print-on-Demand (POD) provider in a future phase. Visitors browse the catalog (mugs, phone cases, t-shirts, posters, framed prints, etc.) on this page, click to purchase, and the POD provider handles fulfillment and shipping directly — Kent simply receives the royalty/check. This keeps the on-site experience clean and removes the hand-mail-everything friction. Provider selection and the actual shop integration are open; once chosen, this section will gain a small "Shop the prints" grid or CTA leading into the POD-hosted shop. **Important distinction:** the oracle decks themselves are not POD candidates (a custom-printed deck-and-guidebook set isn't a typical POD product), so deck sales continue to flow through direct contact on the Decks page — see the implementation note in "Where to Find the Decks" there.
 
 **Creative Process**
 Every piece is hand-crafted — painted by Kent himself, without AI generation. The Artivive layer brings the art to life digitally, but the vision, the line, the color — all of it comes from his hand.
