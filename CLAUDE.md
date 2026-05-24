@@ -72,7 +72,7 @@ All committed images live under `public/images/`. Pick the right subfolder by in
 - **`public/images/` (root)** — decorative one-offs that aren't part of a curated set: `logo.png`, `hero-portrait.avif`, `hero-portrait-tall.jpg`, `quetzalcoatl.jpg`, `shinan-product.jpg`, `magnetic-magi-product.jpg`, plus several `*-detail.jpg` files (cropped portions of larger pieces, available as thematic bands or section illustrations — not yet placed on any page as of 2026-05-23).
 - **`public/favicon.svg`** — vector.
 
-**Adding new art:** never drop a raw high-resolution master into `public/`. Drop the master into `art-pipeline/masters/` (gitignored), run `npm run process-art -- --tier=<featured|gallery> <master-path>`, then copy the output from `art-pipeline/ready/<tier>/` into the right subfolder under `public/images/`. See [docs/image-pipeline.md](docs/image-pipeline.md). The pipeline enforces the image-protection rule below.
+**Adding new art:** never drop a raw high-resolution master into `public/`. Drop the master into `art-pipeline/masters/` (gitignored), run `npm run process-art:featured <master-path>` or `npm run process-art:gallery <master-path>`, then copy the output from `art-pipeline/ready/<tier>/` into the right subfolder under `public/images/`. See [docs/image-pipeline.md](docs/image-pipeline.md). The pipeline enforces the image-protection rule below.
 
 **Archived (do not reference):** the pre-rollout `public/images/gallery/art-1.jpg` … `art-16.jpeg` were replaced during the 2026-05-23 new-art rollout. The originals are preserved in `archive/wayback-gallery/` (tracked) for possible future reuse but are not served from any page.
 

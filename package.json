@@ -10,7 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "process-art": "node scripts/process-art.mjs"
+    "process-art": "node scripts/process-art.mjs",
+    "process-art:featured": "node scripts/process-art.mjs --tier=featured",
+    "process-art:gallery": "node scripts/process-art.mjs --tier=gallery"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
