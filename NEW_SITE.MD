@@ -186,7 +186,7 @@ Kentchi wants to help *you* bring your own mystic books and oracle decks into th
 **Intro:**
 Kentchi's paintings are explosions of color, pattern, and story. Rooted in visionary aesthetics and infused with personal magic, each piece carries its own spirit.
 
-The real delight? Many of them are enhanced with **Artivive**. Download the free app, point your camera at a piece, and watch the painting awaken — shapes swirl, colors pulse, hidden elements emerge. It's pure joy in visual form.
+And the cherry on top? Many of them are enhanced with **Artivive**. Download the free app, point your camera at a piece, and watch the painting awaken — shapes swirl, colors pulse, hidden elements emerge. It's pure joy in visual form.
 
 **Gallery Teaser**
 (Place for image grid – use existing art from kentchi.netlify.app/art-music/ as inspiration for new visuals. Style: vibrant, intricate, playful visionary art with geometric and organic elements.)
