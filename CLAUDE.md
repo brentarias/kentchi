@@ -97,7 +97,7 @@ Kent Osborn's original artwork drives print-on-demand revenue, so web copies mus
 - **Exception:** images may go up to **long side ≤ 2000 px** *only if* they carry the Posture B watermark (small "© Kent Osborn" or signature glyph in a lower corner, low opacity).
 - **Hard ceiling: 2000 px on the longest side.** Nothing public exceeds this, watermarked or not.
 
-Scope: everything in `public/images/`, `src/assets/`, and anything fetched from Contentful at build time. Print-quality masters live in the POD provider and Kentchi's personal archive — **never** in this repo, in Contentful, or anywhere else reachable from the public web.
+Scope: everything in `public/images/`, `src/assets/`, and anything fetched from Cloudinary (or any other external image CDN) at build time. Print-quality masters live in the POD provider and Kentchi's personal archive — **never** in this repo, on Cloudinary, or anywhere else reachable from the public web.
 
 Full rationale and architecture: [docs/superpowers/specs/2026-05-22-image-protection-design.md](docs/superpowers/specs/2026-05-22-image-protection-design.md).
 

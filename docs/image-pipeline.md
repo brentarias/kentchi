@@ -14,8 +14,11 @@ and [./superpowers/specs/2026-05-22-image-protection-design.md](./superpowers/sp
   stay on disk for possible later use.
 - `public/images/featured/` — committed. The featured-tier images actually
   served by the site.
-- `public/images/gallery/` — committed. The gallery-tier (lightbox, watermarked)
-  images actually served by the site.
+- `public/images/gallery/` — **not** the gallery source. The lightbox-enabled
+  gallery on `/art` and `/es/art` is now fetched from Cloudinary at build time;
+  see [Cloudinary (the active CDN for gallery)](#cloudinary-the-active-cdn-for-gallery)
+  below. Any files still present at `public/images/gallery/` are orphan
+  placeholders from the pre-Cloudinary rollout and are not referenced by any page.
 
 ## Adding a new featured piece
 

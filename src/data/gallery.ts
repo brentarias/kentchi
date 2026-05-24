@@ -77,6 +77,16 @@ const res = (await cloudinary.search
   .max_results(500)
   .execute()) as { resources: CloudinaryResource[]; total_count: number };
 
+// Fail loudly rather than silently truncate. If the gallery grows past 500,
+// either raise max_results above or paginate.
+if (res.total_count > res.resources.length) {
+  throw new Error(
+    `Cloudinary returned ${res.total_count} matches for asset_folder="${cleanedFolder}" ` +
+    `but only ${res.resources.length} were fetched (max_results cap). ` +
+    `Raise max_results in src/data/gallery.ts or add pagination.`
+  );
+}
+
 const sorted = res.resources.slice().sort((a, b) => {
   const aSlug = stripCloudinarySuffix(a.public_id);
   const bSlug = stripCloudinarySuffix(b.public_id);
