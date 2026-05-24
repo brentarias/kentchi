@@ -4,13 +4,14 @@ import Hero from '../components/Hero.astro';
 import SectionBlock from '../components/SectionBlock.astro';
 import Gallery from '../components/Gallery.astro';
 import Lightbox from '../components/Lightbox.astro';
-import { galleryPieces, galleryImagePath } from '../data/gallery';
+import { galleryPieces } from '../data/gallery';
 import { t } from '../i18n';
 
 const i = t('en');
 
 const galleryImages = galleryPieces.map(p => ({
-  src: galleryImagePath(p.slug),
+  src: p.thumbnailSrc,
+  lightboxSrc: p.src,
   alt: p.titleEn,
 }));
 ---
