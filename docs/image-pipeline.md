@@ -29,9 +29,9 @@ and [./superpowers/specs/2026-05-22-image-protection-design.md](./superpowers/sp
 
 1. Drop the master into `art-pipeline/masters/<name>.jpg`.
 2. Run: `npm run process-art:gallery "art-pipeline/masters/<name>.jpg"`
-3. Copy: `cp art-pipeline/ready/gallery/<slug>.jpg public/images/gallery/`
-4. Add an entry to `src/data/gallery.ts` with the slug and English/Spanish title.
-5. Commit.
+3. Upload the output `art-pipeline/ready/gallery/<slug>.jpg` to the Cloudinary `Kentchi/Gallery` folder via the Cloudinary Media Library. Keep the public_id basename equal to the slug (Cloudinary defaults to that when you upload).
+4. (Optional) If the auto-derived title for this piece is awkward in English or needs a Spanish translation, add an override to `titleOverrides` in `src/data/gallery.ts`. Otherwise skip — the slug-to-title default usually reads fine.
+5. Trigger a site rebuild (Netlify auto-deploys on push to the main branch; or use Netlify's Trigger Deploy button to rebuild without a code change).
 
 ## Processing many pieces at once
 
@@ -64,11 +64,12 @@ The bare `npm run process-art …` script still exists if you ever need to invok
 the CLI with custom flags directly; in PowerShell, call `node scripts/process-art.mjs --tier=… <files>`
 to bypass npm entirely.
 
-## When Contentful or another CDN is integrated (future work)
+## Cloudinary (the active CDN for gallery)
 
-The `public/images/featured/` and `public/images/gallery/` folders will be
-replaced by remote-CDN-hosted images (Contentful, Cloudinary, etc.) fetched or
-referenced at build time. The pre-processing step (`npm run process-art:featured`
-/ `:gallery`) remains; only the destination of the processed files changes —
-instead of `cp` into `public/`, the operator uploads the file from
-`art-pipeline/ready/<tier>/` to the CDN.
+The gallery tier is fetched from Cloudinary at build time. Source of truth: the `Kentchi/Gallery` folder in Cloudinary (or whatever folder `CLOUDINARY_GALLERY_FOLDER` names). Implementation: [src/data/gallery.ts](../src/data/gallery.ts).
+
+Each gallery image is fetched at two derived URLs:
+- Thumbnail (grid view): the original URL with `c_fill,w_800,h_800,q_auto,f_auto` inserted as a Cloudinary transformation — a square crop at 800px in auto-optimized format.
+- Lightbox (expanded view): the original `secure_url` — the full uploaded watermarked image.
+
+The featured tier remains in `public/images/featured/` (committed to git). If/when featured-tier scale demands move it to Cloudinary too, mirror the gallery pattern: a separate Cloudinary folder (e.g. `featured/`) and a build-time fetch in a new module.

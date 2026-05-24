@@ -68,13 +68,26 @@ Key components:
 All committed images live under `public/images/`. Pick the right subfolder by intent:
 
 - **`public/images/featured/<slug>.jpg`** — 12 featured-tier pieces (≤1000 px, no watermark). Default choice for hero/section illustrations, IG-tile-style cards, parallax backdrops, and ad-hoc art callouts on home-page variants and other pages.
-- **`public/images/gallery/<slug>.jpg`** — 4 gallery-tier pieces (≤2000 px, watermarked) shown in the lightbox-enabled gallery on `/art` and `/es/art`. **Canonical list: [src/data/gallery.ts](src/data/gallery.ts)** — edit that file (not the pages) when curating the gallery; both art pages read from it.
+- **Cloudinary `Kentchi/Gallery` folder** — the lightbox-enabled gallery on `/art` and `/es/art` is fetched from Cloudinary at build time (see [src/data/gallery.ts](src/data/gallery.ts)). Add or remove pieces in the Cloudinary Media Library; the site picks up the change on the next build. A small `titleOverrides` map in `gallery.ts` handles per-piece title overrides for cases where the slug-derived title needs polishing (especially EN/ES translations). The four files still present at `public/images/gallery/` are orphan placeholders from the pre-Cloudinary rollout — no longer served, retained for reference.
 - **`public/images/` (root)** — decorative one-offs that aren't part of a curated set: `logo.png`, `hero-portrait.avif`, `hero-portrait-tall.jpg`, `quetzalcoatl.jpg`, `shinan-product.jpg`, `magnetic-magi-product.jpg`, plus several `*-detail.jpg` files (cropped portions of larger pieces, available as thematic bands or section illustrations — not yet placed on any page as of 2026-05-23).
 - **`public/favicon.svg`** — vector.
 
-**Adding new art:** never drop a raw high-resolution master into `public/`. Drop the master into `art-pipeline/masters/` (gitignored), run `npm run process-art:featured <master-path>` or `npm run process-art:gallery <master-path>`, then copy the output from `art-pipeline/ready/<tier>/` into the right subfolder under `public/images/`. See [docs/image-pipeline.md](docs/image-pipeline.md). The pipeline enforces the image-protection rule below.
+**Adding new art:** never drop a raw high-resolution master into `public/` or Cloudinary directly. Drop the master into `art-pipeline/masters/` (gitignored), run `npm run process-art:featured <master-path>` for featured-tier or `npm run process-art:gallery <master-path>` for gallery-tier. For featured: copy the output from `art-pipeline/ready/featured/` into `public/images/featured/` and commit. For gallery: upload the output from `art-pipeline/ready/gallery/` to the Cloudinary `Kentchi/Gallery` folder (the next build picks it up automatically; no commit needed). See [docs/image-pipeline.md](docs/image-pipeline.md). The pipeline enforces the image-protection rule below.
 
 **Archived (do not reference):** the pre-rollout `public/images/gallery/art-1.jpg` … `art-16.jpeg` were replaced during the 2026-05-23 new-art rollout. The originals are preserved in `archive/wayback-gallery/` (tracked) for possible future reuse but are not served from any page.
+
+### Build-time environment variables
+
+The site fetches the gallery from Cloudinary at build time, so the following must be set:
+
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+- `CLOUDINARY_GALLERY_FOLDER` (this site's value: `Kentchi/Gallery`)
+
+For local dev: copy `.env.example` to `.env` and fill in real values. For Netlify: set them in Site settings → Environment variables.
+
+Without these set, `npm run build` and `npm run dev` will fail with a clear "Cloudinary credentials missing" error.
 
 ### Image protection rule
 
@@ -88,14 +101,11 @@ Scope: everything in `public/images/`, `src/assets/`, and anything fetched from 
 
 Full rationale and architecture: [docs/superpowers/specs/2026-05-22-image-protection-design.md](docs/superpowers/specs/2026-05-22-image-protection-design.md).
 
-### Contentful integration (planned, not yet active)
+### Cloudinary (active) and Contentful (deferred)
 
-The committed-to-git art layout described above is the **draft phase**. The near-term migration moves `public/images/featured/` and `public/images/gallery/` into Contentful, fetched by Astro at build time. The pipeline (`npm run process-art`) stays unchanged — only the *destination* of processed outputs shifts (Contentful asset upload instead of `cp` into `public/`).
+Cloudinary now hosts the gallery tier. The flow is: pre-process locally via `npm run process-art:gallery`, upload the result to the Cloudinary `Kentchi/Gallery` folder, and the build picks it up. Cloudinary URLs are functionally public; the watermark on each gallery image is what makes them safe to expose. Print-quality masters still live only in `art-pipeline/masters/` (gitignored) and the POD provider.
 
-Two things future contributors must not regress when integrating Contentful:
-
-1. **The protection rule still applies.** Contentful URLs are functionally public (no per-request auth), so any image that lands in Contentful must already satisfy the cap (≤1600 px default, ≤2000 px watermarked). Process the image *before* upload, never inside the build.
-2. **Print-quality masters never go to Contentful.** Masters stay in `art-pipeline/masters/` (gitignored) and the POD provider only. Contentful holds publish-safe derivatives.
+Contentful integration is no longer planned. If a structured-content CMS becomes useful later (e.g., for art piece metadata, descriptions, year created), Contentful or similar can be added on top of Cloudinary without conflict — but the rule "publish-safe derivatives only on the public web" still applies regardless of where they live.
 
 ### About page
 
