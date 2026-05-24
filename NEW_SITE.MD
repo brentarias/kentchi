@@ -184,6 +184,20 @@ Sixteen years of hand-painted artworks (2010–2026), born during deep Shipibo d
 > While plant medicines played an influential role in the creation of this oracle, the accompanying guidebook—also written by the artist—offers meanings and messages intended for anyone walking a path of spiritual growth, creative awakening, and inner exploration. Whether or not one has experience with plant medicines, the wisdom and symbolism within these cards are designed to be accessible to all who are open to receiving a tidal wave of vivid artistic inspiration.
 >
 > **Through the Keyhole — additional context (from a voice message, not the written description above):** Kent indicated the deck's name — and its underlying intention — is a "visionary third-eye-activating" theme. The keyhole, in other words, is the inner aperture / third eye, and the deck is a set of keys for it. This framing isn't in the verbatim text, but Kent supplied it as additional source-of-truth context.
+>
+> **El Estimado — book teaser (verbatim):**
+> Weary and frustrated by the emptiness of his home-office life in Los Angeles, Taylor impulsively escapes to the tropical paradise of Playa del Carmen, Mexico, hoping a change of scenery will transform his life. But before long, he realizes that no matter how far he travels, he cannot outrun himself. The same dissatisfaction, negativity, and restless dissatisfaction that haunted him back home continue to follow him beneath the palm trees and turquoise skies.
+>
+> Taylor's downward spiral seems destined to continue without end—until one unexpected taxi ride alters the course of his life forever. Through a strange twist of fate, the taxi driver, Octavio, becomes an unlikely spiritual guide. Octavio introduces Taylor to his aunt Mariposa, a wise Mayan medicine woman whose warmth, insight, and ancient teachings awaken something long dormant within him.
+>
+> Under her guidance, Taylor begins a profound journey of healing, self-discovery, and spiritual evolution. What starts as an escape slowly transforms into a meaningful journey toward meaning, purpose, and inner transformation—one that will forever change the direction of his life path.
+>
+> **Presentation note (decks page vs decks1 variant).** Unlike the deck descriptions (which on-site get a creative interpretation while the verbatim text lives only in this canonical block), Kent's *El Estimado* teaser is presented **as-is on the site** — Kent's voice carries it. To give visitors two distinct ways to encounter the same teaser, the two Decks pages handle it differently:
+>
+> - **`/decks` (Festival of Decks):** the El Estimado callout card gains a *"Peek Inside ↗"* button. Click opens a book-page-styled modal dialog showing Kent's verbatim teaser. Page surface stays tight; curious visitors get rewarded.
+> - **`/decks1` (From the Imprint variant):** the teaser is presented **inline** as a "first read" excerpt inside a parchment-styled passage, directly beneath the El Estimado cover. No click required — readers naturally fall into the opening as they scroll.
+>
+> Both pages reference the same i18n key (`decks.elEstimadoTeaser`), so future edits to the teaser propagate to both presentations automatically.
 
 **Where to Find the Decks**
 The most reliable way to get a deck or *El Estimado* today is the most personal one: [reach out to Kent directly](#contact). He hand-mails copies to readers around the world, and is happy to make arrangements country by country. Broader distribution channels (such as Amazon, or fulfillment services like Amazon MCF) are on the horizon as the imprint matures — but for now, a personal note is how a deck travels from his studio to your hands.

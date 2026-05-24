@@ -13,9 +13,20 @@
  * relevant URL changes — update it here once and every page picks it up.
  */
 export const videos = {
-  /** Kent setting up an easel in a park; people stop to add brush strokes. */
+  /**
+   * Kent setting up an easel in a park; people stop to add brush strokes.
+   * Portrait-orientation cut — used on `experiences1.astro` which is the
+   * portrait-video variant.
+   */
   livePainting:
     'https://res.cloudinary.com/dmzx8w015/video/upload/f_auto,q_auto/v1779646315/Kent_painting_in_park_bjrrva.mp4',
+
+  /**
+   * Same shoot as `livePainting`, recut in true landscape. Used on the
+   * default `experiences.astro` where the section reads better in landscape.
+   */
+  livePaintingLandscape:
+    'https://res.cloudinary.com/dmzx8w015/video/upload/f_auto,q_auto/v1779660999/Kent_painting_in_park2_poxwax.mp4',
 
   /** Promo cut showing Kent's art pieces in his studio / home. */
   artPromo:

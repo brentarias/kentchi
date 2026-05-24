@@ -280,10 +280,36 @@ const i = t('es');
             <p class="text-amber-200/90 italic mb-1">{i.decks.elEstimadoSubtitle}</p>
             <p class="text-xs uppercase tracking-[0.3em] text-white/60 mb-4">{i.decks.elEstimadoAuthor}</p>
             <p class="text-white/90 leading-relaxed mb-6">{i.decks.elEstimadoBody}</p>
-            <a href="/es/contact" class="btn-glow">{i.decks.kmpCtaReachOut}</a>
+            <div class="flex flex-wrap justify-center md:justify-start gap-3">
+              <button type="button" data-peek-open class="btn-glow">{i.decks.elEstimadoPeekInside} ↗</button>
+              <a href="/es/contact" class="btn-outline">{i.decks.kmpCtaReachOut}</a>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- ============================================================ -->
+      <!-- Modal "Echa un Vistazo" — texto verbatim de Kent, presentado -->
+      <!-- como página de libro. Se abre desde el callout de arriba.    -->
+      <!-- ============================================================ -->
+      <dialog id="peek-modal" class="peek-modal" aria-label={i.decks.elEstimadoTitle}>
+        <button type="button" data-peek-close class="peek-close" aria-label={i.decks.elEstimadoPeekClose}>
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class="peek-page">
+          <p class="peek-eyebrow">{i.decks.elEstimadoSubtitle}</p>
+          <h3 class="peek-title">{i.decks.elEstimadoTitle}</h3>
+          <p class="peek-author">{i.decks.elEstimadoAuthor}</p>
+          <div class="peek-rule" aria-hidden="true">
+            <span></span><span class="peek-rule-dot">✦</span><span></span>
+          </div>
+          <div class="peek-body">
+            {i.decks.elEstimadoTeaser.split('\n\n').map((para: string) => (
+              <p>{para}</p>
+            ))}
+          </div>
+        </div>
+      </dialog>
 
       <p class="text-base md:text-lg leading-relaxed text-white/90 text-center max-w-3xl mx-auto mb-10">{i.decks.kmpOutro}</p>
 
@@ -383,4 +409,193 @@ const i = t('es');
   @media (prefers-reduced-motion: reduce) {
     .drift-a, .drift-b, .ring-pulse-1, .ring-pulse-2, .sparkle { animation: none; }
   }
+
+  /* ============================================================ */
+  /* Modal "Echa un Vistazo" — estilizado como página de libro     */
+  /* ============================================================ */
+  .peek-modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    border: none;
+    padding: 0;
+    background: transparent;
+    width: min(720px, 92vw);
+    max-height: 90vh;
+    overflow: visible;
+    color: #2a1e10;
+  }
+  .peek-modal::backdrop {
+    background: radial-gradient(ellipse at center, rgba(20, 6, 36, 0.32) 0%, rgba(0, 0, 0, 0.5) 100%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .peek-modal[open] {
+    animation: peek-rise 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  @keyframes peek-rise {
+    from { opacity: 0; transform: translateY(28px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+  }
+
+  .peek-page {
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 245, 220, 0.85), transparent 70%),
+      linear-gradient(180deg, #f7ecd1 0%, #f1e2bd 100%);
+    border-radius: 6px 6px 4px 4px;
+    padding: 3rem 2rem 2.75rem;
+    box-shadow:
+      0 35px 90px -25px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -8px 18px -10px rgba(120, 70, 20, 0.18);
+    max-height: 90vh;
+    overflow-y: auto;
+    font-family: var(--font-body, Georgia, 'Times New Roman', serif);
+  }
+  .peek-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        rgba(120, 80, 30, 0.025) 0 2px,
+        transparent 2px 5px
+      );
+    mix-blend-mode: multiply;
+  }
+  .peek-page::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 16px;
+    border-radius: 6px 0 0 4px;
+    background: linear-gradient(90deg, rgba(110, 65, 25, 0.22), transparent);
+    pointer-events: none;
+  }
+
+  @media (min-width: 720px) {
+    .peek-page { padding: 4rem 4rem 3.5rem; }
+  }
+
+  .peek-eyebrow {
+    text-align: center;
+    font-style: italic;
+    color: #8a5a1e;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .peek-title {
+    text-align: center;
+    font-family: var(--font-heading, Georgia, serif);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.1;
+    color: #2a1e10;
+    margin-bottom: 0.5rem;
+  }
+  .peek-author {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+    color: #8a5a1e;
+    margin-bottom: 1rem;
+  }
+  .peek-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1rem 0 1.75rem;
+  }
+  .peek-rule span:first-child,
+  .peek-rule span:last-child {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #b88a3e, transparent);
+    max-width: 120px;
+  }
+  .peek-rule-dot {
+    color: #b88a3e;
+    font-size: 0.9rem;
+  }
+
+  .peek-body p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: #2a1e10;
+    margin-bottom: 1.15rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .peek-body p:first-of-type::first-letter {
+    font-family: var(--font-heading, Georgia, serif);
+    font-size: 3.4rem;
+    line-height: 0.9;
+    float: left;
+    padding: 0.35rem 0.65rem 0 0;
+    color: #8a5a1e;
+    font-weight: 700;
+  }
+  .peek-body p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .peek-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background: #fff;
+    color: #2a1e10;
+    font-size: 1.5rem;
+    line-height: 1;
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .peek-close:hover {
+    background: #ffd773;
+    transform: rotate(90deg);
+  }
+  .peek-close:focus-visible {
+    outline: 2px solid #ffd773;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .peek-modal[open] { animation: none; }
+    .peek-close { transition: none; }
+    .peek-close:hover { transform: none; }
+  }
 </style>
+
+<script>
+  const modal = document.getElementById('peek-modal') as HTMLDialogElement | null;
+  const openers = document.querySelectorAll<HTMLButtonElement>('[data-peek-open]');
+  const closers = document.querySelectorAll<HTMLButtonElement>('[data-peek-close]');
+
+  openers.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (modal && typeof modal.showModal === 'function') {
+        modal.showModal();
+      }
+    });
+  });
+  closers.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      modal?.close();
+    });
+  });
+  modal?.addEventListener('click', (event) => {
+    if (event.target === modal) modal.close();
+  });
+</script>
