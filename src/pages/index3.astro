@@ -230,7 +230,7 @@ const igTiles = [
             <img src={t.src} alt={t.handle} class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent opacity-90 group-hover:opacity-95 transition-opacity"></div>
             <div class="absolute inset-x-0 bottom-0 p-4 text-white">
-              <h3 class="font-heading text-base mb-1">{t.handle}</h3>
+              <h3 class="font-heading text-sm mb-1 wrap-break-word">{t.handle}</h3>
               <p class="text-xs leading-relaxed text-white/85 line-clamp-3">{t.text}</p>
             </div>
           </a>
