@@ -13,9 +13,9 @@ import { t } from '../i18n';
 const i = t('en');
 
 const featured = [
-  { src: '/images/gallery/art-11.jpg', caption: 'Shinan Oracle — visionary guidance.' },
-  { src: '/images/gallery/art-7.jpg',  caption: 'Magnetic Magi — fresh mystic pop.' },
-  { src: '/images/gallery/art-3.jpg',  caption: 'Every piece painted by hand.' },
+  { src: '/images/featured/7-firebird.jpg', caption: 'Shinan Oracle — visionary guidance.' },
+  { src: '/images/featured/11-bee-frecuency.jpg',  caption: 'Magnetic Magi — fresh mystic pop.' },
+  { src: '/images/featured/16-metamorphism.jpg',  caption: 'Every piece painted by hand.' },
 ];
 
 const offers = [
@@ -26,10 +26,10 @@ const offers = [
 ];
 
 const igTiles = [
-  { src: '/images/gallery/art-1.jpg',  handle: '@Inkentations',           text: i.home.inkentationsText, href: 'https://www.instagram.com/inkentations/' },
-  { src: '/images/gallery/art-5.jpeg', handle: '@magnetic_magi_oracle',   text: i.home.magneticMagiText, href: 'https://www.instagram.com/magnetic_magi_oracle/' },
-  { src: '/images/gallery/art-9.jpg',  handle: '@shinan_visionary_arts',  text: i.home.shinanArtText,    href: 'https://www.instagram.com/shinan_visionary_arts/' },
-  { src: '/images/gallery/art-14.jpg', handle: '@shinanoraculo',          text: i.home.shinanOraculoText, href: 'https://www.instagram.com/shinanoraculo/' },
+  { src: '/images/featured/14-feathered-serpent.jpg',  handle: '@Inkentations',           text: i.home.inkentationsText, href: 'https://www.instagram.com/inkentations/' },
+  { src: '/images/featured/26-owl-transformation.jpg', handle: '@magnetic_magi_oracle',   text: i.home.magneticMagiText, href: 'https://www.instagram.com/magnetic_magi_oracle/' },
+  { src: '/images/featured/29-spaceship-maloka.jpg',  handle: '@shinan_visionary_arts',  text: i.home.shinanArtText,    href: 'https://www.instagram.com/shinan_visionary_arts/' },
+  { src: '/images/featured/32-the-balancing-of-power.jpg', handle: '@shinanoraculo',          text: i.home.shinanOraculoText, href: 'https://www.instagram.com/shinanoraculo/' },
 ];
 ---
 
@@ -84,11 +84,11 @@ const igTiles = [
     data-parallax-section
     class="mosaic relative min-h-[92vh] overflow-hidden bg-[#1a0a2b] flex items-center justify-center"
   >
-    <!-- BACK LAYER: art-16, heavily blurred + darkened cosmic backdrop -->
+    <!-- BACK LAYER: featured backdrop, heavily blurred + darkened cosmic backdrop -->
     <div
       data-parallax="0.2"
       class="mosaic-back absolute inset-0"
-      style="background-image: url('/images/gallery/art-16.jpeg'); background-size: cover; background-position: center;"
+      style="background-image: url('/images/featured/25-kambo-ascension.jpg'); background-size: cover; background-position: center;"
       aria-hidden="true"
     ></div>
     <div class="absolute inset-0 bg-linear-to-br from-[#0f0b1a]/75 via-brand-purple/55 to-[#1a0a2b]/85" aria-hidden="true"></div>
@@ -97,7 +97,7 @@ const igTiles = [
     <div
       data-parallax="0.55"
       class="mosaic-mid absolute inset-x-0 top-1/2 -translate-y-1/2 h-[44vh]"
-      style="background-image: url('/images/gallery/art-7.jpg'); background-size: cover; background-position: center;"
+      style="background-image: url('/images/featured/17-rainbow-viewpoint.jpg'); background-size: cover; background-position: center;"
       aria-hidden="true"
     ></div>
 
@@ -113,22 +113,22 @@ const igTiles = [
     <div data-parallax="1.3" class="mosaic-front absolute inset-0 pointer-events-none" aria-hidden="true">
       <div class="absolute top-[6%]  left-[5%]  w-28 md:w-40 polaroid-bob polaroid-bob-1">
         <div class="polaroid -rotate-10">
-          <img src="/images/gallery/art-1.jpg"  alt="" class="polaroid-img" loading="lazy" />
+          <img src="/images/featured/12-shadow-deer.jpg"  alt="" class="polaroid-img" loading="lazy" />
         </div>
       </div>
       <div class="absolute top-[10%] right-[6%] w-24 md:w-36 polaroid-bob polaroid-bob-2">
         <div class="polaroid rotate-8">
-          <img src="/images/gallery/art-11.jpg" alt="" class="polaroid-img" loading="lazy" />
+          <img src="/images/featured/5-zig-zag-path.jpg" alt="" class="polaroid-img" loading="lazy" />
         </div>
       </div>
       <div class="absolute bottom-[8%] left-[10%] w-24 md:w-36 polaroid-bob polaroid-bob-3">
         <div class="polaroid rotate-4">
-          <img src="/images/gallery/art-9.jpg"  alt="" class="polaroid-img" loading="lazy" />
+          <img src="/images/featured/28-mermaid-treasures.jpg"  alt="" class="polaroid-img" loading="lazy" />
         </div>
       </div>
       <div class="absolute bottom-[10%] right-[8%] w-28 md:w-40 polaroid-bob polaroid-bob-4">
         <div class="polaroid -rotate-6">
-          <img src="/images/gallery/art-13.jpg" alt="" class="polaroid-img" loading="lazy" />
+          <img src="/images/featured/26-owl-transformation.jpg" alt="" class="polaroid-img" loading="lazy" />
         </div>
       </div>
     </div>

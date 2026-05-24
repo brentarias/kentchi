@@ -3,15 +3,16 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import SectionBlock from '../components/SectionBlock.astro';
 import Gallery from '../components/Gallery.astro';
+import Lightbox from '../components/Lightbox.astro';
+import { galleryPieces, galleryImagePath } from '../data/gallery';
 import { t } from '../i18n';
 
 const i = t('en');
 
-const galleryImages = Array.from({ length: 15 }, (_, idx) => {
-  const num = idx + 1;
-  const ext = [5, 8, 12].includes(num) ? 'jpeg' : 'jpg';
-  return { src: `/images/gallery/art-${num}.${ext}`, alt: `Visionary art piece ${num}` };
-});
+const galleryImages = galleryPieces.map(p => ({
+  src: galleryImagePath(p.slug),
+  alt: p.titleEn,
+}));
 ---
 
 <Layout title={i.art.title}>
@@ -36,4 +37,6 @@ const galleryImages = Array.from({ length: 15 }, (_, idx) => {
       <p class="text-base leading-relaxed">{i.art.processText}</p>
     </div>
   </section>
+
+  <Lightbox />
 </Layout>

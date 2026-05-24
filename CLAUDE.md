@@ -65,11 +65,37 @@ Key components:
 
 ### Static assets
 
-All images are in `public/images/`:
-- `logo.png`, `hero-bg.jpg`, `main-bg.jpg`, `shinan-product.jpg` — site-wide
-- `gallery/art-1.jpg` … `art-15.jpg` (some are `.jpeg`) — art gallery on the Art & Music page
+All committed images live under `public/images/`. Pick the right subfolder by intent:
 
-The gallery file extensions are not uniform: items 5, 8, and 12 are `.jpeg`; the rest are `.jpg`. The Art & Music pages hardcode this mapping in the frontmatter.
+- **`public/images/featured/<slug>.jpg`** — 12 featured-tier pieces (≤1000 px, no watermark). Default choice for hero/section illustrations, IG-tile-style cards, parallax backdrops, and ad-hoc art callouts on home-page variants and other pages.
+- **`public/images/gallery/<slug>.jpg`** — 4 gallery-tier pieces (≤2000 px, watermarked) shown in the lightbox-enabled gallery on `/art` and `/es/art`. **Canonical list: [src/data/gallery.ts](src/data/gallery.ts)** — edit that file (not the pages) when curating the gallery; both art pages read from it.
+- **`public/images/` (root)** — decorative one-offs that aren't part of a curated set: `logo.png`, `hero-portrait.avif`, `hero-portrait-tall.jpg`, `quetzalcoatl.jpg`, `shinan-product.jpg`, `magnetic-magi-product.jpg`, plus several `*-detail.jpg` files (cropped portions of larger pieces, available as thematic bands or section illustrations — not yet placed on any page as of 2026-05-23).
+- **`public/favicon.svg`** — vector.
+
+**Adding new art:** never drop a raw high-resolution master into `public/`. Drop the master into `art-pipeline/masters/` (gitignored), run `npm run process-art -- --tier=<featured|gallery> <master-path>`, then copy the output from `art-pipeline/ready/<tier>/` into the right subfolder under `public/images/`. See [docs/image-pipeline.md](docs/image-pipeline.md). The pipeline enforces the image-protection rule below.
+
+**Archived (do not reference):** the pre-rollout `public/images/gallery/art-1.jpg` … `art-16.jpeg` were replaced during the 2026-05-23 new-art rollout. The originals are preserved in `archive/wayback-gallery/` (tracked) for possible future reuse but are not served from any page.
+
+### Image protection rule
+
+Kent Osborn's original artwork drives print-on-demand revenue, so web copies must be too small to enable unauthorized commercial print reproduction. All images served by the public site MUST satisfy:
+
+- **Default cap: long side ≤ 1600 px**, JPEG ~82–85% quality (or equivalent WebP/AVIF). No watermark required.
+- **Exception:** images may go up to **long side ≤ 2000 px** *only if* they carry the Posture B watermark (small "© Kent Osborn" or signature glyph in a lower corner, low opacity).
+- **Hard ceiling: 2000 px on the longest side.** Nothing public exceeds this, watermarked or not.
+
+Scope: everything in `public/images/`, `src/assets/`, and anything fetched from Contentful at build time. Print-quality masters live in the POD provider and Kentchi's personal archive — **never** in this repo, in Contentful, or anywhere else reachable from the public web.
+
+Full rationale and architecture: [docs/superpowers/specs/2026-05-22-image-protection-design.md](docs/superpowers/specs/2026-05-22-image-protection-design.md).
+
+### Contentful integration (planned, not yet active)
+
+The committed-to-git art layout described above is the **draft phase**. The near-term migration moves `public/images/featured/` and `public/images/gallery/` into Contentful, fetched by Astro at build time. The pipeline (`npm run process-art`) stays unchanged — only the *destination* of processed outputs shifts (Contentful asset upload instead of `cp` into `public/`).
+
+Two things future contributors must not regress when integrating Contentful:
+
+1. **The protection rule still applies.** Contentful URLs are functionally public (no per-request auth), so any image that lands in Contentful must already satisfy the cap (≤1600 px default, ≤2000 px watermarked). Process the image *before* upload, never inside the build.
+2. **Print-quality masters never go to Contentful.** Masters stay in `art-pipeline/masters/` (gitignored) and the POD provider only. Contentful holds publish-safe derivatives.
 
 ### About page
 

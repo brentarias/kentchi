@@ -25,3 +25,10 @@ pnpm-debug.log*
 
 # playwright mcp artifacts
 .playwright-mcp/
+
+# dev / debug screenshots (manual page captures, not website content)
+screenshots/
+
+# art pipeline: print-quality masters and processed derivatives
+# (everything here is sensitive or a build artifact; never commit)
+art-pipeline/
