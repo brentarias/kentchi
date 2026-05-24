@@ -10,6 +10,7 @@
 */
 import Layout from '../layouts/Layout.astro';
 import { t } from '../i18n';
+import { videos } from '../data/videos';
 
 const i = t('en');
 ---
@@ -104,7 +105,7 @@ const i = t('en');
         <div class="rainbow-frame relative rounded-4xl p-0.75 hue-cycle-slow">
           <div class="rounded-[1.85rem] overflow-hidden bg-black">
             <video
-              src="/videos/live-painting.mp4"
+              src={videos.livePainting}
               poster="/images/posters/live-painting-poster.jpg"
               class="block aspect-9/16 w-72 md:w-80 h-auto object-cover"
               autoplay
@@ -215,7 +216,7 @@ const i = t('en');
         <div class="rainbow-frame relative rounded-4xl p-0.75 hue-cycle-slow">
           <div class="rounded-[1.85rem] overflow-hidden bg-black">
             <video
-              src="/videos/art-promo.mp4"
+              src={videos.artPromo}
               poster="/images/posters/art-promo-poster.jpg"
               class="block aspect-9/16 w-72 md:w-96 h-auto object-cover"
               autoplay

@@ -9,6 +9,7 @@
 */
 import Layout from '../layouts/Layout.astro';
 import { t } from '../i18n';
+import { videos } from '../data/videos';
 
 const i = t('en');
 ---
@@ -83,7 +84,7 @@ const i = t('en');
         <div class="absolute -inset-4 rounded-4xl bg-linear-to-br from-amber-300/30 via-rose-400/20 to-emerald-500/30 blur-2xl" aria-hidden="true"></div>
         <div class="relative overflow-hidden rounded-4xl ring-1 ring-amber-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.65)]">
           <video
-            src="/videos/live-painting.mp4"
+            src={videos.livePainting}
             poster="/images/posters/live-painting-poster.jpg"
             class="block w-full aspect-video object-cover"
             autoplay
@@ -159,7 +160,7 @@ const i = t('en');
   <!-- ============================================================ -->
   <section class="relative min-h-[70vh] overflow-hidden flex items-center justify-center text-white">
     <video
-      src="/videos/art-promo.mp4"
+      src={videos.artPromo}
       poster="/images/posters/art-promo-poster.jpg"
       class="absolute inset-0 w-full h-full object-cover"
       autoplay
