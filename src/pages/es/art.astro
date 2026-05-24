@@ -1,7 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Hero from '../../components/Hero.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
 import Gallery from '../../components/Gallery.astro';
 import Lightbox from '../../components/Lightbox.astro';
 import { galleryPieces } from '../../data/gallery';
@@ -14,30 +12,200 @@ const galleryImages = galleryPieces.map(p => ({
   lightboxSrc: p.src,
   alt: p.titleEs,
 }));
+
+const galleryCount = galleryPieces.length;
 ---
 
 <Layout title={i.art.title} lang="es">
-  <Hero heading={i.art.heading} />
+  <!-- HERO -->
+  <section class="relative min-h-[78vh] overflow-hidden flex items-center justify-center text-white">
+    <div
+      class="absolute inset-0"
+      style="background-image: url('/images/featured/17-rainbow-viewpoint.jpg'); background-size: cover; background-position: center;"
+      aria-hidden="true"
+    ></div>
+    <div class="absolute inset-0 bg-linear-to-br from-[#1a0a2b]/92 via-brand-purple/82 to-[#0a1c3a]/95" aria-hidden="true"></div>
 
-  <SectionBlock>
-    <p class="text-center text-lg leading-relaxed max-w-2xl mx-auto">{i.art.intro}</p>
-  </SectionBlock>
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute top-[12%] left-[8%]   w-60 h-60 rounded-full bg-amber-300/40   blur-3xl drift-a"></span>
+      <span class="absolute bottom-[14%] right-[10%] w-72 h-72 rounded-full bg-fuchsia-500/40 blur-3xl drift-b"></span>
+      <span class="absolute bottom-[24%] left-[12%] w-48 h-48 rounded-full bg-teal-400/40   blur-3xl drift-a"></span>
+      <span class="absolute top-[18%]   right-[14%] w-44 h-44 rounded-full bg-violet-400/45 blur-3xl drift-b"></span>
+      <span class="absolute top-[48%]   left-[42%] w-32 h-32 rounded-full bg-rose-400/35   blur-3xl drift-a"></span>
+    </div>
 
-  <SectionBlock heading={i.art.galleryHeading} class="bg-brand-light">
-    <Gallery images={galleryImages} />
-  </SectionBlock>
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="sparkle" style="top:14%;left:14%"></span>
+      <span class="sparkle" style="top:24%;right:16%;animation-delay:1.2s"></span>
+      <span class="sparkle" style="top:84%;left:34%;animation-delay:2.1s"></span>
+      <span class="sparkle" style="top:78%;right:24%;animation-delay:0.6s"></span>
+      <span class="sparkle" style="top:8%;left:46%;animation-delay:1.7s"></span>
+    </div>
 
-  <SectionBlock heading={i.art.beyondHeading}>
-    <p class="text-center text-lg leading-relaxed max-w-2xl mx-auto">{i.art.beyondText}</p>
-  </SectionBlock>
+    <div class="relative z-10 mx-6 w-full max-w-3xl">
+      <div class="hero-glass rounded-4xl px-6 py-12 md:px-14 md:py-16 text-center">
+        <p class="text-xs uppercase tracking-[0.35em] text-amber-200 mb-5">Galería de Arte Visionario</p>
+        <h1 class="text-4xl md:text-6xl font-heading leading-[1.05] mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+          <span class="block">Arte que</span>
+          <span class="block bg-linear-to-r from-amber-200 via-fuchsia-300 to-teal-300 bg-clip-text text-transparent">Vive y Respira</span>
+        </h1>
+        <p class="text-base md:text-lg leading-relaxed text-white/95 mb-7">{i.art.intro}</p>
+        <a href="#gallery" class="btn-glow">Entrar a la galería ↓</a>
+      </div>
+    </div>
+  </section>
 
-  <section class="relative py-16 px-6">
-    <div class="absolute inset-0" style="background-color: rgba(213, 215, 201, 0.6);"></div>
-    <div class="relative max-w-2xl mx-auto">
-      <h2 class="text-2xl md:text-4xl font-heading text-center mb-6">{i.art.processHeading}</h2>
-      <p class="text-base leading-relaxed">{i.art.processText}</p>
+  <!-- GALLERY -->
+  <section id="gallery" class="relative py-24 px-4 md:px-8 overflow-hidden bg-linear-to-br from-[#0f0b1a] via-[#1c0f3a] to-[#0a1c3a] text-white">
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute -top-20 -left-24  w-96 h-96 rounded-full bg-amber-300/12 blur-3xl drift-a"></span>
+      <span class="absolute -bottom-24 -right-20 w-md h-112 rounded-full bg-fuchsia-500/14 blur-3xl drift-b"></span>
+      <span class="absolute top-[40%] left-[8%]  w-40 h-40 rounded-full bg-teal-400/10 blur-3xl drift-a"></span>
+      <span class="absolute top-[60%] right-[10%] w-48 h-48 rounded-full bg-violet-500/12 blur-3xl drift-b"></span>
+    </div>
+
+    <span aria-hidden="true" class="absolute top-10 left-12  text-brand-gold/60 text-2xl select-none">✦</span>
+    <span aria-hidden="true" class="absolute top-16 right-14 text-brand-gold/50 text-3xl select-none">✧</span>
+    <span aria-hidden="true" class="absolute bottom-12 left-20 text-brand-gold/50 text-xl select-none">✦</span>
+    <span aria-hidden="true" class="absolute bottom-16 right-24 text-brand-gold/60 text-2xl select-none">✧</span>
+
+    <div class="relative max-w-6xl mx-auto">
+      <div class="text-center mb-12 md:mb-14">
+        <p class="text-xs uppercase tracking-[0.35em] text-amber-200 mb-3">Un catálogo pintado a mano</p>
+        <h2 class="text-3xl md:text-5xl font-heading leading-tight mb-3">
+          <span class="bg-linear-to-r from-amber-200 via-rose-300 to-fuchsia-300 bg-clip-text text-transparent">{i.art.galleryHeading}</span>
+        </h2>
+        <p class="text-sm text-white/70 italic">{galleryCount} obras, cada una su propio mundo</p>
+        <svg class="block mx-auto mt-6 w-32 text-amber-200/60" viewBox="0 0 140 14" fill="none" aria-hidden="true">
+          <path d="M2 9 Q 35 1 70 7 T 138 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <Gallery images={galleryImages} />
+
+      <p class="text-center text-xs uppercase tracking-[0.3em] text-white/50 mt-10 italic">Haz clic en cualquier pieza para ampliarla</p>
+    </div>
+  </section>
+
+  <!-- BEYOND PAINTINGS -->
+  <section class="relative py-24 px-4 md:px-8 overflow-hidden bg-white">
+    <div
+      class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,900px)] h-105 rounded-[40%] opacity-70 blur-3xl"
+      style="background: conic-gradient(from 120deg at 50% 50%, #fde8c8, #f8d4d8, #e9d5f5, #d6ecef, #fde8c8);"
+      aria-hidden="true"
+    ></div>
+    <div class="relative max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 text-brand-rust mb-4">
+        <span class="h-px w-8 bg-brand-rust"></span>
+        <span class="text-xs uppercase tracking-[0.3em]">Más allá del lienzo</span>
+        <span class="h-px w-8 bg-brand-rust"></span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-heading text-brand-dark mb-5">{i.art.beyondHeading}</h2>
+      <p class="text-base md:text-lg leading-relaxed text-brand-dark/85 mb-7">{i.art.beyondText}</p>
+      <div class="flex flex-wrap justify-center gap-2 max-w-xl mx-auto">
+        <span class="px-3 py-1 rounded-full text-xs bg-white ring-1 ring-brand-gold/40 text-brand-dark">Stickers</span>
+        <span class="px-3 py-1 rounded-full text-xs bg-white ring-1 ring-brand-gold/40 text-brand-dark">Impresiones</span>
+        <span class="px-3 py-1 rounded-full text-xs bg-white ring-1 ring-brand-gold/40 text-brand-dark">Carteles</span>
+        <span class="px-3 py-1 rounded-full text-xs bg-white ring-1 ring-brand-gold/40 text-brand-dark">Tazas</span>
+        <span class="px-3 py-1 rounded-full text-xs bg-white ring-1 ring-brand-gold/40 text-brand-dark">Fundas de Móvil</span>
+        <span class="px-3 py-1 rounded-full text-xs bg-white ring-1 ring-brand-gold/40 text-brand-dark">Camisetas</span>
+        <span class="px-3 py-1 rounded-full text-xs bg-brand-rust/10 ring-1 ring-brand-rust/40 text-brand-rust italic">Más próximamente</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREATIVE PROCESS -->
+  <section class="relative py-24 px-4 md:px-8 overflow-hidden bg-brand-light">
+    <div class="absolute top-12 left-1/2 -translate-x-1/2" aria-hidden="true">
+      <div class="seal-stamp">★</div>
+    </div>
+    <div
+      class="pointer-events-none absolute -bottom-20 left-1/2 -translate-x-1/2 w-[min(95vw,1000px)] h-96 rounded-[40%] opacity-50 blur-3xl"
+      style="background: conic-gradient(from 200deg at 50% 50%, #fde8c8, #f8d4d8, #e9d5f5, #fde8c8);"
+      aria-hidden="true"
+    ></div>
+    <div class="relative max-w-3xl mx-auto pt-12 text-center">
+      <p class="text-xs uppercase tracking-[0.3em] text-brand-rust mb-3">Por la propia mano del artista</p>
+      <h2 class="text-3xl md:text-5xl font-heading text-brand-dark mb-6">{i.art.processHeading}</h2>
+      <p class="text-base md:text-lg leading-relaxed text-brand-dark/85 mb-8">{i.art.processText}</p>
+      <svg class="block mx-auto w-32 text-brand-rust/70" viewBox="0 0 140 14" fill="none" aria-hidden="true">
+        <path d="M2 9 Q 35 1 70 7 T 138 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
     </div>
   </section>
 
   <Lightbox />
 </Layout>
+
+<style>
+  @keyframes drift-a {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(14px, -10px, 0) scale(1.07); }
+  }
+  @keyframes drift-b {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(-12px, 12px, 0) scale(1.09); }
+  }
+  @keyframes sparkle-pulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50%      { opacity: 1; transform: scale(1); }
+  }
+
+  .drift-a { animation: drift-a 11s ease-in-out infinite; }
+  .drift-b { animation: drift-b 14s ease-in-out infinite; }
+  .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 14px 4px rgba(255, 230, 180, 0.85);
+    animation: sparkle-pulse 3.5s ease-in-out infinite;
+  }
+
+  .hero-glass {
+    background: linear-gradient(135deg, rgba(30, 10, 55, 0.65), rgba(10, 20, 45, 0.65));
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 30px 80px -30px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .seal-stamp {
+    width: 56px;
+    height: 56px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #D0AC68, #a84b1f);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 12px 30px -12px rgba(168, 75, 31, 0.45);
+  }
+
+  .btn-glow {
+    display: inline-block;
+    padding: 0.9rem 1.6rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #140a18;
+    background-image: linear-gradient(135deg, #ffd773, #ff8fb2 55%, #a78bfa);
+    border-radius: 9999px;
+    box-shadow: 0 12px 40px -10px rgba(255, 143, 178, 0.65);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+  .btn-glow:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.07);
+    box-shadow: 0 18px 50px -12px rgba(167, 139, 250, 0.6);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .drift-a, .drift-b, .sparkle { animation: none; }
+  }
+</style>
