@@ -1,16 +1,16 @@
 ---
 interface Props {
-  images: { src: string; alt: string }[];
+  images: { src: string; alt: string; lightboxSrc?: string }[];
 }
 
 const { images } = Astro.props;
 ---
 
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-  {images.map(({ src, alt }) => (
+  {images.map(({ src, alt, lightboxSrc }) => (
     <button
       type="button"
-      data-lightbox-src={src}
+      data-lightbox-src={lightboxSrc ?? src}
       data-lightbox-alt={alt}
       class="aspect-square overflow-hidden rounded-lg group block w-full p-0 border-0 bg-transparent cursor-zoom-in"
       aria-label={`View ${alt} larger`}
