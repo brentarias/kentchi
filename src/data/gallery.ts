@@ -5,10 +5,16 @@
 // once per build; both art pages import the resulting array synchronously.
 import { v2 as cloudinary } from 'cloudinary';
 
-const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-const apiKey = process.env.CLOUDINARY_API_KEY;
-const apiSecret = process.env.CLOUDINARY_API_SECRET;
-const folder = process.env.CLOUDINARY_GALLERY_FOLDER ?? 'gallery';
+// Use import.meta.env (Vite/Astro's canonical env access) rather than process.env.
+// Vite populates import.meta.env from .env files in both `astro dev` and `astro build`;
+// process.env is only consistently populated during `astro build`, which leaves the
+// dev server broken on non-PUBLIC-prefixed values like ours. (Non-PUBLIC-prefixed
+// vars are server-only and are never shipped to the client bundle, so it is safe to
+// keep secrets here.)
+const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME as string | undefined;
+const apiKey = import.meta.env.CLOUDINARY_API_KEY as string | undefined;
+const apiSecret = import.meta.env.CLOUDINARY_API_SECRET as string | undefined;
+const folder = (import.meta.env.CLOUDINARY_GALLERY_FOLDER as string | undefined) ?? 'gallery';
 
 if (!cloudName || !apiKey || !apiSecret) {
   throw new Error(
