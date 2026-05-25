@@ -1,471 +1,351 @@
 ---
 /*
-  EXPERIMENT 1 — "Ground & Glow"
-  Hero strategy: Option 2 from the brief.
-  Kent's portrait image repeats across the hero, but all copy lives in a
-  bottom-weighted gradient band so his face at the top stays visible and
-  prominent. Floating translucent color orbs echo the vibrance of his art
-  without competing with the portrait itself.
+  EXPERIMENT 2 — "Portal"
+  Hero strategy: Option 5 from the brief.
+  The hero no longer tries to preserve the repeated-portrait of Kentchi.
+  Instead, a full-bleed triptych of his own paintings forms the backdrop —
+  art leads, Kent cameos. A centered semi-opaque "portal" card carries the
+  headline, subheading, and CTAs with room to breathe. Kent's portrait is
+  reintroduced later as a circular cameo in a "Meet Kentchi" strip, so the
+  human presence stays — just re-framed.
 */
 import Layout from '../layouts/Layout.astro';
 import { t } from '../i18n';
 
 const i = t('en');
 
-const featured = [
-  { src: '/images/featured/7-firebird.jpg', caption: 'Shinan Oracle — visionary guidance.' },
-  { src: '/images/featured/11-bee-frecuency.jpg',  caption: 'Magnetic Magi — fresh mystic pop.' },
-  { src: '/images/featured/16-metamorphism.jpg',  caption: 'Every piece painted by hand.' },
+const heroTriptych = [
+  '/images/featured/7-firebird.jpg',
+  '/images/featured/11-bee-frecuency.jpg',
+  '/images/featured/16-metamorphism.jpg',
+];
+
+const decks = [
+  {
+    title: i.decks.shinanTitle,
+    text: i.decks.shinanText,
+    img: '/images/featured/14-feathered-serpent.jpg',
+    accent: 'from-amber-300 via-rose-400 to-fuchsia-500',
+  },
+  {
+    title: i.decks.magneticTitle,
+    text: i.decks.magneticText,
+    img: '/images/featured/17-rainbow-viewpoint.jpg',
+    accent: 'from-teal-300 via-indigo-400 to-violet-600',
+  },
 ];
 
 const offers = [
-  { href: '/decks',  title: i.home.decksTitle,  text: i.home.decksText,  tone: 'from-fuchsia-500/15 to-amber-300/15', ring: 'ring-fuchsia-400/40' },
-  { href: '/art',    title: i.home.artTitle,    text: i.home.artText,    tone: 'from-teal-400/15 to-violet-500/15',   ring: 'ring-teal-400/40' },
-  { href: '/experiences', title: i.home.eventsTitle, text: i.home.eventsText, tone: 'from-orange-400/15 to-rose-500/15',   ring: 'ring-orange-400/40' },
-  { href: '/music',  title: i.home.musicTitle,  text: i.home.musicText,  tone: 'from-indigo-500/15 to-emerald-400/15', ring: 'ring-indigo-400/40' },
+  { href: '/decks',  title: i.home.decksTitle,  text: i.home.decksText,  icon: '✦' },
+  { href: '/art',    title: i.home.artTitle,    text: i.home.artText,    icon: '❋' },
+  { href: '/experiences', title: i.home.eventsTitle, text: i.home.eventsText, icon: '◈' },
+  { href: '/music',  title: i.home.musicTitle,  text: i.home.musicText,  icon: '♪' },
 ];
 
 const igTiles = [
-  { src: '/images/featured/14-feathered-serpent.jpg',  handle: '@Inkentations',           text: i.home.inkentationsText, href: 'https://www.instagram.com/inkentations/' },
-  { src: '/images/featured/26-owl-transformation.jpg', handle: '@magnetic_magi_oracle',   text: i.home.magneticMagiText, href: 'https://www.instagram.com/magnetic_magi_oracle/' },
-  { src: '/images/featured/29-spaceship-maloka.jpg',  handle: '@shinan_visionary_arts',  text: i.home.shinanArtText,    href: 'https://www.instagram.com/shinan_visionary_arts/' },
-  { src: '/images/featured/32-the-balancing-of-power.jpg', handle: '@shinanoraculo',          text: i.home.shinanOraculoText, href: 'https://www.instagram.com/shinanoraculo/' },
+  { src: '/images/featured/26-owl-transformation.jpg',  handle: '@Inkentations',          text: i.home.inkentationsText,  href: 'https://www.instagram.com/inkentations/' },
+  { src: '/images/featured/28-mermaid-treasures.jpg', handle: '@magnetic_magi_oracle',  text: i.home.magneticMagiText,  href: 'https://www.instagram.com/magnetic_magi_oracle/' },
+  { src: '/images/featured/29-spaceship-maloka.jpg', handle: '@shinan_visionary_arts', text: i.home.shinanArtText,     href: 'https://www.instagram.com/shinan_visionary_arts/' },
+  { src: '/images/featured/32-the-balancing-of-power.jpg', handle: '@shinanoraculo',         text: i.home.shinanOraculoText, href: 'https://www.instagram.com/shinanoraculo/' },
 ];
 ---
 
-<Layout title={`${i.home.title} — Experiment 1`}>
-  <!-- ========== HERO: portrait repeats, copy in bottom band ========== -->
-  <section class="relative min-h-[86vh] overflow-hidden flex items-end">
-    <div
-      class="absolute inset-0"
-      style="background-image: url('/images/hero-portrait.avif'); background-repeat: repeat-x; background-position: top center; background-size: auto 100%;"
-      aria-hidden="true"
-    ></div>
+<Layout title={`${i.home.title} — Experiment 2`}>
+  <!-- ========== HERO: full-bleed art triptych with centered portal card ========== -->
+  <section class="relative min-h-[88vh] overflow-hidden flex items-center justify-center">
+    <!-- triptych of gallery paintings (mobile collapses to a single piece) -->
+    <div class="absolute inset-0 grid grid-cols-1 md:grid-cols-3" aria-hidden="true">
+      {heroTriptych.map((src, idx) => (
+        <div
+          class:list={[
+            'relative overflow-hidden',
+            idx !== 0 ? 'hidden md:block' : '',
+          ]}
+        >
+          <img src={src} alt="" class="w-full h-full object-cover anim-drift" />
+        </div>
+      ))}
+    </div>
 
-    <!-- layered scrim: heavier at top + bottom, lighter in middle -->
-    <div class="absolute inset-0 bg-linear-to-b from-[#140a18]/55 via-[#140a18]/20 to-[#140a18]/90" aria-hidden="true"></div>
-    <!-- vignette focuses the eye on the central copy card -->
-    <div
-      class="absolute inset-0"
-      style="background: radial-gradient(ellipse at center, rgba(20,10,24,0) 25%, rgba(20,10,24,0.6) 100%);"
-      aria-hidden="true"
-    ></div>
+    <!-- unifying color wash so the three pieces read as one canvas -->
+    <div class="absolute inset-0 bg-gradient-to-br from-[#1a0a2b]/70 via-[#2d0f3a]/55 to-[#1c2640]/70" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-black/25" aria-hidden="true"></div>
 
-    <!-- floating color orbs (echo the vibrance of Kent's art, not his face) -->
+    <!-- sparkles -->
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-      <span class="orb absolute top-[14%] left-[7%]   w-40 h-40 rounded-full bg-fuchsia-500/35 blur-3xl anim-float"></span>
-      <span class="orb absolute top-[22%] right-[10%] w-52 h-52 rounded-full bg-amber-300/30  blur-3xl anim-float-slow"></span>
-      <span class="orb absolute top-[45%] left-[45%]  w-36 h-36 rounded-full bg-teal-400/30   blur-3xl anim-float"></span>
-      <span class="orb absolute bottom-[40%] right-[35%] w-44 h-44 rounded-full bg-violet-500/30 blur-3xl anim-float-slow"></span>
+      <span class="sparkle" style="top:18%;left:12%"></span>
+      <span class="sparkle" style="top:30%;left:78%;animation-delay:1.2s"></span>
+      <span class="sparkle" style="top:62%;left:22%;animation-delay:2.1s"></span>
+      <span class="sparkle" style="top:74%;left:68%;animation-delay:0.6s"></span>
+      <span class="sparkle" style="top:42%;left:50%;animation-delay:1.7s"></span>
     </div>
 
-    <!-- bottom-weighted copy band: frosted glass card keeps text crisp over the busy portrait -->
-    <div class="relative z-10 w-full px-6 pb-12 md:pb-16">
-      <div class="mx-auto max-w-3xl">
-        <div class="hero-glass rounded-3xl px-6 py-10 md:px-12 md:py-14 text-center text-white">
-          <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-amber-300 mb-4 anim-rise">Visionary Art · Oracle Decks · AR · Music · Circles</p>
-          <h1 class="text-3xl md:text-6xl font-heading leading-tight mb-4 anim-rise drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
-            <span class="block">{i.home.heroHeadline.split('–')[0].trim()}</span>
-            <span class="block bg-linear-to-r from-amber-300 via-fuchsia-400 to-teal-300 bg-clip-text text-transparent">{i.home.heroHeadline.split('–')[1]?.trim()}</span>
-          </h1>
-          <p class="text-base md:text-xl max-w-2xl mx-auto leading-relaxed mb-8 text-white/95 anim-rise">{i.home.heroSubheadline}</p>
-          <div class="flex flex-wrap gap-3 justify-center anim-rise">
-            <a href="/decks"  class="btn-primary">{i.home.heroCtaDecks}</a>
-            <a href="/art"    class="btn-ghost">{i.home.heroCtaArt}</a>
-            <a href="/experiences" class="btn-ghost">{i.home.heroCtaEvents}</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== WELCOME — Mystic Mosaic (multi-artwork stacked parallax) ========== -->
-  <section
-    data-parallax-section
-    class="mosaic relative min-h-[92vh] overflow-hidden bg-[#1a0a2b] flex items-center justify-center"
-  >
-    <!-- BACK LAYER: featured backdrop, heavily blurred + darkened cosmic backdrop -->
-    <div
-      data-parallax="0.2"
-      class="mosaic-back absolute inset-0"
-      style="background-image: url('/images/featured/25-kambo-ascension.jpg'); background-size: cover; background-position: center;"
-      aria-hidden="true"
-    ></div>
-    <div class="absolute inset-0 bg-linear-to-br from-[#0f0b1a]/75 via-brand-purple/55 to-[#1a0a2b]/85" aria-hidden="true"></div>
-
-    <!-- MID LAYER: secondary art piece as a luminous strip (screen blend) -->
-    <div
-      data-parallax="0.55"
-      class="mosaic-mid absolute inset-x-0 top-1/2 -translate-y-1/2 h-[44vh]"
-      style="background-image: url('/images/featured/17-rainbow-viewpoint.jpg'); background-size: cover; background-position: center;"
-      aria-hidden="true"
-    ></div>
-
-    <!-- COSMIC ORBS LAYER (drifts continuously, plus parallax) -->
-    <div data-parallax="1.05" class="mosaic-orbs absolute inset-0 pointer-events-none" aria-hidden="true">
-      <span class="absolute top-[12%] left-[14%]  w-32 h-32 rounded-full bg-fuchsia-500/45 blur-3xl orb-drift-a"></span>
-      <span class="absolute top-[60%] right-[18%] w-40 h-40 rounded-full bg-violet-400/45 blur-3xl orb-drift-b"></span>
-      <span class="absolute top-[30%] right-[40%] w-24 h-24 rounded-full bg-teal-300/40 blur-3xl orb-drift-a"></span>
-      <span class="absolute bottom-[20%] left-[42%] w-28 h-28 rounded-full bg-amber-300/40 blur-3xl orb-drift-b"></span>
-    </div>
-
-    <!-- FRONT LAYER: floating polaroid prints (bob continuously + parallax) -->
-    <div data-parallax="1.3" class="mosaic-front absolute inset-0 pointer-events-none" aria-hidden="true">
-      <div class="absolute top-[6%]  left-[5%]  w-28 md:w-40 polaroid-bob polaroid-bob-1">
-        <div class="polaroid -rotate-10">
-          <img src="/images/featured/12-shadow-deer.jpg"  alt="" class="polaroid-img" loading="lazy" />
-        </div>
-      </div>
-      <div class="absolute top-[10%] right-[6%] w-24 md:w-36 polaroid-bob polaroid-bob-2">
-        <div class="polaroid rotate-8">
-          <img src="/images/featured/5-zig-zag-path.jpg" alt="" class="polaroid-img" loading="lazy" />
-        </div>
-      </div>
-      <div class="absolute bottom-[8%] left-[10%] w-24 md:w-36 polaroid-bob polaroid-bob-3">
-        <div class="polaroid rotate-4">
-          <img src="/images/featured/28-mermaid-treasures.jpg"  alt="" class="polaroid-img" loading="lazy" />
-        </div>
-      </div>
-      <div class="absolute bottom-[10%] right-[8%] w-28 md:w-40 polaroid-bob polaroid-bob-4">
-        <div class="polaroid -rotate-6">
-          <img src="/images/featured/26-owl-transformation.jpg" alt="" class="polaroid-img" loading="lazy" />
-        </div>
-      </div>
-    </div>
-
-    <!-- twinkles floating on top of everything -->
-    <div data-parallax="1.55" class="mosaic-sparkles absolute inset-0 pointer-events-none" aria-hidden="true">
-      <span class="tw absolute top-[22%] left-[28%] w-2 h-2 rounded-full bg-amber-200"></span>
-      <span class="tw absolute top-[44%] right-[32%] w-2.5 h-2.5 rounded-full bg-fuchsia-200" style="animation-delay:0.9s"></span>
-      <span class="tw absolute bottom-[28%] left-[44%] w-2 h-2 rounded-full bg-teal-200" style="animation-delay:1.8s"></span>
-      <span class="tw absolute top-[64%] right-[50%] w-2 h-2 rounded-full bg-white" style="animation-delay:1.3s"></span>
-    </div>
-
-    <!-- Editorial callout card -->
-    <div class="relative z-10 mx-6 w-full max-w-xl">
-      <div class="mosaic-card rounded-3xl px-7 py-12 md:px-12 md:py-14 text-center text-white">
-        <div class="inline-flex items-center gap-3 text-amber-200 mb-5">
-          <span class="text-base">✦</span>
-          <span class="text-xs uppercase tracking-[0.3em]">Welcome</span>
-          <span class="text-base">✦</span>
-        </div>
-        <p class="text-base md:text-xl leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)]">
-          {i.home.welcomeText}
+    <!-- portal card -->
+    <div class="relative z-10 mx-6 w-full max-w-3xl">
+      <div class="portal-card rounded-[2rem] p-8 md:p-14 text-center text-white">
+        <p class="text-xs md:text-sm uppercase tracking-[0.35em] text-amber-200/90 mb-5">A playful mystic realm</p>
+        <h1 class="text-4xl md:text-6xl font-heading leading-[1.05] mb-5">
+          <span class="block">Step Into</span>
+          <span class="block bg-gradient-to-r from-amber-200 via-rose-300 to-fuchsia-300 bg-clip-text text-transparent">the Magic</span>
+        </h1>
+        <p class="text-base md:text-xl max-w-xl mx-auto leading-relaxed text-white/90 mb-8">
+          {i.home.heroSubheadline}
         </p>
-        <svg class="block mx-auto mt-7 w-32 text-amber-200/80" viewBox="0 0 140 14" fill="none" aria-hidden="true">
-          <path d="M2 9 Q 35 1 70 7 T 138 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="/decks"  class="btn-glow">{i.home.heroCtaDecks}</a>
+          <a href="/art"    class="btn-outline">{i.home.heroCtaArt}</a>
+          <a href="/experiences" class="btn-outline">{i.home.heroCtaEvents}</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ========== FEATURED CREATIONS (angled cards) ========== -->
-  <section class="relative py-20 px-6 bg-gradient-to-br from-[#1a0f21] via-[#24132c] to-[#0d1f23] text-white overflow-hidden">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <p class="text-xs uppercase tracking-[0.3em] text-amber-300/80 mb-3">Featured Creations</p>
-        <h2 class="text-3xl md:text-5xl font-heading">Art that dances, decks that speak.</h2>
+  <!-- ========== WELCOME / BRAND INTRO ========== -->
+  <section class="relative py-20 px-6 overflow-hidden bg-white">
+    <div class="relative max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 text-brand-rust mb-4">
+        <span class="h-px w-8 bg-brand-rust"></span>
+        <span class="text-xs uppercase tracking-[0.3em]">Welcome</span>
+        <span class="h-px w-8 bg-brand-rust"></span>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-        {featured.map((f, idx) => (
-          <figure class={`group relative overflow-hidden rounded-2xl ring-1 ring-white/10 hover:ring-amber-300/60 transition-all duration-500 ${idx % 2 === 1 ? 'md:translate-y-8' : ''}`}>
-            <img src={f.src} alt={f.caption} class="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
-            <figcaption class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-              <p class="text-sm md:text-base">{f.caption}</p>
-            </figcaption>
-          </figure>
+      <p class="text-lg md:text-2xl leading-relaxed text-brand-dark">{i.home.welcomeText}</p>
+    </div>
+  </section>
+
+  <!-- ========== FEATURED DECKS (two large cards side-by-side) ========== -->
+  <section class="relative py-24 px-6 bg-gradient-to-b from-[#0f0b1a] via-[#1a1028] to-[#0f0b1a] text-white overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-xs uppercase tracking-[0.35em] text-amber-300/80 mb-3">Featured Creations</p>
+        <h2 class="text-3xl md:text-5xl font-heading">Oracle decks that come alive.</h2>
+        <p class="text-white/70 max-w-2xl mx-auto mt-4 leading-relaxed">{i.decks.intro}</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {decks.map(d => (
+          <article class="group relative overflow-hidden rounded-3xl bg-white/5 ring-1 ring-white/10 hover:ring-amber-300/60 transition-all duration-500">
+            <div class="relative overflow-hidden">
+              <img src={d.img} alt={d.title} class="w-full aspect-[5/4] object-cover group-hover:scale-105 transition-transform duration-[1200ms]" loading="lazy" />
+              <div class={`absolute inset-0 mix-blend-overlay opacity-60 bg-gradient-to-br ${d.accent}`}></div>
+            </div>
+            <div class="p-8">
+              <h3 class="text-2xl font-heading mb-3">{d.title}</h3>
+              <p class="text-white/80 leading-relaxed mb-5">{d.text}</p>
+              <a href="/decks" class="inline-flex items-center gap-2 text-amber-300 font-heading uppercase tracking-wide text-sm hover:text-white transition-colors">
+                Discover <span class="transition-transform group-hover:translate-x-1">→</span>
+              </a>
+            </div>
+          </article>
         ))}
       </div>
-      <div class="text-center mt-12">
-        <a href="/art" class="inline-block btn-primary">{i.home.heroCtaArt}</a>
-      </div>
     </div>
   </section>
 
-  <!-- ========== WHAT KENTCHI OFFERS (4 vibrant cards) ========== -->
-  <section class="py-20 px-6 bg-brand-light">
+  <!-- ========== WHAT KENTCHI OFFERS (4 compact mystic cards) ========== -->
+  <section class="py-24 px-6 bg-brand-light">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <p class="text-xs uppercase tracking-[0.3em] text-brand-rust mb-3">What Kentchi Offers</p>
-        <h2 class="text-3xl md:text-5xl font-heading text-brand-dark">Portals of play and creation.</h2>
+      <div class="text-center mb-14">
+        <p class="text-xs uppercase tracking-[0.35em] text-brand-rust mb-3">What Kentchi Offers</p>
+        <h2 class="text-3xl md:text-5xl font-heading text-brand-dark">Four doorways into the magic.</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {offers.map(o => (
-          <a href={o.href} class={`group relative block rounded-2xl p-8 bg-gradient-to-br ${o.tone} bg-white hover:-translate-y-1 transition-all duration-300 ring-1 ${o.ring} hover:ring-2`}>
-            <h3 class="text-2xl font-heading text-brand-dark mb-3 group-hover:text-brand-purple transition-colors">{o.title}</h3>
-            <p class="text-brand-dark/80 leading-relaxed mb-4">{o.text}</p>
-            <span class="inline-flex items-center gap-2 text-brand-rust font-heading uppercase tracking-wide text-sm">
-              Explore <span class="transition-transform group-hover:translate-x-1">→</span>
-            </span>
+          <a href={o.href} class="group relative block rounded-2xl bg-white p-7 ring-1 ring-black/5 hover:ring-brand-purple/50 hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-rose-300 to-fuchsia-400 text-white flex items-center justify-center text-xl mb-5 group-hover:rotate-12 transition-transform">
+              <span aria-hidden="true">{o.icon}</span>
+            </div>
+            <h3 class="text-lg font-heading text-brand-dark mb-3 group-hover:text-brand-purple transition-colors">{o.title}</h3>
+            <p class="text-sm text-brand-dark/75 leading-relaxed">{o.text}</p>
           </a>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MEET KENTCHI (portrait cameo — reintroduces Kent) ========== -->
+  <section class="relative py-20 px-6 bg-white overflow-hidden">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[auto,1fr] gap-10 items-center">
+      <div class="relative mx-auto md:mx-0">
+        <div class="absolute -inset-4 rounded-full bg-gradient-to-br from-amber-300 via-fuchsia-400 to-teal-400 blur-xl opacity-60 anim-pulse"></div>
+        <img
+          src="/images/hero-portrait.avif"
+          alt="Kentchi"
+          class="relative w-48 h-48 md:w-60 md:h-60 rounded-full object-cover ring-4 ring-white shadow-xl"
+          loading="lazy"
+        />
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.3em] text-brand-rust mb-3">Meet Kentchi</p>
+        <h2 class="text-3xl md:text-4xl font-heading text-brand-dark mb-4">Artist, teacher, magic-maker.</h2>
+        <p class="text-brand-dark/80 leading-relaxed mb-5">
+          Hi, I'm Kentchi — artist, oracle deck creator, musician, and your playful guide into the realm of mystic making. Whether you're pulling a card, watching my paintings dance through your phone with <strong>Artivive</strong>, or joining a circle to birth <em>your own</em> visionary creations, everything here is designed to awaken the wonder-child inside you.
+        </p>
+        <a href="/about" class="inline-flex items-center gap-2 text-brand-purple font-heading uppercase tracking-wide text-sm hover:text-brand-rust transition-colors">
+          More about Kentchi →
+        </a>
       </div>
     </div>
   </section>
 
   <!-- ========== MAGIC IN MOTION (AR) ========== -->
-  <section class="relative py-24 px-6 overflow-hidden bg-brand-purple text-white">
+  <section class="relative py-24 px-6 overflow-hidden text-white">
+    <div
+      class="absolute inset-0"
+      style="background-image: url('/images/featured/25-kambo-ascension.jpg'); background-size: cover; background-position: center;"
+      aria-hidden="true"
+    ></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-[#34045C]/90 via-[#1a0a2b]/88 to-[#0f0b1a]/92" aria-hidden="true"></div>
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-      <span class="absolute top-8 left-12 w-72 h-72 rounded-full bg-fuchsia-500/30 blur-3xl anim-float"></span>
-      <span class="absolute bottom-0 right-8 w-80 h-80 rounded-full bg-amber-300/25 blur-3xl anim-float-slow"></span>
+      <span class="absolute top-10 left-10 w-64 h-64 rounded-full bg-amber-300/30 blur-3xl anim-float"></span>
+      <span class="absolute bottom-10 right-10 w-72 h-72 rounded-full bg-fuchsia-500/30 blur-3xl anim-float-slow"></span>
     </div>
     <div class="relative max-w-4xl mx-auto text-center">
-      <p class="text-xs uppercase tracking-[0.3em] text-amber-300/80 mb-3">Artivive · Free on iOS &amp; Android</p>
+      <p class="text-xs uppercase tracking-[0.35em] text-amber-300/90 mb-3">Artivive · Free on iOS &amp; Android</p>
       <h2 class="text-3xl md:text-5xl font-heading mb-6">{i.home.arHeading}</h2>
       <p class="text-lg md:text-xl leading-relaxed max-w-2xl mx-auto text-white/90">{i.home.arText}</p>
     </div>
   </section>
 
-  <!-- ========== INSTAGRAM TILES ========== -->
-  <section class="py-20 px-6 bg-white">
+  <!-- ========== INSTAGRAM: overlapping polaroid tiles ========== -->
+  <section class="py-24 px-6 bg-brand-light">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-10">
-        <p class="text-xs uppercase tracking-[0.3em] text-brand-rust mb-3">Instagram</p>
+      <div class="text-center mb-12">
+        <p class="text-xs uppercase tracking-[0.35em] text-brand-rust mb-3">Instagram</p>
         <h2 class="text-3xl md:text-5xl font-heading mb-3">{i.home.followHeading}</h2>
         <p class="text-brand-dark/70 max-w-2xl mx-auto">{i.home.followIntro}</p>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {igTiles.map(t => (
-          <a href={t.href} target="_blank" rel="noopener noreferrer" class="group relative block overflow-hidden rounded-xl ring-1 ring-brand-gold/30 hover:ring-brand-gold transition-all">
-            <img src={t.src} alt={t.handle} class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent opacity-90 group-hover:opacity-95 transition-opacity"></div>
-            <div class="absolute inset-x-0 bottom-0 p-4 text-white">
-              <h3 class="font-heading text-sm mb-1 wrap-break-word">{t.handle}</h3>
-              <p class="text-xs leading-relaxed text-white/85 line-clamp-3">{t.text}</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {igTiles.map((t, i) => (
+          <a
+            href={t.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={[
+              'group relative block bg-white p-3 pb-14 shadow-[0_18px_40px_-20px_rgba(52,4,92,0.35)] rounded-sm hover:-translate-y-1 hover:rotate-0 transition-all duration-300',
+              i % 2 === 0 ? '-rotate-2' : 'rotate-2',
+            ]}
+          >
+            <div class="relative overflow-hidden">
+              <img src={t.src} alt={t.handle} class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+            </div>
+            <div class="px-1 mt-3">
+              <h3 class="font-heading text-sm text-brand-dark mb-1 wrap-break-word">{t.handle}</h3>
+              <p class="text-[11px] leading-snug text-brand-dark/70 line-clamp-3">{t.text}</p>
             </div>
           </a>
         ))}
       </div>
-      <p class="text-center mt-12 text-lg md:text-xl font-heading">
-        {i.home.finalCta}
-        <a href="/contact" class="ml-2 text-brand-rust underline decoration-brand-rust underline-offset-4 hover:text-brand-purple transition-colors">Get in touch →</a>
-      </p>
+
+      <div class="text-center mt-14">
+        <p class="text-lg md:text-2xl font-heading text-brand-dark mb-5">{i.home.finalCta}</p>
+        <a href="/contact" class="btn-glow-dark">Get in touch →</a>
+      </div>
     </div>
   </section>
 </Layout>
 
 <style>
+  @keyframes drift {
+    0%, 100% { transform: scale(1.08) translate3d(0, 0, 0); }
+    50%      { transform: scale(1.12) translate3d(-1%, -1%, 0); }
+  }
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50%      { opacity: 1; transform: scale(1); }
+  }
   @keyframes float {
     0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50%      { transform: translate3d(8px, -14px, 0) scale(1.05); }
+    50%      { transform: translate3d(10px, -14px, 0) scale(1.05); }
   }
   @keyframes float-slow {
     0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50%      { transform: translate3d(-12px, 10px, 0) scale(1.08); }
+    50%      { transform: translate3d(-14px, 12px, 0) scale(1.08); }
   }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .hero-glass {
-    background: linear-gradient(135deg, rgba(30, 10, 55, 0.55), rgba(10, 20, 45, 0.55));
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow:
-      0 30px 80px -30px rgba(0, 0, 0, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%      { opacity: 0.85; transform: scale(1.04); }
   }
 
+  .anim-drift      { animation: drift 16s ease-in-out infinite; }
   .anim-float      { animation: float 9s ease-in-out infinite; }
   .anim-float-slow { animation: float-slow 13s ease-in-out infinite; }
-  .anim-rise       { animation: rise 0.9s ease-out both; }
-  .anim-rise:nth-child(2) { animation-delay: 0.15s; }
-  .anim-rise:nth-child(3) { animation-delay: 0.3s; }
-  .anim-rise:nth-child(4) { animation-delay: 0.45s; }
+  .anim-pulse      { animation: pulse-ring 4.5s ease-in-out infinite; }
 
-  .btn-primary {
+  .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 14px 4px rgba(255, 230, 180, 0.85);
+    animation: sparkle 3.5s ease-in-out infinite;
+  }
+
+  .portal-card {
+    background: linear-gradient(135deg, rgba(30, 10, 55, 0.72), rgba(10, 20, 45, 0.72));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-glow {
     display: inline-block;
-    padding: 0.85rem 1.5rem;
+    padding: 0.9rem 1.6rem;
     font-family: var(--font-heading);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     font-size: 0.85rem;
     color: #140a18;
-    background-image: linear-gradient(135deg, #f4c758, #e6739f 60%, #7dd3c0);
+    background-image: linear-gradient(135deg, #ffd773, #ff8fb2 55%, #a78bfa);
     border-radius: 9999px;
-    box-shadow: 0 10px 30px -10px rgba(244, 199, 88, 0.5);
+    box-shadow: 0 12px 40px -10px rgba(255, 143, 178, 0.65);
     transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
   }
-  .btn-primary:hover {
+  .btn-glow:hover {
     transform: translateY(-2px);
-    filter: brightness(1.05);
-    box-shadow: 0 16px 40px -10px rgba(230, 115, 159, 0.55);
+    filter: brightness(1.07);
+    box-shadow: 0 18px 50px -12px rgba(167, 139, 250, 0.6);
   }
 
-  .btn-ghost {
+  .btn-glow-dark {
     display: inline-block;
-    padding: 0.85rem 1.5rem;
+    padding: 0.9rem 1.6rem;
     font-family: var(--font-heading);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     font-size: 0.85rem;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.55);
+    background-image: linear-gradient(135deg, #34045C, #a84b1f);
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 12px 40px -10px rgba(52, 4, 92, 0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+  .btn-glow-dark:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 0.9rem 1.6rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(6px);
     transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
   }
-  .btn-ghost:hover {
+  .btn-outline:hover {
     background: rgba(255, 255, 255, 0.95);
     color: #140a18;
     border-color: #fff;
   }
 
-  /* ===== Mystic Mosaic (parallax welcome) =====
-     Two paths: native CSS scroll-driven animations for modern browsers
-     (Chrome/Edge ≥ 115), JS fallback below for Safari/Firefox. */
-  @supports (animation-timeline: view()) {
-    [data-parallax-section] {
-      view-timeline: --parallax-track block;
-    }
-    /* See experiences.astro for the canonical comment.
-       Half-range ≈ (1 − speed) × 100%. */
-    @keyframes parallax-y {
-      from { transform: translate3d(0, calc(var(--py-half) * -1), 0) scale(var(--p-scale, 1)); }
-      to   { transform: translate3d(0, var(--py-half),          0) scale(var(--p-scale, 1)); }
-    }
-    [data-parallax-section] [data-parallax] {
-      animation: parallax-y linear both;
-      animation-timeline: --parallax-track;
-      will-change: transform;
-    }
-    /* Mid layer composes the existing breathe animation with parallax.
-       Also overrides --py-half because this element is only 44vh tall
-       (vs the section's 92vh) — a %-based half-range would shrink the
-       translation in half. Use an absolute vh value to match JS speed 0.55:
-       half-range = (1 − 0.55) × (viewport + section)/2 ≈ 43vh. */
-    [data-parallax-section] [data-parallax].mosaic-mid {
-      animation: mosaic-breathe 8s ease-in-out infinite, parallax-y linear both;
-      animation-timeline: auto, --parallax-track;
-      --py-half: 43vh;
-    }
-    [data-parallax="0.2"]  { --py-half:  83%; --p-scale: 1.12; }
-    [data-parallax="0.55"] { --py-half:  47%; --p-scale: 1.05; }
-    [data-parallax="1.05"] { --py-half:  -5%; }
-    [data-parallax="1.3"]  { --py-half: -31%; }
-    [data-parallax="1.55"] { --py-half: -57%; }
-  }
-
-  /* Legacy JS-driven path (Safari/Firefox fallback) */
-  .mosaic-back {
-    transform: translateY(var(--py, 0)) scale(1.12);
-    filter: blur(20px) saturate(80%) brightness(0.55);
-    will-change: transform;
-  }
-  .mosaic-mid {
-    transform: translateY(var(--py, 0)) scale(1.05);
-    mix-blend-mode: screen;
-    opacity: 0.55;
-    animation: mosaic-breathe 8s ease-in-out infinite;
-    will-change: transform, opacity, filter;
-  }
-  .mosaic-orbs {
-    transform: translateY(var(--py, 0));
-    will-change: transform;
-  }
-  .mosaic-front {
-    transform: translateY(var(--py, 0));
-    will-change: transform;
-  }
-  .mosaic-sparkles {
-    transform: translateY(var(--py, 0));
-    will-change: transform;
-  }
-  .mosaic-card {
-    background: linear-gradient(135deg, rgba(30, 10, 55, 0.62), rgba(10, 20, 45, 0.62));
-    backdrop-filter: blur(14px) saturate(120%);
-    -webkit-backdrop-filter: blur(14px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow:
-      0 30px 80px -30px rgba(0, 0, 0, 0.6),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-  .polaroid {
-    background: #fff;
-    padding: 8px 8px 28px 8px;
-    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.65);
-  }
-  .polaroid-img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* Continuous time-based motion */
-  @keyframes orb-drift-a {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50%      { transform: translate3d(14px, -10px, 0) scale(1.07); }
-  }
-  @keyframes orb-drift-b {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50%      { transform: translate3d(-12px, 12px, 0) scale(1.09); }
-  }
-  .orb-drift-a { animation: orb-drift-a 11s ease-in-out infinite; }
-  .orb-drift-b { animation: orb-drift-b 14s ease-in-out infinite; }
-
-  @keyframes polaroid-bob {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-9px); }
-  }
-  .polaroid-bob   { animation: polaroid-bob 7s ease-in-out infinite; }
-  .polaroid-bob-1 { animation-duration: 7s;   animation-delay:  0s; }
-  .polaroid-bob-2 { animation-duration: 8.5s; animation-delay: -2s; }
-  .polaroid-bob-3 { animation-duration: 9.5s; animation-delay: -4s; }
-  .polaroid-bob-4 { animation-duration: 6.5s; animation-delay: -1s; }
-
-  @keyframes mosaic-breathe {
-    0%, 100% { opacity: 0.5;  filter: brightness(0.92); }
-    50%      { opacity: 0.65; filter: brightness(1.1); }
-  }
-
-  @keyframes tw {
-    0%, 100% { opacity: 0.2; transform: scale(0.7); }
-    50%      { opacity: 1;   transform: scale(1.25); }
-  }
-  .tw {
-    animation: tw 3.2s ease-in-out infinite;
-    box-shadow: 0 0 12px 3px currentColor;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .anim-float, .anim-float-slow, .anim-rise, .tw,
-    .orb-drift-a, .orb-drift-b, .polaroid-bob, .mosaic-mid { animation: none; }
-    .mosaic-back, .mosaic-mid, .mosaic-orbs, .mosaic-front, .mosaic-sparkles { transform: none; }
-    [data-parallax-section] [data-parallax] { animation: none; }
+    .anim-drift, .anim-float, .anim-float-slow, .anim-pulse, .sparkle { animation: none; }
   }
 </style>
-
-<script>
-  (function () {
-    // Modern browsers handle parallax via native scroll-driven animations.
-    if (CSS.supports('animation-timeline: view()')) return;
-
-    const items = document.querySelectorAll<HTMLElement>('[data-parallax]');
-    if (!items.length) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let raf = 0;
-    function update() {
-      items.forEach((el) => {
-        const speed = parseFloat(el.getAttribute('data-parallax') || '1');
-        const section = el.closest('[data-parallax-section]') || el.parentElement;
-        if (!section) return;
-        const rect = section.getBoundingClientRect();
-        const offset = -rect.top * (1 - speed);
-        el.style.setProperty('--py', offset.toFixed(2) + 'px');
-      });
-      raf = 0;
-    }
-
-    function schedule() {
-      if (!raf) raf = requestAnimationFrame(update);
-    }
-
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule, { passive: true });
-    update();
-  })();
-</script>
