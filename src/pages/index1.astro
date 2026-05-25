@@ -268,7 +268,30 @@ const igTiles = [
     border-color: #fff;
   }
 
-  /* ===== Living Diorama (parallax welcome) ===== */
+  /* ===== Living Diorama (parallax welcome) =====
+     Two paths: native CSS scroll-driven animations for modern browsers
+     (Chrome/Edge ≥ 115), JS fallback below for Safari/Firefox. */
+  @supports (animation-timeline: view()) {
+    [data-parallax-section] {
+      view-timeline: --parallax-track block;
+    }
+    /* See experiences.astro for the canonical comment.
+       Half-range ≈ (1 − speed) × 100%. */
+    @keyframes parallax-y {
+      from { transform: translate3d(0, calc(var(--py-half) * -1), 0) scale(var(--p-scale, 1)); }
+      to   { transform: translate3d(0, var(--py-half),          0) scale(var(--p-scale, 1)); }
+    }
+    [data-parallax-section] [data-parallax] {
+      animation: parallax-y linear both;
+      animation-timeline: --parallax-track;
+      will-change: transform;
+    }
+    [data-parallax="0.25"] { --py-half:  80%; --p-scale: 1.18; }
+    [data-parallax="0.7"]  { --py-half:  32%; --p-scale: 1.04; }
+    [data-parallax="1.35"] { --py-half: -37%; }
+  }
+
+  /* Legacy JS-driven path (Safari/Firefox fallback) */
   .diorama-back {
     transform: translateY(var(--py, 0)) scale(1.18);
     filter: blur(22px) saturate(115%) brightness(0.95);
@@ -314,12 +337,16 @@ const igTiles = [
     .anim-float, .anim-float-slow, .anim-rise,
     .orb-drift-a, .orb-drift-b, .tw { animation: none; }
     .diorama-back, .diorama-mid, .diorama-front { transform: none; }
+    [data-parallax-section] [data-parallax] { animation: none; }
   }
 </style>
 
 <script>
   (function () {
-    const items = document.querySelectorAll('[data-parallax]');
+    // Modern browsers handle parallax via native scroll-driven animations.
+    if (CSS.supports('animation-timeline: view()')) return;
+
+    const items = document.querySelectorAll<HTMLElement>('[data-parallax]');
     if (!items.length) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 

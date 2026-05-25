@@ -210,6 +210,32 @@ const i = t('es');
 </Layout>
 
 <style>
+  /* ===== Parallax layer transforms =====
+     Two paths: native CSS scroll-driven animations for modern browsers
+     (Chrome/Edge ≥ 115), legacy JS for Safari/Firefox. See experiences.astro
+     for the canonical comment. */
+  @supports (animation-timeline: view()) {
+    [data-parallax-section] {
+      view-timeline: --parallax-track block;
+    }
+    /* See experiences.astro for the canonical comment.
+       Half-range ≈ (1 − speed) × 100%. */
+    @keyframes parallax-y {
+      from { transform: translate3d(0, calc(var(--py-half) * -1), 0) scale(var(--p-scale, 1)); }
+      to   { transform: translate3d(0, var(--py-half),          0) scale(var(--p-scale, 1)); }
+    }
+    [data-parallax-section] [data-parallax] {
+      animation: parallax-y linear both;
+      animation-timeline: --parallax-track;
+      will-change: transform;
+    }
+    [data-parallax="0.25"] { --py-half:  80%; --p-scale: 1.1; }
+    [data-parallax="1.05"] { --py-half:  -5%; }
+    [data-parallax="1.1"]  { --py-half: -11%; }
+    [data-parallax="1.4"]  { --py-half: -43%; }
+  }
+
+  /* Legacy JS-driven path (Safari/Firefox fallback) */
   .exp-hero-bg       { transform: translateY(var(--py, 0)) scale(1.1); will-change: transform; }
   .exp-hero-orbs     { transform: translateY(var(--py, 0)); will-change: transform; }
   .exp-hero-sparkles { transform: translateY(var(--py, 0)); will-change: transform; }
@@ -271,12 +297,16 @@ const i = t('es');
   @media (prefers-reduced-motion: reduce) {
     .orb-drift-a, .orb-drift-b, .sparkle { animation: none; }
     .exp-hero-bg, .exp-hero-orbs, .exp-hero-sparkles { transform: none; }
+    [data-parallax-section] [data-parallax] { animation: none; }
     video { opacity: 0.6; }
   }
 </style>
 
 <script>
   (function () {
+    // Modern browsers handle parallax via native scroll-driven animations.
+    if (CSS.supports('animation-timeline: view()')) return;
+
     const items = document.querySelectorAll<HTMLElement>('[data-parallax]');
     if (!items.length) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;

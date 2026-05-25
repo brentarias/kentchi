@@ -313,7 +313,42 @@ const igTiles = [
     border-color: #fff;
   }
 
-  /* ===== Mystic Mosaic (parallax welcome) ===== */
+  /* ===== Mystic Mosaic (parallax welcome) =====
+     Two paths: native CSS scroll-driven animations for modern browsers
+     (Chrome/Edge ≥ 115), JS fallback below for Safari/Firefox. */
+  @supports (animation-timeline: view()) {
+    [data-parallax-section] {
+      view-timeline: --parallax-track block;
+    }
+    /* See experiences.astro for the canonical comment.
+       Half-range ≈ (1 − speed) × 100%. */
+    @keyframes parallax-y {
+      from { transform: translate3d(0, calc(var(--py-half) * -1), 0) scale(var(--p-scale, 1)); }
+      to   { transform: translate3d(0, var(--py-half),          0) scale(var(--p-scale, 1)); }
+    }
+    [data-parallax-section] [data-parallax] {
+      animation: parallax-y linear both;
+      animation-timeline: --parallax-track;
+      will-change: transform;
+    }
+    /* Mid layer composes the existing breathe animation with parallax.
+       Also overrides --py-half because this element is only 44vh tall
+       (vs the section's 92vh) — a %-based half-range would shrink the
+       translation in half. Use an absolute vh value to match JS speed 0.55:
+       half-range = (1 − 0.55) × (viewport + section)/2 ≈ 43vh. */
+    [data-parallax-section] [data-parallax].mosaic-mid {
+      animation: mosaic-breathe 8s ease-in-out infinite, parallax-y linear both;
+      animation-timeline: auto, --parallax-track;
+      --py-half: 43vh;
+    }
+    [data-parallax="0.2"]  { --py-half:  83%; --p-scale: 1.12; }
+    [data-parallax="0.55"] { --py-half:  47%; --p-scale: 1.05; }
+    [data-parallax="1.05"] { --py-half:  -5%; }
+    [data-parallax="1.3"]  { --py-half: -31%; }
+    [data-parallax="1.55"] { --py-half: -57%; }
+  }
+
+  /* Legacy JS-driven path (Safari/Firefox fallback) */
   .mosaic-back {
     transform: translateY(var(--py, 0)) scale(1.12);
     filter: blur(20px) saturate(80%) brightness(0.55);
@@ -399,11 +434,15 @@ const igTiles = [
     .anim-float, .anim-float-slow, .anim-rise, .tw,
     .orb-drift-a, .orb-drift-b, .polaroid-bob, .mosaic-mid { animation: none; }
     .mosaic-back, .mosaic-mid, .mosaic-orbs, .mosaic-front, .mosaic-sparkles { transform: none; }
+    [data-parallax-section] [data-parallax] { animation: none; }
   }
 </style>
 
 <script>
   (function () {
+    // Modern browsers handle parallax via native scroll-driven animations.
+    if (CSS.supports('animation-timeline: view()')) return;
+
     const items = document.querySelectorAll<HTMLElement>('[data-parallax]');
     if (!items.length) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
