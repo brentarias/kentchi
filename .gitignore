@@ -29,6 +29,11 @@ Cloudinary_access.md
 # playwright mcp artifacts
 .playwright-mcp/
 
+# scratch pad: unused / superseded art kept only as a local frame of reference
+# (OG card experiments, favicon variants, monogram source + traces, design
+# screenshots). Never served by the site; never committed.
+scratch_pad/
+
 # dev / debug screenshots (manual page captures, not website content)
 screenshots/
 

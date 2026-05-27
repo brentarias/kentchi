@@ -65,7 +65,7 @@ Per [docs/superpowers/specs/2026-05-22-image-protection-design.md](docs/superpow
 | `public/images/gallery/art-14.jpg` | 600 × 600 | 600 | 96 KB | 🟢 |
 | `public/images/gallery/art-15.jpg` | 600 × 600 | 600 | 123 KB | 🟢 |
 | `public/images/logo.png` | 404 × 262 | 404 | 135 KB | 🟢 |
-| `public/favicon.svg` | — | — | < 1 KB | — |
+| `public/keyhole.svg` | — | — | < 1 KB | — |
 
 ## Notes
 

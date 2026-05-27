@@ -133,6 +133,11 @@
     "submitButton": "Send"
   },
   "footer": {
-    "copyright": "©2021 by Kent Osborn."
+    "copyright": "© {year} Kent Osborn.",
+    "siteBy": "Site by"
+  },
+  "meta": {
+    "siteName": "Kentchi",
+    "siteDescription": "Visionary art, oracle decks, and the illustrated memoir El Estimado from Kent Osborn — published under his imprint, Keyhole Mystic Publishing."
   }
 }

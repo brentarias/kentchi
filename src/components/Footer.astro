@@ -7,6 +7,7 @@ interface Props {
 
 const { lang = defaultLang } = Astro.props;
 const i = t(lang);
+const copyright = i.footer.copyright.replace('{year}', String(new Date().getFullYear()));
 ---
 
 <footer class="bg-brand-dark text-white py-8">
@@ -74,6 +75,15 @@ const i = t(lang);
       </a>
     </div>
 
-    <p class="text-sm opacity-75">{i.footer.copyright}</p>
+    <p class="text-sm opacity-75">{copyright}</p>
+    <p class="text-xs opacity-50">
+      {i.footer.siteBy}{' '}
+      <a
+        href="https://axiscode.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-brand-gold transition-colors"
+      >AxisCode</a>
+    </p>
   </div>
 </footer>

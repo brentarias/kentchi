@@ -133,6 +133,11 @@
     "submitButton": "Enviar"
   },
   "footer": {
-    "copyright": "©2021 por Kent Osborn."
+    "copyright": "© {year} Kent Osborn.",
+    "siteBy": "Sitio por"
+  },
+  "meta": {
+    "siteName": "Kentchi",
+    "siteDescription": "Arte visionario, mazos oraculares y el libro ilustrado El Estimado de Kent Osborn — publicados bajo su sello, Keyhole Mystic Publishing."
   }
 }
