@@ -9,7 +9,8 @@
     "contact": "Contacto"
   },
   "home": {
-    "title": "Inicio | Kent Osborn",
+    "title": "Kentchi — Arte Visionario, Mazos Oraculares y Libros Místicos",
+    "metaDescription": "Kent Osborn — Kentchi — entreteje pinturas visionarias, mazos oraculares con realidad aumentada y el libro ilustrado El Estimado en experiencias que despiertan alegría y asombro.",
     "heroHeadline": "Entra en la Magia – Donde el Arte Cobra Vida",
     "heroSubheadline": "Kentchi teje pinturas visionarias, oráculos encantadores y maravillas de realidad aumentada en experiencias que despiertan alegría, creatividad y conexión.",
     "heroCtaDecks": "Explorar Oráculos",
@@ -41,6 +42,7 @@
   },
   "decks": {
     "title": "Oráculos y Libros Místicos | Kent Osborn",
+    "metaDescription": "Shinan Oracle, Magnetic Magi y el próximo Through the Keyhole — mazos oraculares pintados a mano y con realidad aumentada, del sello de Kent, Keyhole Mystic Publishing.",
     "heading": "Desbloquea Tu Oráculo Interior",
     "subheading": "Hermosos oráculos, orientación poderosa y la alegría de la creación.",
     "intro": "Los oráculos de Kentchi son más que herramientas de orientación — son obras de arte que invitan al juego, el asombro y la transformación personal. El Oráculo Shinan ha tocado miles de personas con sus vibrantes imágenes y sabios consejos, mientras que el Magnetic Magi trae nueva magia a la mesa. Muchos de estos oráculos cobran vida a través de Artivive — descarga la aplicación gratuita, apunta tu teléfono a las cartas y míralas danzar y revelar capas ocultas de belleza y significado.",
@@ -78,6 +80,7 @@
   },
   "art": {
     "title": "Arte Visionario | Kent Osborn",
+    "metaDescription": "Las pinturas visionarias de Kentchi unen la estética sagrada con la realidad aumentada — apunta tu teléfono al arte y míralo respirar, danzar y brillar.",
     "heading": "Arte que Vive y Respira",
     "intro": "Las pinturas de Kentchi son explosiones de color, patrón e historia. Arraigadas en la estética visionaria e infundidas de magia personal, cada pieza lleva su propio espíritu. ¿La cereza del pastel? Muchas de ellas están mejoradas con Artivive. Descarga la aplicación gratuita, apunta tu cámara a una pieza y mira cómo la pintura despierta — las formas giran, los colores pulsan, emergen elementos ocultos. Es pura alegría en forma visual.",
     "galleryHeading": "Galería",
@@ -88,6 +91,7 @@
   },
   "experiences": {
     "title": "Experiencias ImaginArte | Kent Osborn",
+    "metaDescription": "Pintura en vivo, murales y eventos de arte con realidad aumentada — reúnete con Kentchi en talleres, círculos y experiencias creativas llenas de color y conexión.",
     "heading": "Experiencias ImaginArte",
     "subheading": "Donde el arte se convierte en encuentro.",
     "intro": "Parte del mejor trabajo de Kent no sucede en un estudio — sucede al aire libre, en una pared prestada, en medio de una conversación inesperada. Las Experiencias ImaginArte son los momentos donde su pincel se encuentra con tu día, y algo nuevo toma forma entre ustedes.",
@@ -106,6 +110,7 @@
   },
   "music": {
     "title": "Música | Kent Osborn",
+    "metaDescription": "Canciones y paisajes sonoros originales de Kentchi — otra puerta hacia el reino místico y juguetón que acompaña la magia visual.",
     "heading": "Música de la Misma Chispa",
     "intro": "La música de Kentchi — bajo el nombre Inkentations — fluye del mismo pozo creativo que su arte visual y sus oráculos. Canciones profundas, composiciones originales y viajes sonoros que acompañan la magia visual y elevan el espíritu. Desde sus primeras raíces en el piano y el teatro hasta canciones que surgieron en momentos de profundo asombro, la música lleva un sentido de juego, sanación y expresión pura.",
     "listenHeading": "Escucha Aquí",
@@ -114,6 +119,7 @@
   },
   "about": {
     "title": "Acerca | Kent Osborn",
+    "metaDescription": "Conoce a Kent Osborn — Kentchi — artista visionario autodidacta, creador de mazos oraculares y fundador de Keyhole Mystic Publishing.",
     "heading": "Conoce a Kent Osborn – Artista, Maestro, Creador de Magia",
     "body": "Kent Osborn, conocido cariñosamente como Kentchi, ha estado creando desde que pudo sostener un lápiz. Desde dibujos de infancia a través de años de exploración musical y arte visionario, su camino siempre ha sido guiado por el asombro y el deseo de ayudar a otros a despertar su propio espíritu creativo.",
     "body2": "Hoy es conocido por sus impresionantes oráculos (incluyendo el Oráculo Shinan y el Magnetic Magi), pinturas mejoradas con RA impulsadas por Artivive, música original y un estilo de enseñanza alegre. Cada pintura, cada carta, cada imagen en su trabajo está hecha a mano — dibujada, pintada y concebida por Kent mismo, no generada por IA. Su arte es el producto de una práctica de toda la vida y una visión creativa profundamente personal, y la capa de Artivive es simplemente una forma de dar una nueva dimensión a esa magia hecha a mano.",
@@ -124,6 +130,7 @@
   },
   "contact": {
     "title": "Contacto | Kent Osborn",
+    "metaDescription": "Comunícate directamente con Kent Osborn para pedir un oráculo o El Estimado, organizar un evento o conversar sobre Keyhole Mystic Publishing.",
     "heading": "Ponte en Contacto",
     "intro": "Ya sea que tengas curiosidad sobre los oráculos, estés interesado en un taller o retiro, esperes colaborar en un proyecto de libro místico, o simplemente quieras saludar — Kentchi adoraría saber de ti.",
     "info": "Para consultas, por favor escribe a ayahuaskent@gmail.com",

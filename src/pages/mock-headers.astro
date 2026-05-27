@@ -1,0 +1,383 @@
+---
+import '../styles/global.css';
+import MockHeaderA from '../components/MockHeaderA.astro';
+import MockHeaderB from '../components/MockHeaderB.astro';
+import MockHeaderC from '../components/MockHeaderC.astro';
+import MockHeaderD from '../components/MockHeaderD.astro';
+import { t } from '../i18n';
+
+const i = t('en');
+const navItems = [
+  { label: i.nav.home,        href: '/' },
+  { label: i.nav.decks,       href: '/decks' },
+  { label: i.nav.art,         href: '/art' },
+  { label: i.nav.experiences, href: '/experiences' },
+  { label: i.nav.music,       href: '/music' },
+  { label: i.nav.about,       href: '/about' },
+  { label: i.nav.contact,     href: '/contact' },
+];
+
+// Dummy "page bodies" — short scrollable content so the user can feel
+// the sticky header behavior and verify the active state after tapping a link.
+const pageBodies: Record<string, { eyebrow: string; lede: string }> = {
+  '/':            { eyebrow: 'Welcome',     lede: "You are on the home page. Tap the menu to jump anywhere — watch for the tap feedback and the active indicator." },
+  '/decks':       { eyebrow: 'The Catalog', lede: 'Shinan Oracle · Magnetic Magi · Through the Keyhole · El Estimado.' },
+  '/art':         { eyebrow: 'The Gallery', lede: "Kentchi's visionary paintings live here." },
+  '/experiences': { eyebrow: 'In the World', lede: 'Live painting, murals, AR-enhanced art events.' },
+  '/music':       { eyebrow: 'The Sound',   lede: 'Sound healings and musical accompaniment.' },
+  '/about':       { eyebrow: 'The Artist',  lede: 'A life painted in dreams, circles, and color.' },
+  '/contact':     { eyebrow: 'Reach Out',   lede: 'A note travels from the studio to your hands.' },
+};
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Header Mockups — Kentchi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- =================================================================
+       Floating design switcher (bottom-left, doesn't compete with headers)
+       ================================================================= -->
+  <div class="design-switcher" data-design-switcher>
+    <p class="ds-label">Mockup</p>
+    <div class="ds-tabs">
+      <button data-design="a" class="ds-tab is-active">
+        <span class="ds-tab-letter">A</span>
+        <span class="ds-tab-name">App&nbsp;Bar</span>
+      </button>
+      <button data-design="b" class="ds-tab">
+        <span class="ds-tab-letter">B</span>
+        <span class="ds-tab-name">Pill</span>
+      </button>
+      <button data-design="c" class="ds-tab">
+        <span class="ds-tab-letter">C</span>
+        <span class="ds-tab-name">Editorial</span>
+      </button>
+      <button data-design="d" class="ds-tab">
+        <span class="ds-tab-letter">D</span>
+        <span class="ds-tab-name">App&nbsp;Centered</span>
+      </button>
+    </div>
+    <p class="ds-hint" data-ds-hint>
+      Sticky app-bar with a page title that's always visible. Hamburger opens a full-screen menu overlay with tap-feedback animation.
+    </p>
+  </div>
+
+  <!-- =================================================================
+       Design A — App Bar
+       ================================================================= -->
+  <section data-mock-stage="a" class="mock-stage">
+    <MockHeaderA navItems={navItems} />
+    <main class="dummy-page" data-dummy="a">
+      <p class="dummy-eyebrow" data-dummy-eyebrow>Welcome</p>
+      <h2 class="dummy-title" data-dummy-title>Home</h2>
+      <p class="dummy-lede" data-dummy-lede>
+        You are on the home page. Tap the menu to jump anywhere — watch for the tap feedback and the active indicator.
+      </p>
+      <div class="dummy-spacer" aria-hidden="true"></div>
+      <p class="dummy-foot">Scroll to feel the sticky header. Tap the burger (or use the desktop nav) to navigate.</p>
+    </main>
+  </section>
+
+  <!-- =================================================================
+       Design B — Floating Pill
+       ================================================================= -->
+  <section data-mock-stage="b" class="mock-stage" hidden>
+    <MockHeaderB navItems={navItems} />
+    <main class="dummy-page dummy-page--dark" data-dummy="b">
+      <p class="dummy-eyebrow dummy-eyebrow--gold" data-dummy-eyebrow>Welcome</p>
+      <h2 class="dummy-title dummy-title--light" data-dummy-title>Home</h2>
+      <p class="dummy-lede dummy-lede--light" data-dummy-lede>
+        You are on the home page. Tap the menu to jump anywhere — watch for the tap feedback and the active indicator.
+      </p>
+      <div class="dummy-spacer" aria-hidden="true"></div>
+      <p class="dummy-foot dummy-foot--light">The pill stays visible at the top as you scroll. On mobile, the row scrolls — active pill snaps to center.</p>
+    </main>
+  </section>
+
+  <!-- =================================================================
+       Design C — Editorial
+       ================================================================= -->
+  <section data-mock-stage="c" class="mock-stage" hidden>
+    <MockHeaderC navItems={navItems} />
+    <main class="dummy-page dummy-page--cream" data-dummy="c">
+      <p class="dummy-eyebrow" data-dummy-eyebrow>Welcome</p>
+      <p class="dummy-lede" data-dummy-lede>
+        The page name lives above in giant italic serif — visible at all times, no menu required. Tap "Menu ✦" to open the quiet drawer.
+      </p>
+      <div class="dummy-spacer" aria-hidden="true"></div>
+      <p class="dummy-foot">Each page carries its own title — like the front matter of a chapter.</p>
+    </main>
+  </section>
+
+  <!-- =================================================================
+       Design D — App Bar (desktop nav centered)
+       ================================================================= -->
+  <section data-mock-stage="d" class="mock-stage" hidden>
+    <MockHeaderD navItems={navItems} />
+    <main class="dummy-page" data-dummy="d">
+      <p class="dummy-eyebrow" data-dummy-eyebrow>Welcome</p>
+      <h2 class="dummy-title" data-dummy-title>Home</h2>
+      <p class="dummy-lede" data-dummy-lede>
+        On desktop, the “Kentchi” wordmark is centered above the centered nav; on mobile the name stays on the left. Resize to compare.
+      </p>
+      <div class="dummy-spacer" aria-hidden="true"></div>
+      <p class="dummy-foot">Widen past the tablet breakpoint — the brand stacks centered above the nav; narrow it and the name returns to the left.</p>
+    </main>
+  </section>
+
+  <!-- =================================================================
+       Shared styles
+       ================================================================= -->
+  <style>
+    body {
+      font-family: var(--font-body);
+      margin: 0;
+      background: #fbf6e8;
+    }
+
+    /* ---- Stages ---- */
+    .mock-stage {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- Dummy page bodies ---- */
+    .dummy-page {
+      flex: 1;
+      padding: 3rem 1.5rem 6rem;
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .dummy-page--dark { color: #f5e7c8; background: linear-gradient(180deg, #1a0a2b 0%, #34045c 100%); max-width: none; margin: 0; padding-left: 1.5rem; padding-right: 1.5rem; }
+    .dummy-page--dark > * { max-width: 720px; margin-left: auto; margin-right: auto; }
+    .dummy-page--cream { background: linear-gradient(180deg, #efddb6 0%, #f7ecd1 100%); max-width: none; padding-left: 1.5rem; padding-right: 1.5rem; }
+    .dummy-page--cream > * { max-width: 720px; margin-left: auto; margin-right: auto; }
+    .dummy-eyebrow {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: #b88a3e;
+      margin: 0 0 1rem;
+    }
+    .dummy-eyebrow--gold { color: #ffd773; }
+    .dummy-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      line-height: 1.1;
+      margin: 0 0 1.25rem;
+      color: #2a1e10;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .dummy-title--light { color: #f7ecd1; }
+    .dummy-title.is-changing { opacity: 0; transform: translateY(6px); }
+    .dummy-lede {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: #2a1e10;
+      margin: 0 auto;
+      max-width: 38rem;
+    }
+    .dummy-lede--light { color: rgba(245, 231, 200, 0.92); }
+    .dummy-spacer { height: 65vh; }
+    .dummy-foot {
+      font-style: italic;
+      color: rgba(42, 30, 16, 0.6);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .dummy-foot--light { color: rgba(245, 231, 200, 0.6); }
+
+    /* ---- Design switcher ---- */
+    .design-switcher {
+      position: fixed;
+      left: 1rem;
+      bottom: 1rem;
+      z-index: 200;
+      background: linear-gradient(135deg, rgba(20, 6, 36, 0.92), rgba(10, 20, 45, 0.92));
+      color: #f5e7c8;
+      border: 1px solid rgba(208, 172, 104, 0.4);
+      border-radius: 18px;
+      padding: 0.9rem 1rem;
+      max-width: min(320px, calc(100vw - 2rem));
+      box-shadow:
+        0 18px 50px -12px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-family: var(--font-body);
+    }
+    .ds-label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: #d0ac68;
+      margin: 0 0 0.6rem;
+    }
+    .ds-tabs {
+      display: flex;
+      gap: 0.3rem;
+      margin-bottom: 0.7rem;
+    }
+    .ds-tab {
+      flex: 1;
+      appearance: none;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(208, 172, 104, 0.25);
+      border-radius: 10px;
+      color: rgba(245, 231, 200, 0.7);
+      padding: 0.5rem 0.4rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      font-family: inherit;
+    }
+    .ds-tab:hover { color: #ffd773; border-color: rgba(208, 172, 104, 0.6); }
+    .ds-tab.is-active {
+      background: linear-gradient(135deg, #ffd773, #a78bfa);
+      color: #140a18;
+      border-color: transparent;
+    }
+    .ds-tab-letter {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .ds-tab-name {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .ds-hint {
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: rgba(245, 231, 200, 0.75);
+      margin: 0;
+      font-style: italic;
+    }
+
+    @media (max-width: 540px) {
+      .design-switcher { left: 0.5rem; bottom: 0.5rem; padding: 0.7rem 0.8rem; }
+      .ds-hint { font-size: 0.7rem; }
+    }
+  </style>
+
+  <script>
+    /* ===== Design switcher ===== */
+    const tabs = document.querySelectorAll<HTMLButtonElement>('[data-design]');
+    const stages = document.querySelectorAll<HTMLElement>('[data-mock-stage]');
+    const hint = document.querySelector<HTMLElement>('[data-ds-hint]');
+
+    const hints: Record<string, string> = {
+      a: "Sticky app-bar with a page title that's always visible. Hamburger opens a full-screen menu overlay with tap-feedback animation.",
+      b: "Floating glass pill, sticky on scroll. Active page is a filled gold-purple chip — on mobile, the row scrolls and snaps the active pill to center.",
+      c: "Each page carries its own giant italic title — no menu interaction needed to know where you are. Tap ‘Menu ✦’ for a quiet right-side drawer.",
+      d: "Like A, but on desktop the ‘Kentchi’ wordmark is centered above a centered nav (à la B's stacked brand). On mobile the name stays on the left.",
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const design = tab.dataset.design!;
+        tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+        stages.forEach((stage) => {
+          stage.hidden = stage.dataset.mockStage !== design;
+        });
+        if (hint) hint.textContent = hints[design] ?? '';
+        // Reset scroll for a fresh first impression
+        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      });
+    });
+
+    /* ===== Simulated navigation =====
+       All three headers dispatch a `mocknav` CustomEvent on click. This
+       listener updates every header's active state + each stage's dummy
+       content, so switching designs mid-navigation preserves the "you
+       are on X" state across all three. */
+    const pageBodies: Record<string, { eyebrow: string; lede: string }> = {
+      '/':            { eyebrow: 'Welcome',     lede: "You are on the home page. Tap the menu to jump anywhere — watch for the tap feedback and the active indicator." },
+      '/decks':       { eyebrow: 'The Catalog', lede: 'Shinan Oracle · Magnetic Magi · Through the Keyhole · El Estimado.' },
+      '/art':         { eyebrow: 'The Gallery', lede: "Kentchi's visionary paintings live here." },
+      '/experiences': { eyebrow: 'In the World', lede: 'Live painting, murals, AR-enhanced art events.' },
+      '/music':       { eyebrow: 'The Sound',   lede: 'Sound healings and musical accompaniment.' },
+      '/about':       { eyebrow: 'The Artist',  lede: 'A life painted in dreams, circles, and color.' },
+      '/contact':     { eyebrow: 'Reach Out',   lede: 'A note travels from the studio to your hands.' },
+    };
+
+    function updateAllHeaders(href: string, label: string) {
+      // Update each header's data-current attribute + active class on links
+      document.querySelectorAll<HTMLElement>('[data-mock-header]').forEach((header) => {
+        header.setAttribute('data-current', href);
+        header.querySelectorAll<HTMLAnchorElement>('[data-mock-href]').forEach((link) => {
+          link.classList.toggle('is-active', link.dataset.mockHref === href);
+        });
+        // Update any element with [data-page-name] to show the page label
+        header.querySelectorAll<HTMLElement>('[data-page-name]').forEach((el) => {
+          el.classList.add('is-changing');
+          setTimeout(() => {
+            el.textContent = label;
+            el.classList.remove('is-changing');
+          }, 180);
+        });
+        // Update breadcrumb leaf if present
+        const leaf = header.querySelector<HTMLElement>('[data-breadcrumb-leaf]');
+        const sep = header.querySelector<HTMLElement>('[data-breadcrumb-sep]');
+        if (leaf && sep) {
+          if (href === '/') {
+            leaf.textContent = 'Home';
+            sep.hidden = true;
+            leaf.previousElementSibling?.setAttribute('hidden', '');
+          } else {
+            leaf.textContent = label;
+            sep.hidden = false;
+            (leaf.previousElementSibling as HTMLElement | null)?.removeAttribute('hidden');
+          }
+        }
+      });
+
+      // Update every dummy stage body
+      document.querySelectorAll<HTMLElement>('[data-dummy]').forEach((dummy) => {
+        const body = pageBodies[href];
+        if (!body) return;
+        const title = dummy.querySelector<HTMLElement>('[data-dummy-title]');
+        const eyebrow = dummy.querySelector<HTMLElement>('[data-dummy-eyebrow]');
+        const lede = dummy.querySelector<HTMLElement>('[data-dummy-lede]');
+        if (title) {
+          title.classList.add('is-changing');
+          setTimeout(() => {
+            title.textContent = label;
+            title.classList.remove('is-changing');
+          }, 180);
+        }
+        if (eyebrow) eyebrow.textContent = body.eyebrow;
+        if (lede) lede.textContent = body.lede;
+      });
+    }
+
+    // Set initial active state (home) on all headers
+    updateAllHeaders('/', 'Home');
+
+    // Listen for nav events from any header
+    window.addEventListener('mocknav', (e) => {
+      const detail = (e as CustomEvent).detail as { href: string; label: string };
+      updateAllHeaders(detail.href, detail.label);
+    });
+  </script>
+</body>
+</html>

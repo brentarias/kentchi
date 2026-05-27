@@ -396,3 +396,29 @@ For inquiries, please email **[ayahuaskent@gmail.com](mailto:ayahuaskent@gmail.c
 - **De-emphasized:** No mentions of specific plant medicines or ceremonies by name. Focus instead on circles, gatherings, and creative teaching.
 - **Spanish translation:** All pages will be built in English first. Once the English version is complete and approved, a full Spanish translation will be created following the existing i18n pattern (`src/i18n/en.json` / `src/i18n/es.json`) with mirrored pages under `src/pages/es/`.
 
+---
+
+## Open Graph / Social-Share Metadata
+
+How the site appears when shared on Facebook, LinkedIn, iMessage, Slack, Discord, WhatsApp, and X. Implemented in `src/layouts/Layout.astro` (OG + Twitter tags), with copy in `src/i18n/*.json` (`<section>.title` and `<section>.metaDescription`, passed to `Layout` as `title` / `description`).
+
+**Homepage title (the brand line):** `Kentchi — Visionary Art, Oracle Decks & Mystic Books`
+*(The live homepage `index.astro` previously carried a leftover `— Experiment 1` suffix; removed.)*
+
+**Per-page `og:description` copy (approved):**
+- **Home:** Kent Osborn — Kentchi — weaves visionary paintings, augmented-reality oracle decks, and the illustrated memoir El Estimado into experiences that spark joy and wonder.
+- **Decks:** Shinan Oracle, Magnetic Magi, and the forthcoming Through the Keyhole — hand-painted, AR-enhanced oracle decks from Kent's imprint, Keyhole Mystic Publishing.
+- **Visionary Art:** Kentchi's visionary paintings fuse sacred aesthetics with augmented reality — point your phone at the art and watch it breathe, dance, and sparkle.
+- **Experiences:** Live painting, murals, and AR-enhanced art events — gather with Kentchi for workshops, circles, and creative experiences full of color and connection.
+- **Music:** Original songs and soundscapes by Kentchi — another doorway into the playful mystic realm that accompanies the visual magic.
+- **Contact:** Reach Kent Osborn directly to order an oracle deck or El Estimado, arrange an event, or connect about Keyhole Mystic Publishing.
+- **About:** Meet Kent Osborn — Kentchi — self-taught visionary artist, oracle-deck maker, and founder of Keyhole Mystic Publishing.
+
+**Images:** `public/og-keyhole-large.jpg` (1200×630 banner, primary) + `public/og-keyhole-square-notext.jpg` (800×800 square companion). See the OG-asset note in `CLAUDE.md`.
+
+**Supporting tags / files** (added to lift the OpenGraph.to score): `theme-color` (`#34045C`), `apple-touch-icon.png` (180×180), and a `manifest.webmanifest` with `icon-192.png` / `icon-512.png`. All icons are rendered from `keyhole.svg`, flattened on navy `#190D2B`.
+
+**Intentionally omitted:** `twitter:site` — Kentchi has no X/Twitter account (only Instagram). Add the tag if/when an X handle exists.
+
+**Absolute URLs:** `og:image` / `og:url` / canonical are baked at build time from `site:` in `astro.config.mjs`, which reads Netlify's `URL` env var (so they track the real domain automatically). For local report-testing without a push, build/serve with `URL=<tunnel-url>` (e.g. an ngrok URL) so the tags point at the tunnel.
+

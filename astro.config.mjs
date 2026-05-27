@@ -16,6 +16,9 @@ export default defineConfig({
   // canonical URLs into the build (see Layout.astro).
   site: SITE_URL,
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    // Dev-only: let tunnels (ngrok, Cloudflare) reach the dev server for OG /
+    // report testing without pushing. Ignored by the static production build.
+    server: { allowedHosts: ['.ngrok-free.dev', '.ngrok-free.app', '.trycloudflare.com'] }
   }
 });

@@ -7,7 +7,7 @@ import { t } from '../i18n';
 const i = t('en');
 ---
 
-<Layout title={i.home.title}>
+<Layout title={i.home.title} description={i.home.metaDescription}>
   <Hero bgImage="/images/hero-portrait.avif" heading={i.home.heroHeadline} text={i.home.heroSubheadline}>
     <div class="mt-8 flex flex-wrap gap-4 justify-center">
       <a href="/decks" class="px-6 py-3 bg-brand-gold text-brand-dark font-heading uppercase tracking-wide text-sm hover:opacity-90 transition-opacity">{i.home.heroCtaDecks}</a>
