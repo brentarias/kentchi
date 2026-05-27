@@ -18,80 +18,405 @@ const navItems = [
   { label: i.nav.contact, href: getLocalizedPath('/contact', lang) },
 ];
 
+const homeHref = getLocalizedPath('/', lang);
+
+// Active-state detection, robust to trailing slashes.
 const currentPath = Astro.url.pathname;
+const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
+const cur = norm(currentPath);
+const homeNorm = norm(homeHref);
+function isActive(href: string): boolean {
+  const h = norm(href);
+  if (h === homeNorm) return cur === homeNorm;
+  return cur === h || cur.startsWith(h + '/');
+}
+// Current page label, shown in the mobile page-title.
+const currentLabel = navItems.find((it) => isActive(it.href))?.label ?? i.nav.home;
+
+// Language switch — the equivalent page in the other language.
+const basePath = currentPath.replace(`/${lang}`, '') || '/';
+const langLinks = Object.entries(languages).map(([code, name]) => ({
+  code,
+  name,
+  href: code === defaultLang ? basePath : `/${code}${basePath}`,
+  active: code === lang,
+}));
 ---
 
-<header class="relative overflow-hidden">
-  <div
-    class="absolute inset-0 -z-20"
-    style="background-image: url('/images/featured/5-zig-zag-path.jpg'); background-size: cover; background-position: center; filter: blur(14px) saturate(85%) brightness(0.95);"
-    aria-hidden="true"
-  ></div>
-  <div class="absolute inset-0 -z-10" style="background-color: rgba(213, 215, 201, 0.82);" aria-hidden="true"></div>
-
-  <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col items-center gap-4">
-    <a href={getLocalizedPath('/', lang)}>
-      <img src="/images/logo.png" alt="Kent Osborn — Kentchi" class="w-40 h-auto" />
+<header class="hdr">
+  <div class="hdr__bar">
+    <a href={homeHref} class="hdr__logo" aria-label={i.nav.home}>
+      <span class="hdr__logo-mark" aria-hidden="true">✦</span>
+      <span class="hdr__logo-text">Kentchi</span>
     </a>
 
-    <nav aria-label="Site" class="flex flex-col items-center">
-      <button
-        id="menu-toggle"
-        class="md:hidden p-2 text-brand-dark"
-        aria-label="Toggle menu"
-        aria-expanded="false"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+    <!-- Mobile-only "you are on …" page title -->
+    <div class="hdr__page-title" aria-live="polite">
+      <span class="hdr__page-eyebrow">You are on</span>
+      <span class="hdr__page-name">{currentLabel}</span>
+    </div>
 
-      <ul id="nav-menu" class="hidden md:flex flex-wrap justify-center gap-x-6 gap-y-2 text-base font-bold tracking-wide">
+    <!-- Desktop nav (centered) -->
+    <nav class="hdr__nav-desktop" aria-label="Site">
+      {navItems.map(({ label, href }) => (
+        <a
+          href={href}
+          class:list={['hdr__nav-link', isActive(href) && 'is-active']}
+          aria-current={isActive(href) ? 'page' : undefined}
+        >{label}</a>
+      ))}
+    </nav>
+
+    <!-- Desktop language pills (top-right) -->
+    <div class="hdr__lang hdr__lang--desktop">
+      {langLinks.map(({ code, name, href, active }) => (
+        <a
+          href={href}
+          class:list={['hdr__lang-pill', active && 'is-active']}
+          aria-current={active ? 'true' : undefined}
+          aria-label={name}
+        >{code.toUpperCase()}</a>
+      ))}
+    </div>
+
+    <button class="hdr__burger" data-hdr-burger aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Full-screen overlay menu (mobile) -->
+  <div class="hdr__overlay" data-hdr-overlay aria-hidden="true">
+    <div class="hdr__overlay-paper" aria-hidden="true"></div>
+    <button class="hdr__overlay-close" data-hdr-close aria-label="Close menu">×</button>
+
+    <div class="hdr__overlay-inner">
+      <p class="hdr__overlay-eyebrow">The Imprint of Kentchi</p>
+      <ul class="hdr__overlay-menu">
         {navItems.map(({ label, href }) => (
           <li>
             <a
               href={href}
-              class:list={[
-                'hover:text-brand-rust hover:underline hover:decoration-brand-rust hover:decoration-2 hover:underline-offset-4 transition-all uppercase text-brand-dark',
-                currentPath === href || (href !== '/' && currentPath.startsWith(href))
-                  ? 'underline decoration-brand-rust decoration-2 underline-offset-4 font-semibold'
-                  : '',
-              ]}
+              class:list={['hdr__overlay-link', isActive(href) && 'is-active']}
+              aria-current={isActive(href) ? 'page' : undefined}
             >
-              {label}
+              <span class="hdr__overlay-marker" aria-hidden="true">✦</span>
+              <span class="hdr__overlay-label">{label}</span>
             </a>
           </li>
         ))}
       </ul>
-    </nav>
 
-    <div class="flex gap-2 text-xs">
-      {Object.entries(languages).map(([code, name]) => (
-        <a
-          href={code === defaultLang ? currentPath.replace(`/${lang}`, '') || '/' : `/${code}${currentPath.replace(`/${lang}`, '') || '/'}`}
-          class:list={[
-            'px-2 py-1 rounded',
-            lang === code ? 'bg-brand-dark text-white' : 'text-brand-dark hover:bg-brand-light',
-          ]}
-        >
-          {name}
-        </a>
-      ))}
+      <!-- Mobile language pills -->
+      <div class="hdr__lang hdr__lang--overlay">
+        {langLinks.map(({ code, name, href, active }) => (
+          <a
+            href={href}
+            class:list={['hdr__lang-pill', active && 'is-active']}
+            aria-current={active ? 'true' : undefined}
+          >{name}</a>
+        ))}
+      </div>
     </div>
   </div>
 </header>
 
+<style>
+  .hdr {
+    --bar-h: 64px;
+    --cream: #f7ecd1;
+    --cream-deep: #efddb6;
+    --ink: #2a1e10;
+    --gold: #b88a3e;
+    --gold-bright: #e8c277;
+    font-family: var(--font-body, system-ui);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  /* ===== Bar ===== */
+  .hdr__bar {
+    height: var(--bar-h);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+    border-bottom: 1px solid rgba(184, 138, 62, 0.35);
+    box-shadow: 0 6px 24px -16px rgba(42, 30, 16, 0.4);
+    position: relative;
+  }
+  .hdr__bar::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .hdr__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .hdr__logo:hover { color: var(--gold); }
+  .hdr__logo-mark { color: var(--gold); font-size: 1rem; }
+
+  .hdr__page-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    line-height: 1;
+    text-align: center;
+  }
+  .hdr__page-eyebrow {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+  }
+  .hdr__page-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--ink);
+  }
+
+  .hdr__nav-desktop {
+    display: none;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  .hdr__nav-link {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 0.4rem 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .hdr__nav-link:hover { color: var(--gold); }
+  .hdr__nav-link.is-active {
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ===== Language pills ===== */
+  .hdr__lang { display: flex; gap: 0.3rem; }
+  .hdr__lang--desktop { display: none; }
+  .hdr__lang-pill {
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(184, 138, 62, 0.5);
+    border-radius: 9999px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .hdr__lang-pill:hover { border-color: var(--gold); color: var(--gold); }
+  .hdr__lang-pill.is-active {
+    background: var(--gold);
+    color: #fff;
+    border-color: var(--gold);
+  }
+
+  /* ===== Burger ===== */
+  .hdr__burger {
+    appearance: none;
+    background: none;
+    border: 1px solid rgba(42, 30, 16, 0.25);
+    border-radius: 9999px;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    color: var(--ink);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .hdr__burger:hover { background: rgba(184, 138, 62, 0.1); border-color: var(--gold); }
+  .hdr__burger:active { transform: scale(0.94); }
+  .hdr__burger span {
+    width: 18px;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 1px;
+  }
+
+  /* ===== Overlay ===== */
+  .hdr__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+  }
+  .hdr__overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.35s ease, visibility 0s;
+  }
+  .hdr__overlay-paper {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 245, 220, 0.95), transparent 70%),
+      linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+  }
+  .hdr__overlay-paper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(135deg, rgba(120, 80, 30, 0.03) 0 2px, transparent 2px 5px);
+    mix-blend-mode: multiply;
+  }
+  .hdr__overlay-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    border: 1px solid rgba(42, 30, 16, 0.25);
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--ink);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    z-index: 2;
+  }
+  .hdr__overlay-close:hover { background: var(--gold-bright); transform: rotate(90deg); }
+  .hdr__overlay-inner {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: opacity 0.4s 0.1s ease, transform 0.4s 0.1s ease;
+  }
+  .hdr__overlay.is-open .hdr__overlay-inner { transform: translateY(0); opacity: 1; }
+  .hdr__overlay-eyebrow {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+  .hdr__overlay-menu { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+  .hdr__overlay-link {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .hdr__overlay-link:hover { background: rgba(184, 138, 62, 0.12); }
+  .hdr__overlay-marker {
+    color: var(--gold);
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.25s, transform 0.25s;
+  }
+  .hdr__overlay-link.is-active { background: linear-gradient(90deg, rgba(184, 138, 62, 0.18), transparent); }
+  .hdr__overlay-link.is-active .hdr__overlay-marker { opacity: 1; transform: translateX(0); }
+
+  .hdr__lang--overlay { justify-content: center; margin-top: 2.25rem; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 767px) {
+    .hdr__nav-desktop { display: none; }
+    .hdr__page-title { display: flex; }
+  }
+  @media (min-width: 768px) {
+    .hdr { --bar-h: 72px; }
+    /* Desktop: brand centered above the centered nav; language pills top-right. */
+    .hdr__bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      gap: 0.5rem;
+      padding: 0.95rem 2rem;
+    }
+    .hdr__logo { font-size: 1.55rem; }
+    .hdr__page-title { display: none; }
+    .hdr__nav-desktop { display: flex; justify-content: center; }
+    .hdr__burger { display: none; }
+    .hdr__lang--desktop {
+      display: flex;
+      position: absolute;
+      top: 0.85rem;
+      right: 1.5rem;
+    }
+    .hdr__lang--overlay { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hdr__overlay, .hdr__overlay-inner, .hdr__overlay-close { transition: none; }
+  }
+</style>
+
 <script>
-  const toggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('nav-menu');
-  toggle?.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    menu?.classList.toggle('hidden');
-    menu?.classList.toggle('flex');
-    menu?.classList.toggle('flex-col');
-    menu?.classList.toggle('items-center');
-    menu?.classList.toggle('gap-4');
-    menu?.classList.toggle('py-4');
-  });
+  const header = document.querySelector<HTMLElement>('.hdr');
+  if (header) {
+    const burger = header.querySelector<HTMLButtonElement>('[data-hdr-burger]');
+    const closeBtn = header.querySelector<HTMLButtonElement>('[data-hdr-close]');
+    const overlay = header.querySelector<HTMLElement>('[data-hdr-overlay]');
+
+    const open = () => {
+      overlay?.classList.add('is-open');
+      overlay?.setAttribute('aria-hidden', 'false');
+      burger?.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      overlay?.classList.remove('is-open');
+      overlay?.setAttribute('aria-hidden', 'true');
+      burger?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+
+    burger?.addEventListener('click', open);
+    closeBtn?.addEventListener('click', close);
+    overlay?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target === overlay || target.classList.contains('hdr__overlay-paper')) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+  }
 </script>
