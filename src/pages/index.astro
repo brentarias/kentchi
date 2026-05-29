@@ -9,6 +9,7 @@
 */
 import Layout from '../layouts/Layout.astro';
 import { t } from '../i18n';
+import { videos } from '../data/videos';
 
 const i = t('en');
 
@@ -63,7 +64,7 @@ const igTiles = [
     <div class="relative z-10 w-full px-6 pb-12 md:pb-16">
       <div class="mx-auto max-w-3xl">
         <div class="hero-glass rounded-3xl px-6 py-10 md:px-12 md:py-14 text-center text-white">
-          <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-amber-300 mb-4 anim-rise">Visionary Art · Oracle Decks · AR · Music · Circles</p>
+          <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-amber-300 mb-4 anim-rise">A playful mystic realm</p>
           <h1 class="text-3xl md:text-6xl font-heading leading-tight mb-4 anim-rise drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
             <span class="block">{i.home.heroHeadline.split('–')[0].trim()}</span>
             <span class="block bg-linear-to-r from-amber-300 via-fuchsia-400 to-teal-300 bg-clip-text text-transparent">{i.home.heroHeadline.split('–')[1]?.trim()}</span>
@@ -209,10 +210,29 @@ const igTiles = [
       <span class="absolute top-8 left-12 w-72 h-72 rounded-full bg-fuchsia-500/30 blur-3xl anim-float"></span>
       <span class="absolute bottom-0 right-8 w-80 h-80 rounded-full bg-amber-300/25 blur-3xl anim-float-slow"></span>
     </div>
-    <div class="relative max-w-4xl mx-auto text-center">
-      <p class="text-xs uppercase tracking-[0.3em] text-amber-300/80 mb-3">Artivive · Free on iOS &amp; Android</p>
-      <h2 class="text-3xl md:text-5xl font-heading mb-6">{i.home.arHeading}</h2>
-      <p class="text-lg md:text-xl leading-relaxed max-w-2xl mx-auto text-white/90">{i.home.arText}</p>
+    <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-center">
+      <!-- Artivive demo video (portrait) -->
+      <div class="relative mx-auto md:mx-0 w-full max-w-70 md:max-w-80">
+        <div class="absolute -inset-4 rounded-3xl bg-linear-to-br from-amber-300/30 via-fuchsia-400/20 to-violet-500/30 blur-2xl" aria-hidden="true"></div>
+        <div class="relative overflow-hidden rounded-3xl ring-1 ring-amber-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.65)]">
+          <video
+            src={videos.shakapa}
+            class="block w-full aspect-9/16 object-cover bg-black"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="Kentchi artwork animated with Artivive"
+          ></video>
+        </div>
+      </div>
+      <!-- Copy -->
+      <div class="text-center md:text-left">
+        <p class="text-xs uppercase tracking-[0.3em] text-amber-300/80 mb-3">Artivive · Free on iOS &amp; Android</p>
+        <h2 class="text-3xl md:text-5xl font-heading mb-6">{i.home.arHeading}</h2>
+        <p class="text-lg md:text-xl leading-relaxed text-white/90">{i.home.arText}</p>
+      </div>
     </div>
   </section>
 

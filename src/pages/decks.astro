@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { t } from '../i18n';
+import { videos } from '../data/videos';
 
 const i = t('en');
 ---
@@ -57,13 +58,31 @@ const i = t('en');
       style="background: conic-gradient(from 120deg at 50% 50%, #fde8c8, #f8d4d8, #e9d5f5, #d6ecef, #fde8c8);"
       aria-hidden="true"
     ></div>
-    <div class="relative max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 text-brand-rust mb-4">
-        <span class="h-px w-8 bg-brand-rust"></span>
-        <span class="text-xs uppercase tracking-[0.3em]">The Living Cards</span>
-        <span class="h-px w-8 bg-brand-rust"></span>
+    <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 md:gap-14 items-center">
+      <div class="text-center md:text-left">
+        <div class="inline-flex items-center gap-2 text-brand-rust mb-4">
+          <span class="h-px w-8 bg-brand-rust"></span>
+          <span class="text-xs uppercase tracking-[0.3em]">The Living Cards</span>
+          <span class="h-px w-8 bg-brand-rust"></span>
+        </div>
+        <p class="text-lg md:text-2xl leading-relaxed text-brand-dark">{i.decks.intro}</p>
       </div>
-      <p class="text-lg md:text-2xl leading-relaxed text-brand-dark">{i.decks.intro}</p>
+      <!-- Bee Frequency Artivive AR demo (portrait) -->
+      <div class="relative mx-auto md:mx-0 w-full max-w-70 md:max-w-80">
+        <div class="absolute -inset-4 rounded-3xl bg-linear-to-br from-amber-300/30 via-rose-300/30 to-fuchsia-300/30 blur-2xl" aria-hidden="true"></div>
+        <div class="relative overflow-hidden rounded-3xl ring-1 ring-brand-gold/40 shadow-[0_30px_80px_-30px_rgba(42,30,16,0.4)]">
+          <video
+            src={videos.beeFrequency}
+            class="block w-full aspect-9/16 object-cover bg-black"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="Kentchi Bee Frequency artwork animated with Artivive"
+          ></video>
+        </div>
+      </div>
     </div>
   </section>
 

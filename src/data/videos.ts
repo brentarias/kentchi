@@ -31,4 +31,18 @@ export const videos = {
   /** Promo cut showing Kent's art pieces in his studio / home. */
   artPromo:
     'https://res.cloudinary.com/dmzx8w015/video/upload/f_auto,q_auto/v1779646327/Kents_art_promo_3_c479it.mov',
+
+  /**
+   * Artivive AR demo — Shakapa piece animated. Portrait orientation.
+   * Featured in the "Magic in Motion" section on the home page.
+   */
+  shakapa:
+    'https://res.cloudinary.com/dmzx8w015/video/upload/f_auto,q_auto/v1780017196/Shakapa_etj8wm.mp4',
+
+  /**
+   * Artivive AR demo — Bee Frequency piece animated. Portrait orientation.
+   * Available for a future placement (likely the Visionary Art or Decks page).
+   */
+  beeFrequency:
+    'https://res.cloudinary.com/dmzx8w015/video/upload/f_auto,q_auto/v1780017196/Bee_Frequency_e9wfgm.mp4',
 } as const;
