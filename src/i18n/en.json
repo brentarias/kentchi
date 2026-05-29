@@ -9,8 +9,8 @@
     "contact": "Contact"
   },
   "home": {
-    "title": "Kentchi — Visionary Art, Oracle Decks & Mystic Books",
-    "metaDescription": "Kent Osborn — Kentchi — weaves visionary paintings, augmented-reality oracle decks, and the illustrated memoir El Estimado into experiences that spark joy and wonder.",
+    "title": "Kentchi — Augmented-Reality Oracle Decks & Visionary Art",
+    "metaDescription": "Kent Osborn — Kentchi — weaves visionary paintings, augmented-reality (AR) oracle decks, and the illustrated memoir El Estimado into experiences that spark joy and wonder.",
     "heroHeadline": "Step Into the Magic – Where Art Comes Alive",
     "heroSubheadline": "Kentchi weaves visionary paintings, enchanting oracle decks, and augmented reality wonders into experiences that spark joy, creativity, and connection.",
     "heroCtaDecks": "Explore Oracle Decks",
@@ -41,7 +41,7 @@
     "finalCta": "Ready to create with Kentchi?"
   },
   "decks": {
-    "title": "Oracle Decks & Mystic Books | Kent Osborn",
+    "title": "Augmented-Reality Oracle Decks | Kent Osborn",
     "metaDescription": "Shinan Oracle, Magnetic Magi, and the forthcoming Through the Keyhole — hand-painted, AR-enhanced oracle decks from Kent's imprint, Keyhole Mystic Publishing.",
     "heading": "Unlock Your Inner Oracle",
     "subheading": "Beautiful decks, powerful guidance, and the joy of creation.",
@@ -79,8 +79,8 @@
     "kmpCtaReachOut": "Reach out to Kent"
   },
   "art": {
-    "title": "Visionary Art | Kent Osborn",
-    "metaDescription": "Kentchi's visionary paintings fuse sacred aesthetics with augmented reality — point your phone at the art and watch it breathe, dance, and sparkle.",
+    "title": "Visionary Art with Augmented Reality | Kent Osborn",
+    "metaDescription": "Kentchi's visionary paintings fuse sacred aesthetics with augmented reality (AR) — point your phone at the art and watch it breathe, dance, and sparkle.",
     "heading": "Art That Lives and Breathes",
     "intro": "Kentchi's paintings are explosions of color, pattern, and story. Rooted in visionary aesthetics and infused with personal magic, each piece carries its own spirit. And the cherry on top? Many of them are enhanced with Artivive. Download the free app, point your camera at a piece, and watch the painting awaken — shapes swirl, colors pulse, hidden elements emerge. It's pure joy in visual form.",
     "galleryHeading": "Gallery",
@@ -145,6 +145,6 @@
   },
   "meta": {
     "siteName": "Kentchi",
-    "siteDescription": "Visionary art, oracle decks, and the illustrated memoir El Estimado from Kent Osborn — published under his imprint, Keyhole Mystic Publishing."
+    "siteDescription": "Augmented-reality (AR) oracle decks, visionary art, and the illustrated memoir El Estimado from Kent Osborn — published under his imprint, Keyhole Mystic Publishing."
   }
 }

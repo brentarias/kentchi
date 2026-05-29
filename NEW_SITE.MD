@@ -402,13 +402,19 @@ For inquiries, please email **[ayahuaskent@gmail.com](mailto:ayahuaskent@gmail.c
 
 How the site appears when shared on Facebook, LinkedIn, iMessage, Slack, Discord, WhatsApp, and X. Implemented in `src/layouts/Layout.astro` (OG + Twitter tags), with copy in `src/i18n/*.json` (`<section>.title` and `<section>.metaDescription`, passed to `Layout` as `title` / `description`).
 
-**Homepage title (the brand line):** `Kentchi — Visionary Art, Oracle Decks & Mystic Books`
-*(The live homepage `index.astro` previously carried a leftover `— Experiment 1` suffix; removed.)*
+**Homepage title (the brand line):** `Kentchi — Augmented-Reality Oracle Decks & Visionary Art`
+*(The live homepage `index.astro` previously carried a leftover `— Experiment 1` suffix; removed. The title was later revised to front-load "Augmented-Reality" — Kentchi's primary differentiator versus paper oracle decks — since titles carry the most SEO weight.)*
+
+**Sibling page titles also surface the AR differentiator** at the title level (in addition to the descriptions below):
+- **Decks:** `Augmented-Reality Oracle Decks | Kent Osborn`
+- **Visionary Art:** `Visionary Art with Augmented Reality | Kent Osborn`
+
+**Site-wide fallback description** (used when a page doesn't supply its own): `Augmented-reality (AR) oracle decks, visionary art, and the illustrated memoir El Estimado from Kent Osborn — published under his imprint, Keyhole Mystic Publishing.`
 
 **Per-page `og:description` copy (approved):**
-- **Home:** Kent Osborn — Kentchi — weaves visionary paintings, augmented-reality oracle decks, and the illustrated memoir El Estimado into experiences that spark joy and wonder.
+- **Home:** Kent Osborn — Kentchi — weaves visionary paintings, augmented-reality (AR) oracle decks, and the illustrated memoir El Estimado into experiences that spark joy and wonder.
 - **Decks:** Shinan Oracle, Magnetic Magi, and the forthcoming Through the Keyhole — hand-painted, AR-enhanced oracle decks from Kent's imprint, Keyhole Mystic Publishing.
-- **Visionary Art:** Kentchi's visionary paintings fuse sacred aesthetics with augmented reality — point your phone at the art and watch it breathe, dance, and sparkle.
+- **Visionary Art:** Kentchi's visionary paintings fuse sacred aesthetics with augmented reality (AR) — point your phone at the art and watch it breathe, dance, and sparkle.
 - **Experiences:** Live painting, murals, and AR-enhanced art events — gather with Kentchi for workshops, circles, and creative experiences full of color and connection.
 - **Music:** Original songs and soundscapes by Kentchi — another doorway into the playful mystic realm that accompanies the visual magic.
 - **Contact:** Reach Kent Osborn directly to order an oracle deck or El Estimado, arrange an event, or connect about Keyhole Mystic Publishing.
