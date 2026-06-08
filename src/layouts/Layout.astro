@@ -74,13 +74,19 @@ const ogSquareUrl = new URL(ogSquarePath, origin).toString();
     <meta name="twitter:image:alt" content={siteName} />
 
     <title>{title}</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEGK7PWBTV"></script>
+    <!-- gtag.js — only load on the canonical domain so deploy-hash URLs, the old
+         kentchi.netlify.app, and localhost don't pollute analytics. -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-FEGK7PWBTV');
+      if (location.hostname === 'www.kentosborn.studio') {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-FEGK7PWBTV';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-FEGK7PWBTV');
+      }
     </script>
   </head>
   <body class="min-h-screen flex flex-col">
