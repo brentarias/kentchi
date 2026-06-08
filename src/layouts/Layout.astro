@@ -11,9 +11,12 @@ interface Props {
   description?: string;
   /** Optional per-page banner image path (must start with "/", ideally 1200x630). Falls back to the keyhole banner. */
   ogImage?: string;
+  /** Optional JSON-LD structured data (single object or @graph). Emitted in <head>. */
+  schema?: unknown;
 }
 
-const { title, lang = defaultLang, description, ogImage } = Astro.props;
+const { title, lang = defaultLang, description, ogImage, schema } = Astro.props;
+const schemaJson = schema ? JSON.stringify(schema).replace(/</g, '\\u003c') : null;
 const i = t(lang);
 
 const siteName = i.meta.siteName;
@@ -72,6 +75,8 @@ const ogSquareUrl = new URL(ogSquarePath, origin).toString();
     <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={siteName} />
+
+    {schemaJson && <script type="application/ld+json" is:inline set:html={schemaJson} />}
 
     <title>{title}</title>
     <!-- gtag.js — only load on the canonical domain so deploy-hash URLs, the old

@@ -13,6 +13,42 @@ import { videos } from '../data/videos';
 
 const i = t('en');
 
+const origin = Astro.site?.origin ?? Astro.url.origin;
+const personId = new URL('/#kent-osborn', origin).toString();
+const orgId = new URL('/#keyhole-mystic-publishing', origin).toString();
+
+const homepageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: 'Kent Osborn',
+      alternateName: 'Kentchi',
+      jobTitle: 'Visionary Artist',
+      image: new URL('/images/hero-portrait.avif', origin).toString(),
+      url: origin + '/',
+      address: { '@type': 'PostalAddress', addressCountry: 'MX' },
+      worksFor: { '@id': orgId },
+      sameAs: [
+        'https://www.instagram.com/inkentations/',
+        'https://www.instagram.com/magnetic_magi_oracle/',
+        'https://www.instagram.com/shinan_visionary_arts/',
+        'https://www.instagram.com/shinanoraculo/',
+        'https://www.facebook.com/kent.osborn.18',
+      ],
+    },
+    {
+      '@type': 'Organization',
+      '@id': orgId,
+      name: 'Keyhole Mystic Publishing',
+      logo: new URL('/images/keyhole-mystic-publishing-logo.jpg', origin).toString(),
+      url: origin + '/',
+      founder: { '@id': personId },
+    },
+  ],
+};
+
 const featured = [
   { src: '/images/featured/7-firebird.jpg', caption: 'Shinan Oracle — visionary guidance.' },
   { src: '/images/featured/11-bee-frecuency.jpg',  caption: 'Magnetic Magi — fresh mystic pop.' },
@@ -34,7 +70,7 @@ const igTiles = [
 ];
 ---
 
-<Layout title={i.home.title} description={i.home.metaDescription}>
+<Layout title={i.home.title} description={i.home.metaDescription} schema={homepageSchema}>
   <!-- ========== HERO: portrait repeats, copy in bottom band ========== -->
   <section class="relative min-h-[86vh] overflow-hidden flex items-end">
     <div

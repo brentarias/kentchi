@@ -4,9 +4,58 @@ import { t } from '../../i18n';
 import { videos } from '../../data/videos';
 
 const i = t('es');
+
+const origin = Astro.site?.origin ?? Astro.url.origin;
+const abs = (path: string) => new URL(path, origin).toString();
+const publisher = { '@type': 'Organization', name: 'Keyhole Mystic Publishing' };
+const brand = { '@type': 'Brand', name: 'Keyhole Mystic Publishing' };
+
+const decksSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Product',
+      name: 'Shinan Oracle',
+      image: abs('/images/shinan-product.jpg'),
+      description: i.decks.shinanText,
+      brand,
+      category: 'Oracle Deck',
+      inLanguage: 'es',
+    },
+    {
+      '@type': 'Product',
+      name: 'Magnetic Magi',
+      image: abs('/images/magnetic-magi-product.jpg'),
+      description: i.decks.magneticText,
+      brand,
+      category: 'Oracle Deck',
+      inLanguage: 'es',
+    },
+    {
+      '@type': 'Product',
+      name: 'Through the Keyhole',
+      image: abs('/images/through-the-keyhole-preview.jpg'),
+      description: i.decks.keyholeText,
+      brand,
+      category: 'Oracle Deck',
+      inLanguage: 'es',
+    },
+    {
+      '@type': 'Book',
+      name: 'El Estimado',
+      alternateName: 'Un viaje inesperado en México',
+      image: abs('/images/el-estimado-front.jpg'),
+      description: i.decks.elEstimadoBody,
+      author: { '@type': 'Person', name: 'Kent Osborn', alternateName: 'Kentchi' },
+      publisher,
+      inLanguage: 'es',
+      bookFormat: 'https://schema.org/Paperback',
+    },
+  ],
+};
 ---
 
-<Layout title={i.decks.title} description={i.decks.metaDescription} lang="es">
+<Layout title={i.decks.title} description={i.decks.metaDescription} lang="es" schema={decksSchema}>
   <!-- HERO -->
   <section class="relative min-h-[78vh] overflow-hidden flex items-center justify-center text-white">
     <div

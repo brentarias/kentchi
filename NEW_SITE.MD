@@ -428,3 +428,23 @@ How the site appears when shared on Facebook, LinkedIn, iMessage, Slack, Discord
 
 **Absolute URLs:** `og:image` / `og:url` / canonical are baked at build time from `site:` in `astro.config.mjs`, which reads Netlify's `URL` env var (so they track the real domain automatically). For local report-testing without a push, build/serve with `URL=<tunnel-url>` (e.g. an ngrok URL) so the tags point at the tunnel.
 
+---
+
+## Structured Data (schema.org)
+
+Open Graph tags shape how the site looks when *shared*; schema.org JSON-LD shapes how Google understands the site's *entities* — products, books, people, organizations. Without it, Google has to infer meaning from prose; with it, the site is eligible for richer search treatments (product chips, author panels, knowledge cards) and is more legible to LLMs and voice assistants too. Pages emit JSON-LD via a `schema` prop on `Layout.astro`, which serializes it into a single `<script type="application/ld+json">` tag in `<head>`. Zero visual impact — it's a sealed data island, not visible HTML.
+
+**Currently emitted:**
+
+- **`Product`** — Shinan Oracle, Magnetic Magi, and Through the Keyhole on `/decks` (and `/es/decks`). Each carries `name`, `image`, `description` (from the i18n copy), `brand`, and `category: "Oracle Deck"`. Offers/price will be added later when commerce is wired in; until then the schema is informational, not commerce-eligible.
+- **`Book`** — El Estimado on `/decks` (and `/es/decks`). Carries `name`, `alternateName` (the Spanish subtitle), `image`, `description`, `author` (Kent Osborn), `publisher` (Keyhole Mystic Publishing), `inLanguage: es`, `bookFormat: Paperback`.
+- **`Person`** — Kent Osborn on the homepage, with `alternateName: "Kentchi"`, `jobTitle`, `image`, `address.addressCountry: "MX"`, `worksFor` linking to the Organization, and `sameAs` listing every Instagram + Facebook profile. The `sameAs` array is how Google associates the entity across the web.
+- **`Organization`** — Keyhole Mystic Publishing on the homepage, with `logo`, `url`, and `founder` linking back to the Person. The Person ↔ Organization cross-link uses `@id` references so search engines treat them as a single entity graph.
+
+**Worth adding later (where the page content naturally supports it):**
+
+- **`Event`** on `/experiences` once Kent has concrete workshops, retreats, or live-painting dates scheduled. Each event would carry `name`, `startDate`, `location`, `image`, and `organizer` — and would qualify for rich event listings in Google's "Things to do" / event panels.
+- **`VisualArtwork`** (a `CreativeWork` subtype) for individual paintings on `/art`. Each piece would carry `name`, `image`, `creator` (linked to the Kent Person via `@id`), `artform`, and `artMedium`. Useful once the gallery has stable metadata per piece (title, medium, year); less useful while titles are still being recovered/refined.
+
+**Validation:** Google's [Rich Results Test](https://search.google.com/test/rich-results) and [Schema Markup Validator](https://validator.schema.org/) both accept a deployed URL or pasted JSON and report errors. Worth running once after first deploy and any time the schema set changes substantively.
+

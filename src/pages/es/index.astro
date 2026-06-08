@@ -6,9 +6,45 @@ import { t } from '../../i18n';
 import { videos } from '../../data/videos';
 
 const i = t('es');
+
+const origin = Astro.site?.origin ?? Astro.url.origin;
+const personId = new URL('/#kent-osborn', origin).toString();
+const orgId = new URL('/#keyhole-mystic-publishing', origin).toString();
+
+const homepageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: 'Kent Osborn',
+      alternateName: 'Kentchi',
+      jobTitle: 'Artista Visionario',
+      image: new URL('/images/hero-portrait.avif', origin).toString(),
+      url: origin + '/',
+      address: { '@type': 'PostalAddress', addressCountry: 'MX' },
+      worksFor: { '@id': orgId },
+      sameAs: [
+        'https://www.instagram.com/inkentations/',
+        'https://www.instagram.com/magnetic_magi_oracle/',
+        'https://www.instagram.com/shinan_visionary_arts/',
+        'https://www.instagram.com/shinanoraculo/',
+        'https://www.facebook.com/kent.osborn.18',
+      ],
+    },
+    {
+      '@type': 'Organization',
+      '@id': orgId,
+      name: 'Keyhole Mystic Publishing',
+      logo: new URL('/images/keyhole-mystic-publishing-logo.jpg', origin).toString(),
+      url: origin + '/',
+      founder: { '@id': personId },
+    },
+  ],
+};
 ---
 
-<Layout title={i.home.title} description={i.home.metaDescription} lang="es">
+<Layout title={i.home.title} description={i.home.metaDescription} lang="es" schema={homepageSchema}>
   <Hero bgImage="/images/hero-portrait.avif" heading={i.home.heroHeadline} text={i.home.heroSubheadline}>
     <div class="mt-8 flex flex-wrap gap-4 justify-center">
       <a href="/es/decks" class="px-6 py-3 bg-brand-gold text-brand-dark font-heading uppercase tracking-wide text-sm hover:opacity-90 transition-opacity">{i.home.heroCtaDecks}</a>

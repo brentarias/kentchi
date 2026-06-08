@@ -4,9 +4,55 @@ import { t } from '../i18n';
 import { videos } from '../data/videos';
 
 const i = t('en');
+
+const origin = Astro.site?.origin ?? Astro.url.origin;
+const abs = (path: string) => new URL(path, origin).toString();
+const publisher = { '@type': 'Organization', name: 'Keyhole Mystic Publishing' };
+const brand = { '@type': 'Brand', name: 'Keyhole Mystic Publishing' };
+
+const decksSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Product',
+      name: 'Shinan Oracle',
+      image: abs('/images/shinan-product.jpg'),
+      description: i.decks.shinanText,
+      brand,
+      category: 'Oracle Deck',
+    },
+    {
+      '@type': 'Product',
+      name: 'Magnetic Magi',
+      image: abs('/images/magnetic-magi-product.jpg'),
+      description: i.decks.magneticText,
+      brand,
+      category: 'Oracle Deck',
+    },
+    {
+      '@type': 'Product',
+      name: 'Through the Keyhole',
+      image: abs('/images/through-the-keyhole-preview.jpg'),
+      description: i.decks.keyholeText,
+      brand,
+      category: 'Oracle Deck',
+    },
+    {
+      '@type': 'Book',
+      name: 'El Estimado',
+      alternateName: 'Un viaje inesperado en México',
+      image: abs('/images/el-estimado-front.jpg'),
+      description: i.decks.elEstimadoBody,
+      author: { '@type': 'Person', name: 'Kent Osborn', alternateName: 'Kentchi' },
+      publisher,
+      inLanguage: 'es',
+      bookFormat: 'https://schema.org/Paperback',
+    },
+  ],
+};
 ---
 
-<Layout title={i.decks.title} description={i.decks.metaDescription}>
+<Layout title={i.decks.title} description={i.decks.metaDescription} schema={decksSchema}>
   <!-- ============================================================ -->
   <!-- HERO — cosmic doorway: gallery art bleed, drifting orbs,     -->
   <!-- sparkles, and a frosted glass portal card                    -->
