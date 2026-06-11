@@ -164,7 +164,7 @@ const decksSchema = {
           <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">AR · Artivive</span>
         </div>
         <div class="flex flex-wrap gap-3">
-          <a href="#order" class="btn-glow">Get the Shinan</a>
+          <a href="/order?item=shinan" class="btn-glow">Get the Shinan</a>
           <a href="/contact" class="btn-outline">Reach Kent Osborn</a>
         </div>
       </div>
@@ -195,7 +195,7 @@ const decksSchema = {
           <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Available Now</span>
         </div>
         <div class="flex flex-wrap gap-3">
-          <a href="#order" class="btn-glow">Get the Magi</a>
+          <a href="/order?item=magnetic-magi" class="btn-glow">Get the Magi</a>
           <a href="/contact" class="btn-outline">Reach Kent Osborn</a>
         </div>
       </div>
@@ -279,7 +279,8 @@ const decksSchema = {
         <h2 class="text-2xl md:text-4xl font-heading mb-6">{i.decks.whereHeading}</h2>
         <p class="text-lg leading-relaxed text-white/95 mb-8">{i.decks.whereText}</p>
         <div class="flex flex-wrap justify-center gap-3">
-          <a href="/contact" class="btn-glow">{i.decks.whereCtaContact}</a>
+          <a href="/order" class="btn-glow">{i.decks.whereCtaOrder}</a>
+          <a href="/contact" class="btn-outline">{i.decks.whereCtaContact}</a>
         </div>
       </div>
     </div>
@@ -373,8 +374,8 @@ const decksSchema = {
             <p class="text-xs uppercase tracking-[0.3em] text-white/60 mb-4">{i.decks.elEstimadoAuthor}</p>
             <p class="text-white/90 leading-relaxed mb-6">{i.decks.elEstimadoBody}</p>
             <div class="flex flex-wrap justify-center md:justify-start gap-3">
-              <button type="button" data-peek-open class="btn-glow">{i.decks.elEstimadoPeekInside} ↗</button>
-              <a href="/contact" class="btn-outline">{i.decks.kmpCtaReachOut}</a>
+              <a href="/order?item=el-estimado" class="btn-glow">{i.decks.elEstimadoOrderCta}</a>
+              <button type="button" data-peek-open class="btn-outline">{i.decks.elEstimadoPeekInside} ↗</button>
             </div>
           </div>
         </div>

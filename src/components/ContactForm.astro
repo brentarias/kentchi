@@ -9,13 +9,25 @@ const { lang = defaultLang } = Astro.props;
 const i = t(lang);
 ---
 
-<form class="max-w-xl mx-auto space-y-6" onsubmit="event.preventDefault()">
+<form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="max-w-xl mx-auto space-y-6"
+  data-contact-form
+>
+  <input type="hidden" name="form-name" value="contact" />
+  <p class="hidden" aria-hidden="true">
+    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+  </p>
   <div>
     <label for="name" class="block text-sm font-medium mb-1">{i.contact.nameLabel}</label>
     <input
       type="text"
       id="name"
       name="name"
+      required
       class="w-full border border-brand-warm-gray rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-gold"
     />
   </div>
@@ -25,6 +37,7 @@ const i = t(lang);
       type="email"
       id="email"
       name="email"
+      required
       class="w-full border border-brand-warm-gray rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-gold"
     />
   </div>
@@ -34,13 +47,57 @@ const i = t(lang);
       id="message"
       name="message"
       rows="5"
+      required
       class="w-full border border-brand-warm-gray rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-gold"
     ></textarea>
   </div>
   <button
     type="submit"
-    class="bg-brand-dark text-white px-8 py-3 rounded hover:bg-brand-gold transition-colors uppercase tracking-wide text-sm"
+    data-submit-button
+    data-label-sending={i.contact.sending}
+    class="bg-brand-dark text-white px-8 py-3 rounded hover:bg-brand-gold transition-colors uppercase tracking-wide text-sm disabled:opacity-60 disabled:cursor-not-allowed"
   >
     {i.contact.submitButton}
   </button>
+  <p data-form-error hidden class="text-sm text-red-700">{i.contact.errorText}</p>
 </form>
+
+<div data-contact-success hidden class="max-w-xl mx-auto text-center py-8">
+  <p class="text-2xl font-heading text-brand-dark mb-3">{i.contact.successHeading}</p>
+  <p class="text-lg leading-relaxed">{i.contact.successText}</p>
+</div>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const success = document.querySelector<HTMLElement>('[data-contact-success]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const button = form.querySelector<HTMLButtonElement>('[data-submit-button]');
+    const error = form.querySelector<HTMLElement>('[data-form-error]');
+    if (error) error.hidden = true;
+    const label = button?.textContent ?? '';
+    if (button) {
+      button.disabled = true;
+      button.textContent = button.dataset.labelSending ?? label;
+    }
+
+    try {
+      const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString();
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
+      if (!res.ok) throw new Error(`Form POST failed: ${res.status}`);
+      form.hidden = true;
+      if (success) success.hidden = false;
+    } catch {
+      if (error) error.hidden = false;
+      if (button) {
+        button.disabled = false;
+        button.textContent = label;
+      }
+    }
+  });
+</script>

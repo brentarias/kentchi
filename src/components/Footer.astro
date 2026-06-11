@@ -1,5 +1,5 @@
 ---
-import { t, type Lang, defaultLang } from '../i18n';
+import { t, getLocalizedPath, type Lang, defaultLang } from '../i18n';
 
 interface Props {
   lang?: Lang;
@@ -8,10 +8,30 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const i = t(lang);
 const copyright = i.footer.copyright.replace('{year}', String(new Date().getFullYear()));
+
+const navLinks = [
+  { href: getLocalizedPath('/', lang), label: i.nav.home },
+  { href: getLocalizedPath('/decks', lang), label: i.nav.decks },
+  { href: getLocalizedPath('/art', lang), label: i.nav.art },
+  { href: getLocalizedPath('/experiences', lang), label: i.nav.experiences },
+  { href: getLocalizedPath('/music', lang), label: i.nav.music },
+  { href: getLocalizedPath('/about', lang), label: i.nav.about },
+  { href: getLocalizedPath('/contact', lang), label: i.nav.contact },
+];
 ---
 
 <footer class="bg-brand-dark text-white py-8">
   <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
+    <nav aria-label="Footer">
+      <ul class="flex justify-center gap-x-6 gap-y-2 flex-wrap text-sm uppercase tracking-wide">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="opacity-75 hover:opacity-100 hover:text-brand-gold transition-colors">{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
     <div class="flex justify-center items-start gap-6 flex-wrap">
       <a
         href="https://www.instagram.com/inkentations/"

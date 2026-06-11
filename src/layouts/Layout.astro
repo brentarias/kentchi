@@ -13,9 +13,11 @@ interface Props {
   ogImage?: string;
   /** Optional JSON-LD structured data (single object or @graph). Emitted in <head>. */
   schema?: unknown;
+  /** Set true to emit <meta name="robots" content="noindex"> (e.g. form/utility pages). */
+  noindex?: boolean;
 }
 
-const { title, lang = defaultLang, description, ogImage, schema } = Astro.props;
+const { title, lang = defaultLang, description, ogImage, schema, noindex = false } = Astro.props;
 const schemaJson = schema ? JSON.stringify(schema).replace(/</g, '\\u003c') : null;
 const i = t(lang);
 
@@ -46,6 +48,7 @@ const ogSquareUrl = new URL(ogSquarePath, origin).toString();
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#34045C" />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonicalUrl} />
     <meta name="description" content={metaDescription} />
 

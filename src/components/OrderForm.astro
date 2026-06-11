@@ -1,0 +1,230 @@
+---
+import { t, type Lang, defaultLang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const i = t(lang);
+
+// Slugs double as the ?item= query-param values used by deck-page CTAs.
+const products = [
+  { slug: 'shinan', name: i.order.productShinan, note: i.order.productShinanNote },
+  { slug: 'magnetic-magi', name: i.order.productMagneticMagi, note: i.order.productMagneticMagiNote },
+  { slug: 'el-estimado', name: i.order.productElEstimado, note: i.order.productElEstimadoNote },
+];
+
+const inputClass =
+  'w-full border border-brand-warm-gray rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-gold';
+---
+
+<form
+  name="order-request"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="max-w-xl mx-auto space-y-8"
+  data-order-form
+>
+  <input type="hidden" name="form-name" value="order-request" />
+  <input type="hidden" name="subject" data-subject-field value="" />
+  <input type="hidden" name="enquiry_id" data-enquiry-field value="" />
+  <p class="hidden" aria-hidden="true">
+    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+  </p>
+
+  <fieldset>
+    <legend class="block font-heading text-lg mb-4">{i.order.productsLegend}</legend>
+    <div class="space-y-3">
+      {products.map((p) => (
+        <div class="flex items-center gap-4 rounded border border-brand-warm-gray/60 px-4 py-3" data-product-row>
+          <label class="flex items-start gap-3 grow cursor-pointer">
+            <input
+              type="checkbox"
+              name={`item_${p.slug.replace(/-/g, '_')}`}
+              value={p.name}
+              data-item={p.slug}
+              class="mt-1.5 h-4 w-4 accent-brand-purple"
+            />
+            <span>
+              <span class="block font-medium">{p.name}</span>
+              <span class="block text-sm text-brand-dark/60">{p.note}</span>
+            </span>
+          </label>
+          <label class="flex items-center gap-2 text-sm shrink-0">
+            {i.order.quantityLabel}
+            <input
+              type="number"
+              name={`qty_${p.slug.replace(/-/g, '_')}`}
+              value="1"
+              min="1"
+              max="9"
+              inputmode="numeric"
+              disabled
+              data-qty={p.slug}
+              class="w-16 border border-brand-warm-gray rounded px-2 py-1 text-center disabled:opacity-40"
+            />
+          </label>
+        </div>
+      ))}
+    </div>
+    <p data-product-error hidden class="text-sm text-red-700 mt-2">{i.order.productRequired}</p>
+  </fieldset>
+
+  <div>
+    <label for="order-country" class="block text-sm font-medium mb-1">{i.order.countryLabel}</label>
+    <input type="text" id="order-country" name="country" required class={inputClass} />
+  </div>
+
+  <div>
+    <label for="order-name" class="block text-sm font-medium mb-1">{i.order.nameLabel}</label>
+    <input type="text" id="order-name" name="name" required class={inputClass} />
+  </div>
+
+  <div>
+    <label for="order-email" class="block text-sm font-medium mb-1">{i.order.emailLabel}</label>
+    <input type="email" id="order-email" name="email" required inputmode="email" class={inputClass} />
+  </div>
+
+  <div>
+    <label for="order-address" class="block text-sm font-medium mb-1">{i.order.addressLabel}</label>
+    <textarea id="order-address" name="address" rows="3" class={inputClass}></textarea>
+    <p class="text-sm text-brand-dark/60 mt-1">{i.order.addressHint}</p>
+  </div>
+
+  <div>
+    <label for="order-notes" class="block text-sm font-medium mb-1">{i.order.notesLabel}</label>
+    <textarea id="order-notes" name="notes" rows="3" class={inputClass}></textarea>
+  </div>
+
+  <div class="space-y-2 text-sm text-brand-dark/70">
+    <p>{i.order.currencyNote}</p>
+    <p>{i.order.privacyNote}</p>
+  </div>
+
+  <button
+    type="submit"
+    data-submit-button
+    data-label-sending={i.order.sending}
+    class="bg-brand-dark text-white px-8 py-3 rounded hover:bg-brand-gold transition-colors uppercase tracking-wide text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+  >
+    {i.order.submitButton}
+  </button>
+  <p data-form-error hidden class="text-sm text-red-700">{i.order.errorText}</p>
+</form>
+
+<div data-order-success hidden class="max-w-xl mx-auto text-center py-8">
+  <p class="text-2xl font-heading text-brand-dark mb-3">{i.order.successHeading}</p>
+  <p class="text-lg leading-relaxed mb-6">{i.order.successText}</p>
+  <p class="text-sm uppercase tracking-[0.2em] text-brand-dark/60 mb-1">{i.order.successIdLabel}</p>
+  <p data-success-id class="text-3xl font-heading text-brand-purple mb-4"></p>
+  <p class="text-sm text-brand-dark/70 max-w-md mx-auto">{i.order.successIdHint}</p>
+</div>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-order-form]');
+  const success = document.querySelector<HTMLElement>('[data-order-success]');
+
+  // Fire GA4 events only when gtag exists (it is hostname-gated to the
+  // canonical domain in Layout.astro).
+  function track(event: string, params: Record<string, unknown>) {
+    const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+    if (typeof w.gtag === 'function') w.gtag('event', event, params);
+  }
+
+  // Unambiguous alphabet: no 0/O, 1/I/L to keep IDs easy to read back.
+  function makeEnquiryId(): string {
+    const alphabet = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+    const bytes = new Uint8Array(6);
+    crypto.getRandomValues(bytes);
+    let id = 'ORD-';
+    bytes.forEach((b) => (id += alphabet[b % alphabet.length]));
+    return id;
+  }
+
+  if (form) {
+    // Checkbox toggles its quantity input.
+    form.querySelectorAll<HTMLInputElement>('[data-item]').forEach((box) => {
+      box.addEventListener('change', () => {
+        const qty = form.querySelector<HTMLInputElement>(`[data-qty="${box.dataset.item}"]`);
+        if (qty) qty.disabled = !box.checked;
+        const productError = form.querySelector<HTMLElement>('[data-product-error]');
+        if (box.checked && productError) productError.hidden = true;
+      });
+    });
+
+    // ?item=<slug> pre-selects a product (deck-page CTAs link this way).
+    const preselect = new URLSearchParams(location.search).get('item');
+    if (preselect) {
+      const box = form.querySelector<HTMLInputElement>(`[data-item="${preselect}"]`);
+      if (box) {
+        box.checked = true;
+        box.dispatchEvent(new Event('change'));
+      }
+    }
+
+    // Funnel signal: visitor began filling the form (fires once).
+    form.addEventListener(
+      'focusin',
+      () => track('order_form_started', { language: document.documentElement.lang }),
+      { once: true }
+    );
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const checked = form.querySelectorAll<HTMLInputElement>('[data-item]:checked');
+      const productError = form.querySelector<HTMLElement>('[data-product-error]');
+      if (checked.length === 0) {
+        if (productError) productError.hidden = false;
+        return;
+      }
+
+      const button = form.querySelector<HTMLButtonElement>('[data-submit-button]');
+      const error = form.querySelector<HTMLElement>('[data-form-error]');
+      if (error) error.hidden = true;
+      const label = button?.textContent ?? '';
+      if (button) {
+        button.disabled = true;
+        button.textContent = button.dataset.labelSending ?? label;
+      }
+
+      const enquiryId = makeEnquiryId();
+      const country = form.querySelector<HTMLInputElement>('[name="country"]')?.value.trim() ?? '';
+      const idField = form.querySelector<HTMLInputElement>('[data-enquiry-field]');
+      const subjectField = form.querySelector<HTMLInputElement>('[data-subject-field]');
+      if (idField) idField.value = enquiryId;
+      if (subjectField) subjectField.value = `ORDER REQUEST [${enquiryId}] — ${country}`;
+
+      try {
+        const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString();
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body,
+        });
+        if (!res.ok) throw new Error(`Form POST failed: ${res.status}`);
+
+        track('order_request_submitted', {
+          enquiry_id: enquiryId,
+          country,
+          items: Array.from(checked).map((c) => c.dataset.item).join(','),
+          language: document.documentElement.lang,
+        });
+
+        const idOut = document.querySelector<HTMLElement>('[data-success-id]');
+        if (idOut) idOut.textContent = enquiryId;
+        form.hidden = true;
+        if (success) success.hidden = false;
+        success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch {
+        if (error) error.hidden = false;
+        if (button) {
+          button.disabled = false;
+          button.textContent = label;
+        }
+      }
+    });
+  }
+</script>

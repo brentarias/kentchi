@@ -26,7 +26,8 @@ export default defineConfig({
       },
       // Exclude experimental/scratchpad pages so search engines don't index
       // design-iteration variants of pages that also exist as the canonical route.
-      filter: (page) => !/\/(index[123]|decks1|experiences1|mock-headers)\/?$/.test(page),
+      // /order is excluded too: it's a noindex utility page reached via CTAs.
+      filter: (page) => !/\/(index[123]|decks1|experiences1|mock-headers|order)\/?$/.test(page),
     }),
   ],
   vite: {
