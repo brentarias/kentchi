@@ -16,7 +16,7 @@ const decksSchema = {
     {
       '@type': 'Product',
       name: 'Shinan Oracle',
-      image: abs('/images/shinan-product.jpg'),
+      image: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-oracle-deck_uked7k.png',
       description: i.decks.shinanText,
       brand,
       category: 'Oracle Deck',
@@ -46,6 +46,17 @@ const decksSchema = {
       alternateName: 'Un viaje inesperado en México',
       image: abs('/images/el-estimado-front.jpg'),
       description: i.decks.elEstimadoBody,
+      author: { '@type': 'Person', name: 'Kent Osborn', alternateName: 'Kentchi' },
+      publisher,
+      inLanguage: 'es',
+      bookFormat: 'https://schema.org/Paperback',
+    },
+    {
+      '@type': 'Book',
+      name: 'Shinan: Cosmología de la Tribu Shipibo',
+      alternateName: 'Shinan: Cosmology of the Shipibo Tribe',
+      image: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-cosmology_hdr7in.jpg',
+      description: i.decks.shinanBookBody,
       author: { '@type': 'Person', name: 'Kent Osborn', alternateName: 'Kentchi' },
       publisher,
       inLanguage: 'es',
@@ -139,7 +150,7 @@ const decksSchema = {
       <div class="relative">
         <div class="absolute -inset-4 rounded-4xl bg-linear-to-br from-amber-300/30 via-rose-400/20 to-emerald-500/30 blur-2xl" aria-hidden="true"></div>
         <div class="relative overflow-hidden rounded-4xl ring-1 ring-amber-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]">
-          <img src="/images/shinan-product.jpg" alt="Oráculo Shinan" class="w-full aspect-square object-cover" loading="lazy" />
+          <img src="https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-oracle-deck_uked7k.png" alt="Oráculo Shinan" class="w-full aspect-square object-cover" loading="lazy" />
           <div class="absolute inset-0 mix-blend-overlay opacity-35 bg-linear-to-br from-amber-300 via-rose-300 to-emerald-400" aria-hidden="true"></div>
         </div>
       </div>
@@ -160,7 +171,7 @@ const decksSchema = {
           <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">RA · Artivive</span>
         </div>
         <div class="flex flex-wrap gap-3">
-          <a href="#order" class="btn-glow">Obtén el Shinan</a>
+          <a href="#order" class="btn-glow">Obtén el Oráculo Shinan</a>
           <a href="/es/contact" class="btn-outline">Contactar a Kent Osborn</a>
         </div>
       </div>
@@ -175,7 +186,7 @@ const decksSchema = {
     <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
       <div class="md:order-1 order-2">
         <span class="inline-block px-3 py-1 rounded-full bg-fuchsia-400/15 text-fuchsia-200 text-[11px] uppercase tracking-[0.25em] mb-4 ring-1 ring-fuchsia-300/30">
-          Baraja de Manifestación
+          Baraja Oráculo de Manifestación
         </span>
         <h2 class="text-3xl md:text-5xl font-heading mb-5">
           <span class="bg-linear-to-r from-amber-200 via-fuchsia-300 to-violet-300 bg-clip-text text-transparent">{i.decks.magneticTitle}</span>
@@ -189,7 +200,7 @@ const decksSchema = {
           <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Disponible Ya</span>
         </div>
         <div class="flex flex-wrap gap-3">
-          <a href="#order" class="btn-glow">Obtén el Magi</a>
+          <a href="#order" class="btn-glow">Obtén el Oráculo Magi</a>
           <a href="/es/contact" class="btn-outline">Contactar a Kent Osborn</a>
         </div>
       </div>
@@ -224,7 +235,7 @@ const decksSchema = {
 
       <div>
         <span class="inline-block px-3 py-1 rounded-full bg-cyan-300/15 text-cyan-200 text-[11px] uppercase tracking-[0.25em] mb-4 ring-1 ring-cyan-300/30">
-          Tercer Ojo Visionario
+          Oráculo Tercer Ojo Visionario
         </span>
         <h2 class="text-3xl md:text-5xl font-heading mb-5">
           <span class="bg-linear-to-r from-teal-200 via-cyan-200 to-violet-300 bg-clip-text text-transparent">{i.decks.keyholeTitle}</span>
@@ -318,6 +329,10 @@ const decksSchema = {
             <span class="text-brand-gold mt-1 shrink-0">✦</span>
             <span><strong class="text-white">El Estimado · Un viaje inesperado en México</strong> — el nuevo libro de Kent: una memoria ilustrada de un viaje inesperado por México, donde cada página es arte visionario.</span>
           </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand-gold mt-1 shrink-0">✦</span>
+            <span><strong class="text-white">Shinan · Cosmología de la Tribu Shipibo</strong> — el estudio antropológico y místico de Kent sobre el pueblo Shipibo, reunido a lo largo de cuatro años con ancianos en la Amazonía peruana — la fuente detrás del Oráculo Shinan.</span>
+          </li>
         </ul>
       </div>
 
@@ -351,6 +366,40 @@ const decksSchema = {
             <div class="flex flex-wrap justify-center md:justify-start gap-3">
               <button type="button" data-peek-open class="btn-glow">{i.decks.elEstimadoPeekInside} ↗</button>
               <a href="/es/contact" class="btn-outline">{i.decks.kmpCtaReachOut}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- SHINAN (el libro) — el estudio de cosmología tras el oráculo. -->
+      <!-- Título de larga data, traído bajo la editorial de forma       -->
+      <!-- retroactiva.                                                  -->
+      <!-- ============================================================ -->
+      <div class="relative rounded-4xl bg-white/6 ring-1 ring-white/15 backdrop-blur-sm p-6 md:p-10 mb-14">
+        <p class="text-xs uppercase tracking-[0.35em] text-brand-gold text-center mb-6">{i.decks.shinanBookEyebrow}</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-10 items-center">
+          <!-- Portada del libro (alojada en Cloudinary) -->
+          <div class="relative mx-auto md:mx-0 w-56 md:w-64">
+            <img
+              src="https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-cosmology_hdr7in.jpg"
+              alt="Shinan: Cosmología de la Tribu Shipibo — portada"
+              class="relative w-full h-auto rounded-lg ring-1 ring-white/30 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.7)] -rotate-1"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Título + subtítulo + autor + cuerpo -->
+          <div class="text-center md:text-left">
+            <h3 class="text-3xl md:text-4xl font-heading mb-1">
+              <span class="bg-linear-to-r from-amber-200 via-brand-gold to-rose-300 bg-clip-text text-transparent">{i.decks.shinanBookTitle}</span>
+            </h3>
+            <p class="text-amber-200/90 italic mb-1">{i.decks.shinanBookSubtitle}</p>
+            <p class="text-xs uppercase tracking-[0.3em] text-white/60 mb-4">{i.decks.shinanBookAuthor}</p>
+            <p class="text-white/90 leading-relaxed mb-6">{i.decks.shinanBookBody}</p>
+            <div class="flex flex-wrap justify-center md:justify-start gap-3">
+              <a href="/es/contact" class="btn-glow">{i.decks.kmpCtaReachOut}</a>
             </div>
           </div>
         </div>
