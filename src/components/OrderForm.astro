@@ -8,14 +8,65 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const i = t(lang);
 
-// Slugs double as the ?item= query-param values used by deck-page CTAs.
-const products = [
-  { slug: 'shinan', name: i.order.productShinan, note: i.order.productShinanNote },
-  { slug: 'magnetic-magi', name: i.order.productMagneticMagi, note: i.order.productMagneticMagiNote },
-  { slug: 'el-estimado', name: i.order.productElEstimado, note: i.order.productElEstimadoNote },
-  { slug: 'shinan-cosmology', name: i.order.productShinanCosmology, note: i.order.productShinanCosmologyNote },
+// Cloudinary on-the-fly transforms: f_auto transcodes HEIC → a browser-safe
+// format (Chrome/Firefox/Edge can't render .heic natively), q_auto compresses,
+// and the width cap keeps us under the image-protection ceiling automatically.
+const THUMB = 'f_auto,q_auto,c_fit,w_320,h_320';
+const FULL = 'f_auto,q_auto,w_1000';
+const cld = (url: string, transform: string) =>
+  url.includes('res.cloudinary.com') ? url.replace('/upload/', `/upload/${transform}/`) : url;
+
+// Each purchasable variant is its own row: its own photo, price, and quantity.
+// This keeps "box vs bag (and which bag colour)" unambiguous, lets a buyer pick
+// more than one variant of the same title, and puts the exact photo next to the
+// exact thing being ordered. Slugs are the values used by ?item= deep-links and
+// the GA event. `group` ties variants to a title (used by ?item= scroll/preselect).
+const groups = [
+  {
+    key: 'shinan',
+    name: i.order.productShinan,
+    note: i.order.productShinanNote,
+    variants: [
+      { slug: 'shinan-box', label: i.order.variantBox, usd: 50, mxn: 900, box: true,
+        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782523000/shinan_oracle_hardcase_orange_vy4kmr.jpg' },
+      { slug: 'shinan-bag-wine', label: i.order.variantBagWine, usd: 40, mxn: 700, box: false,
+        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782523000/shinan_oracle_bag_wine_br7ny1.heic' },
+    ],
+  },
+  {
+    key: 'magnetic-magi',
+    name: i.order.productMagneticMagi,
+    note: i.order.productMagneticMagiNote,
+    variants: [
+      { slug: 'mm-box', label: i.order.variantBox, usd: 50, mxn: 900, box: true,
+        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_hardcase_rs5wco.jpg' },
+      { slug: 'mm-bag-wine', label: i.order.variantBagWine, usd: 40, mxn: 700, box: false,
+        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_wine_bag_mixed_background_o4ydod.jpg' },
+      { slug: 'mm-bag-purple', label: i.order.variantBagPurple, usd: 40, mxn: 700, box: false,
+        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_purple_bag_gray_background_wrlixz.jpg' },
+    ],
+  },
+  {
+    key: 'el-estimado',
+    name: i.order.productElEstimado,
+    note: i.order.productElEstimadoNote,
+    variants: [
+      { slug: 'el-estimado', label: i.order.variantBook, usd: null, mxn: null, box: false,
+        img: '/images/el-estimado-front.jpg' },
+    ],
+  },
+  {
+    key: 'shinan-cosmology',
+    name: i.order.productShinanCosmology,
+    note: i.order.productShinanCosmologyNote,
+    variants: [
+      { slug: 'shinan-cosmology', label: i.order.variantBook, usd: null, mxn: null, box: false,
+        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-cosmology_hdr7in.jpg' },
+    ],
+  },
 ];
 
+const fieldName = (slug: string) => slug.replace(/-/g, '_');
 const inputClass =
   'w-full border border-brand-warm-gray rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-gold';
 ---
@@ -25,7 +76,7 @@ const inputClass =
   method="POST"
   data-netlify="true"
   netlify-honeypot="bot-field"
-  class="max-w-xl mx-auto space-y-8"
+  class="max-w-2xl mx-auto space-y-8"
   data-order-form
 >
   <input type="hidden" name="form-name" value="order-request" />
@@ -36,40 +87,86 @@ const inputClass =
   </p>
 
   <fieldset>
-    <legend class="block font-heading text-lg mb-4">{i.order.productsLegend}</legend>
-    <div class="space-y-3">
-      {products.map((p) => (
-        <div class="flex items-center gap-4 rounded border border-brand-warm-gray/60 px-4 py-3" data-product-row>
-          <label class="flex items-start gap-3 grow cursor-pointer">
-            <input
-              type="checkbox"
-              name={`item_${p.slug.replace(/-/g, '_')}`}
-              value={p.name}
-              data-item={p.slug}
-              class="mt-1.5 h-4 w-4 accent-brand-purple"
-            />
-            <span>
-              <span class="block font-medium">{p.name}</span>
-              <span class="block text-sm text-brand-dark/60">{p.note}</span>
-            </span>
-          </label>
-          <label class="flex items-center gap-2 text-sm shrink-0">
-            {i.order.quantityLabel}
-            <input
-              type="number"
-              name={`qty_${p.slug.replace(/-/g, '_')}`}
-              value="1"
-              min="1"
-              max="9"
-              inputmode="numeric"
-              disabled
-              data-qty={p.slug}
-              class="w-16 border border-brand-warm-gray rounded px-2 py-1 text-center disabled:opacity-40"
-            />
-          </label>
+    <legend class="block font-heading text-lg mb-2">{i.order.productsLegend}</legend>
+    <p class="text-sm text-brand-dark/85 mb-1">{i.order.availabilityNote}</p>
+    <p class="text-sm text-brand-dark/85 mb-5">{i.order.batchNote}</p>
+
+    <div class="space-y-8">
+      {groups.map((group) => (
+        <div id={`group-${group.key}`} data-group-block class="scroll-mt-24">
+          <h3 class="font-heading text-base text-brand-dark">{group.name}</h3>
+          <p class="text-sm text-brand-dark/60 mb-3">{group.note}</p>
+          <div class="space-y-3">
+            {group.variants.map((v) => (
+              <div class="flex items-center gap-3 rounded border border-brand-warm-gray/60 px-3 py-3" data-variant-row>
+                <button
+                  type="button"
+                  data-img-trigger
+                  data-full={cld(v.img, FULL)}
+                  data-caption={`${group.name} — ${v.label}`}
+                  aria-label={i.order.viewLarger}
+                  class="shrink-0 cursor-zoom-in rounded ring-1 ring-brand-warm-gray/40 bg-brand-light overflow-hidden focus:outline-none focus:ring-2 focus:ring-brand-gold"
+                >
+                  <img
+                    src={cld(v.img, THUMB)}
+                    alt={`${group.name} — ${v.label}`}
+                    width="112"
+                    height="112"
+                    loading="lazy"
+                    class="w-24 h-24 md:w-28 md:h-28 object-contain"
+                  />
+                </button>
+                <label class="flex items-start gap-3 grow cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name={`item_${fieldName(v.slug)}`}
+                    value={`${group.name} — ${v.label}${v.usd ? ` ($${v.usd} USD / $${v.mxn} MXN)` : ''}`}
+                    data-item={v.slug}
+                    data-group={group.key}
+                    data-usd={v.usd ?? 0}
+                    data-mxn={v.mxn ?? 0}
+                    class="mt-1 h-4 w-4 accent-brand-purple"
+                  />
+                  <span>
+                    <span class="block font-medium leading-tight">{v.label}</span>
+                    {v.usd && <span class="block text-sm text-brand-dark/70">${v.usd} USD · ${v.mxn} MXN</span>}
+                    {v.box && (
+                      <span class="inline-block mt-1 text-[11px] uppercase tracking-wide text-brand-rust">
+                        {i.order.availabilityTag}
+                      </span>
+                    )}
+                  </span>
+                </label>
+                <label class="flex items-center gap-2 text-sm shrink-0">
+                  <span class="sr-only">{i.order.quantityLabel}</span>
+                  <input
+                    type="number"
+                    name={`qty_${fieldName(v.slug)}`}
+                    value="1"
+                    min="1"
+                    max="9"
+                    inputmode="numeric"
+                    disabled
+                    data-qty={v.slug}
+                    aria-label={`${i.order.quantityLabel} — ${group.name} ${v.label}`}
+                    class="w-16 border border-brand-warm-gray rounded px-2 py-1 text-center disabled:opacity-40"
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>
+
+    <div data-subtotal-row hidden class="mt-5 flex items-baseline justify-between border-t border-brand-warm-gray/40 pt-3">
+      <span class="font-medium">{i.order.subtotalLabel}</span>
+      <span class="text-right">
+        <span class="font-heading text-lg">$<span data-subtotal-usd>0</span> USD · $<span data-subtotal-mxn>0</span> MXN</span>
+        <span class="block text-xs text-brand-dark/60">{i.order.subtotalNote}</span>
+      </span>
+    </div>
+
     <p data-product-error hidden class="text-sm text-red-700 mt-2">{i.order.productRequired}</p>
   </fieldset>
 
@@ -123,6 +220,80 @@ const inputClass =
   <p class="text-sm text-brand-dark/70 max-w-md mx-auto">{i.order.successIdHint}</p>
 </div>
 
+<dialog data-img-modal class="img-modal" aria-label={i.order.viewLarger}>
+  <div class="img-modal-inner">
+    <button type="button" data-img-close class="img-modal-close" aria-label={i.order.closeLabel}>
+      <span aria-hidden="true">×</span>
+    </button>
+    <img data-img-modal-pic src="" alt="" />
+  </div>
+</dialog>
+
+<style>
+  /* Selected-variant feedback: a checked row gets a purple edge + faint tint,
+     so selection reads at a glance among several rows (not just the checkbox). */
+  [data-variant-row]:has(input[data-item]:checked) {
+    border-color: #34045c;
+    background: rgba(52, 4, 92, 0.05);
+  }
+
+  .img-modal {
+    /* Tailwind's preflight zeroes margin on every element, which kills the
+       native dialog centering (browsers center modals via margin:auto). Restore
+       it explicitly so the lightbox sits centered, not pinned top-left. */
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 92vw;
+    max-height: 90vh;
+    overflow: visible;
+  }
+  .img-modal::backdrop {
+    background: rgba(20, 6, 36, 0.72);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .img-modal[open] { animation: img-modal-in 0.25s ease-out both; }
+  @keyframes img-modal-in {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .img-modal-inner { position: relative; }
+  .img-modal-pic, .img-modal img {
+    display: block;
+    max-width: 92vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+  }
+  .img-modal-close {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    width: 42px;
+    height: 42px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background: #fff;
+    color: #2a1e10;
+    font-size: 1.5rem;
+    line-height: 1;
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .img-modal-close:hover { background: #ffd773; transform: rotate(90deg); }
+  .img-modal-close:focus-visible { outline: 2px solid #ffd773; outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    .img-modal[open] { animation: none; }
+    .img-modal-close { transition: none; }
+    .img-modal-close:hover { transform: none; }
+  }
+</style>
+
 <script>
   const form = document.querySelector<HTMLFormElement>('[data-order-form]');
   const success = document.querySelector<HTMLElement>('[data-order-success]');
@@ -144,24 +315,78 @@ const inputClass =
     return id;
   }
 
+  // Image lightbox: one shared <dialog>, populated from the clicked thumbnail.
+  // showModal() gives Escape-to-close natively; we add a close button + backdrop click.
+  const imgModal = document.querySelector<HTMLDialogElement>('[data-img-modal]');
+  const imgModalPic = document.querySelector<HTMLImageElement>('[data-img-modal-pic]');
+  if (imgModal && imgModalPic) {
+    document.querySelectorAll<HTMLButtonElement>('[data-img-trigger]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        imgModalPic.src = btn.dataset.full ?? '';
+        imgModalPic.alt = btn.dataset.caption ?? '';
+        if (typeof imgModal.showModal === 'function') imgModal.showModal();
+      });
+    });
+    imgModal.querySelector<HTMLButtonElement>('[data-img-close]')?.addEventListener('click', () => imgModal.close());
+    imgModal.addEventListener('click', (event) => {
+      if (event.target === imgModal) imgModal.close();
+    });
+  }
+
   if (form) {
-    // Checkbox toggles its quantity input.
-    form.querySelectorAll<HTMLInputElement>('[data-item]').forEach((box) => {
+    const boxes = Array.from(form.querySelectorAll<HTMLInputElement>('[data-item]'));
+    const subtotalRow = form.querySelector<HTMLElement>('[data-subtotal-row]');
+    const subtotalUsd = form.querySelector<HTMLElement>('[data-subtotal-usd]');
+    const subtotalMxn = form.querySelector<HTMLElement>('[data-subtotal-mxn]');
+    const productError = form.querySelector<HTMLElement>('[data-product-error]');
+
+    function recomputeSubtotal() {
+      let usd = 0;
+      let mxn = 0;
+      boxes.forEach((box) => {
+        if (!box.checked) return;
+        const priceUsd = Number(box.dataset.usd || 0);
+        const priceMxn = Number(box.dataset.mxn || 0);
+        if (!priceUsd && !priceMxn) return;
+        const qty = form!.querySelector<HTMLInputElement>(`[data-qty="${box.dataset.item}"]`);
+        const n = Math.max(1, Number(qty?.value || 1));
+        usd += priceUsd * n;
+        mxn += priceMxn * n;
+      });
+      if (subtotalUsd) subtotalUsd.textContent = String(usd);
+      if (subtotalMxn) subtotalMxn.textContent = String(mxn);
+      if (subtotalRow) subtotalRow.hidden = usd === 0 && mxn === 0;
+    }
+
+    boxes.forEach((box) => {
       box.addEventListener('change', () => {
         const qty = form.querySelector<HTMLInputElement>(`[data-qty="${box.dataset.item}"]`);
         if (qty) qty.disabled = !box.checked;
-        const productError = form.querySelector<HTMLElement>('[data-product-error]');
         if (box.checked && productError) productError.hidden = true;
+        recomputeSubtotal();
       });
     });
+    form.querySelectorAll<HTMLInputElement>('[data-qty]').forEach((qty) => {
+      qty.addEventListener('input', recomputeSubtotal);
+    });
 
-    // ?item=<slug> pre-selects a product (deck-page CTAs link this way).
+    // ?item=<group key> scrolls to and highlights the title. For a single-variant
+    // title (the books) we also auto-check it; decks have a format choice to make,
+    // so we only bring the buyer to the right block rather than guessing box vs bag.
     const preselect = new URLSearchParams(location.search).get('item');
     if (preselect) {
-      const box = form.querySelector<HTMLInputElement>(`[data-item="${preselect}"]`);
-      if (box) {
-        box.checked = true;
-        box.dispatchEvent(new Event('change'));
+      const groupVariants = boxes.filter((b) => b.dataset.group === preselect);
+      const block = document.getElementById(`group-${preselect}`);
+      if (block) {
+        block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        block.animate(
+          [{ backgroundColor: 'rgba(208,172,104,0.25)' }, { backgroundColor: 'transparent' }],
+          { duration: 1600, easing: 'ease-out' }
+        );
+      }
+      if (groupVariants.length === 1) {
+        groupVariants[0].checked = true;
+        groupVariants[0].dispatchEvent(new Event('change'));
       }
     }
 
@@ -175,8 +400,7 @@ const inputClass =
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const checked = form.querySelectorAll<HTMLInputElement>('[data-item]:checked');
-      const productError = form.querySelector<HTMLElement>('[data-product-error]');
+      const checked = boxes.filter((b) => b.checked);
       if (checked.length === 0) {
         if (productError) productError.hidden = false;
         return;
@@ -210,7 +434,7 @@ const inputClass =
         track('order_request_submitted', {
           enquiry_id: enquiryId,
           country,
-          items: Array.from(checked).map((c) => c.dataset.item).join(','),
+          items: checked.map((c) => c.dataset.item).join(','),
           language: document.documentElement.lang,
         });
 

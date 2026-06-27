@@ -1,7 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import SectionBlock from '../components/SectionBlock.astro';
 import OrderForm from '../components/OrderForm.astro';
 import { t } from '../i18n';
 
@@ -9,11 +7,22 @@ const i = t('en');
 ---
 
 <Layout title={i.order.title} description={i.order.metaDescription} noindex>
-  <Hero heading={i.order.heading} />
+  <!-- Compact branded hero: ties the order page to the cosmic palette of the
+       decks page (where most buyers arrive from) and names the imprint. -->
+  <section class="relative overflow-hidden text-white bg-linear-to-br from-[#1a0a2b] via-brand-purple to-[#10261c]">
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute -top-16 -left-16 w-72 h-72 rounded-full bg-amber-300/15 blur-3xl"></span>
+      <span class="absolute -bottom-20 -right-10 w-80 h-80 rounded-full bg-fuchsia-500/15 blur-3xl"></span>
+    </div>
+    <div class="relative max-w-3xl mx-auto px-6 py-16 md:py-20 text-center">
+      <p class="text-xs uppercase tracking-[0.35em] text-brand-gold mb-4">Keyhole Mystic Publishing</p>
+      <h1 class="text-4xl md:text-5xl font-heading mb-5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]">{i.order.heading}</h1>
+      <p class="text-base md:text-lg leading-relaxed text-white/90">{i.order.intro}</p>
+      <p class="mt-4 text-sm italic text-amber-200/90">{i.order.noObligation}</p>
+    </div>
+  </section>
 
-  <SectionBlock>
-    <p class="text-center text-lg leading-relaxed mb-3 max-w-2xl mx-auto">{i.order.intro}</p>
-    <p class="text-center text-base italic text-brand-purple mb-10 max-w-2xl mx-auto">{i.order.noObligation}</p>
+  <section class="py-16 px-6 bg-white">
     <OrderForm />
-  </SectionBlock>
+  </section>
 </Layout>
