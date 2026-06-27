@@ -216,6 +216,7 @@ Every oracle deck and book on this page comes through one door: **Keyhole Mystic
 - ***Magnetic Magi*** — manifestation deck, AR-enhanced.
 - ***Through the Keyhole*** — Kent's next oracle deck, coming soon. (Eagle-eyed visitors may notice the artwork in this site's Visionary Art gallery has been quietly previewing it.)
 - ***El Estimado · Un viaje inesperado en México*** — Kent's new book: an illustrated memoir of an unexpected journey through Mexico, where every page is visionary art.
+- ***Shinan · Cosmology of the Shipibo Tribe*** — Kent's anthropological-mystical study of the Shipibo people, gathered over four years with elders in the Peruvian Amazon. The source material behind the Shinan Oracle, brought under the imprint retroactively (see "Shinan (the book)" below).
 
 Keyhole Mystic Publishing isn't just Kent's home — it's becoming a home for others, too. If you've been carrying around an oracle deck, a mystic book, or a visionary project that's been whispering to be made, and you're not sure where it belongs, Kent wants to hear from you. The door is open.
 
@@ -232,6 +233,24 @@ Keyhole Mystic Publishing isn't just Kent's home — it's becoming a home for ot
 **Section CTAs:**
 - *Have a deck or book you'd like to make real?* → [Reach out to Kent](#contact)
 - *Want first word when Keyhole Mystic Publishing opens its doors more widely?* → [Get in touch](#contact)
+
+**Shinan (the book) — *Cosmology of the Shipibo Tribe***
+
+> **Context.** *Shinan: Cosmology of the Shipibo Tribe* (Kent Osborn) is a long-standing title — it predates *El Estimado* — but had been missing from the site. At Kent's direction, all of his work now falls under **Keyhole Mystic Publishing**, so the book is brought under the imprint **retroactively** and given its own callout card adjacent to *El Estimado* on the Decks page. Because it is not a new release, it does **not** carry the "Newest title" eyebrow — its eyebrow is *"The Foundational Work · Keyhole Mystic Publishing."* It's a single-cover card (no front/back pair, no "Peek Inside" modal — there's no verbatim teaser for it as there is for *El Estimado*).
+>
+> **What it is (sourced from the book's listings).** A shamanic-anthropology study of the Shipibo people of the Peruvian Amazon, the flower of roughly four years of research and interviews with Shipibo elders in the Ucayali region (near Pucallpa). It covers the symbology of Kené designs, the master plants and spirit animals, ceremonial tools, types of shaman, mythology, history, and the chanted *icaros* — and studies Shipibo visionary artwork across pottery, body paint, embroidery, and painted fabric. Both anthropological and mystical, it is the deep source the *Shinan Oracle* deck draws from. Proceeds from the book have helped fund a clean-water well project for a Shipibo community near Pucallpa. (Sources: the book's [Goodreads](https://www.goodreads.com/book/show/75632936-shinan) and [Amazon](https://www.amazon.com/Shinan-Cosmology-Shipibo-Kent-Osborn/dp/B0B7Q5QWSB) listings, and the [ethnoco product page](https://www.ethnoco.com/product-page/shinan-shipibo-book).)
+>
+> **House-style note:** following the same convention as the Shinan Oracle copy, the on-site description avoids naming specific plant medicines ("visionary states," "master plants" rather than the plant by name).
+
+**Shinan (book) callout card:**
+- Eyebrow label: *The Foundational Work · Keyhole Mystic Publishing*
+- Cover: single image, referenced from Cloudinary (`https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-cosmology_hdr7in.jpg`) — not committed to the repo.
+- Title: **Shinan**
+- Subtitle: *Cosmology of the Shipibo Tribe*
+- Author: Kent Osborn
+- Body (approved ad copy, lives in i18n key `decks.shinanBookBody`):
+  > The deep well the Shinan Oracle was drawn from. Over four years of research and conversations with Shipibo elders in Peru's Ucayali region, Kent gathered the living cosmology of the tribe — the symbology of Kené designs, the master plants and spirit animals, the ceremonial tools, and the chanted icaros that carry it all. Equal parts anthropology and mystery, it's a doorway into the tradition behind the cards. Proceeds have helped bring clean water to a Shipibo community near Pucallpa.
+- CTA: *Reach out to Kent →* (links to contact)
 
 > **Cross-page light touches (proposed).**
 > A handful of small mentions elsewhere on the site keep the imprint feeling like a natural part of Kent's story rather than a grafted-on brand. None of these change page structure — only short copy edits.
@@ -436,8 +455,8 @@ Open Graph tags shape how the site looks when *shared*; schema.org JSON-LD shape
 
 **Currently emitted:**
 
-- **`Product`** — Shinan Oracle, Magnetic Magi, and Through the Keyhole on `/decks` (and `/es/decks`). Each carries `name`, `image`, `description` (from the i18n copy), `brand`, and `category: "Oracle Deck"`. Offers/price will be added later when commerce is wired in; until then the schema is informational, not commerce-eligible.
-- **`Book`** — El Estimado on `/decks` (and `/es/decks`). Carries `name`, `alternateName` (the Spanish subtitle), `image`, `description`, `author` (Kent Osborn), `publisher` (Keyhole Mystic Publishing), `inLanguage: es`, `bookFormat: Paperback`.
+- **`Product`** — Shinan Oracle, Magnetic Magi, and Through the Keyhole on `/decks` (and `/es/decks`). Each carries `name`, `image`, `description` (from the i18n copy), `brand`, and `category: "Oracle Deck"`. Offers/price will be added later when commerce is wired in; until then the schema is informational, not commerce-eligible. (The Shinan Oracle `image` points at a current Cloudinary-hosted product photo — `…/shinan-oracle-deck_uked7k.png` — rather than the older committed `shinan-product.jpg`.)
+- **`Book`** — two titles on `/decks` (and `/es/decks`): **El Estimado** (`name`, `alternateName` = the Spanish subtitle, `image`, `description`, `author` Kent Osborn, `publisher` Keyhole Mystic Publishing, `inLanguage: es`, `bookFormat: Paperback`) and **Shinan: Cosmology of the Shipibo Tribe** (same shape, `image` referenced from Cloudinary, `alternateName` carrying the EN/ES title variant; the `/es` page uses the Spanish title as `name` with `inLanguage: es`).
 - **`Person`** — Kent Osborn on the homepage, with `alternateName: "Kentchi"`, `jobTitle`, `image`, `address.addressCountry: "MX"`, `worksFor` linking to the Organization, and `sameAs` listing every Instagram + Facebook profile. The `sameAs` array is how Google associates the entity across the web.
 - **`Organization`** — Keyhole Mystic Publishing on the homepage, with `logo`, `url`, and `founder` linking back to the Person. The Person ↔ Organization cross-link uses `@id` references so search engines treat them as a single entity graph.
 

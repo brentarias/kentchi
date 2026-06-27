@@ -79,6 +79,12 @@
     "elEstimadoPeekInside": "Peek Inside",
     "elEstimadoPeekClose": "Close",
     "elEstimadoOrderCta": "Request the Book",
+    "shinanBookEyebrow": "The Foundational Work · Keyhole Mystic Publishing",
+    "shinanBookTitle": "Shinan",
+    "shinanBookSubtitle": "Cosmology of the Shipibo Tribe",
+    "shinanBookAuthor": "Kent Osborn",
+    "shinanBookBody": "The deep well the Shinan Oracle was drawn from. Over four years of research and conversations with Shipibo elders in Peru's Ucayali region, Kent gathered the living cosmology of the tribe — the symbology of Kené designs, the master plants and spirit animals, the ceremonial tools, and the chanted icaros that carry it all. Equal parts anthropology and mystery, it's a doorway into the tradition behind the cards. Proceeds have helped bring clean water to a Shipibo community near Pucallpa.",
+    "shinanBookOrderCta": "Request the Book",
     "kmpCtaReachOut": "Reach out to Kent"
   },
   "art": {
@@ -163,6 +169,8 @@
     "productMagneticMagiNote": "Manifestation deck · AR-enhanced",
     "productElEstimado": "El Estimado",
     "productElEstimadoNote": "Illustrated memoir · every page is visionary art (Spanish)",
+    "productShinanCosmology": "Shinan: Cosmology of the Shipibo Tribe",
+    "productShinanCosmologyNote": "The anthropological study behind the Shinan Oracle",
     "productRequired": "Please select at least one item.",
     "quantityLabel": "Quantity",
     "countryLabel": "Country to ship to",

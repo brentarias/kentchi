@@ -79,6 +79,12 @@
     "elEstimadoPeekInside": "Echa un Vistazo",
     "elEstimadoPeekClose": "Cerrar",
     "elEstimadoOrderCta": "Solicitar el Libro",
+    "shinanBookEyebrow": "La Obra Fundacional · Keyhole Mystic Publishing",
+    "shinanBookTitle": "Shinan",
+    "shinanBookSubtitle": "Cosmología de la Tribu Shipibo",
+    "shinanBookAuthor": "Kent Osborn",
+    "shinanBookBody": "El pozo profundo del que nació el Oráculo Shinan. A lo largo de cuatro años de investigación y conversaciones con ancianos Shipibo en la región peruana del Ucayali, Kent reunió la cosmología viva de la tribu — la simbología de los diseños Kené, las plantas maestras y los animales de poder, las herramientas ceremoniales y los ícaros cantados que lo sostienen todo. A partes iguales antropología y misterio, es una puerta hacia la tradición que hay detrás de las cartas. Lo recaudado ha ayudado a llevar agua potable a una comunidad Shipibo cerca de Pucallpa.",
+    "shinanBookOrderCta": "Solicitar el Libro",
     "kmpCtaReachOut": "Contactar a Kent"
   },
   "art": {
@@ -163,6 +169,8 @@
     "productMagneticMagiNote": "Baraja de manifestación · con RA",
     "productElEstimado": "El Estimado",
     "productElEstimadoNote": "Memoria ilustrada · cada página es arte visionario (español)",
+    "productShinanCosmology": "Shinan: Cosmología de la Tribu Shipibo",
+    "productShinanCosmologyNote": "El estudio antropológico detrás del Oráculo Shinan",
     "productRequired": "Por favor selecciona al menos un artículo.",
     "quantityLabel": "Cantidad",
     "countryLabel": "País de envío",
