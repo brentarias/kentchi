@@ -402,6 +402,40 @@ For inquiries, please email **[ayahuaskent@gmail.com](mailto:ayahuaskent@gmail.c
 
 ---
 
+### Order Request Form
+
+**Route:** `/order`
+
+**Headline:**
+Request an Order
+
+**Intro:**
+Every deck and book travels from the studio to your hands personally. Tell us what you'd like and where it's going, and Keyhole Mystic Publishing will reply shortly with a quote tailored to your country — formats and shipping vary by region, which is why we don't list a single fixed price.
+
+**Available Products (in order on the form):**
+
+- **Shinan Oracle** — Bilingual deck rooted in the Shipibo tradition · AR-enhanced (Hardcase box: $50 USD / 900 MXN; Cinch bag · Wine: $40 USD / 700 MXN)
+- **Magnetic Magi** — Manifestation deck · AR-enhanced (Hardcase box: $50 USD / 900 MXN; Cinch bag · Wine: $40 USD / 700 MXN; Cinch bag · Purple: $40 USD / 700 MXN)
+- **Worlds Within · Mundos Interiores** — Deck · Pre-order (no price shown; Kent confirms pricing and timing in his reply; excluded from the estimated subtotal)
+- **El Estimado** — Illustrated memoir · every page is visionary art (Spanish) (no price shown; excluded from the estimated subtotal)
+- **Shinan: Cosmology of the Shipibo Tribe** — The anthropological study behind the Shinan Oracle (no price shown; excluded from the estimated subtotal)
+
+**Form Fields:**
+- Product selection (checkboxes, multi-select allowed)
+- Quantity per item
+- Country to ship to
+- Shipping address (optional)
+- Name
+- Email
+- Additional notes (optional)
+
+**Form Behavior:**
+- Subtotal calculated for items with prices; pre-order and book items (no pricing) excluded from subtotal but included in the request
+- Deep-linking: `/order?item=<product-key>` scrolls to the specified product group and auto-checks the first variant
+- Netlify form submission; confirmation email sent to customer with a unique reference ID
+
+---
+
 ## Additional Notes for Implementation
 
 - **Naming convention — Kent Osborn vs Kentchi:** The site emphasizes **Kent Osborn** as the primary name so visitors arriving from oracle-deck referrals immediately recognize the author. **Kentchi** remains the warm, familiar nickname and appears freely in body copy, section eyebrows, and many CTAs — but high-signal surfaces lead with the full name: page titles (`<Page> | Kent Osborn`), the About hero heading, the home-page Welcome paragraph (which introduces both names within the first sentence), the footer copyright, the header logo alt text, and at least one prominent CTA per page. The on-site copy never says "Kent" alone without "Osborn" — single-name uses are reserved for "Kentchi" or "Kent Osborn".
