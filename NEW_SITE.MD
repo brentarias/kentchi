@@ -161,13 +161,13 @@ A bilingual deck born from years spent with Shipibo teachers and mothers in the 
 Rooted in the wisdom of Shipibo shamans of the Peruvian Amazon, the Magnetic Magi is a manifestation deck — your magnetic ally for calling in the life you long for. Each card helps dissolve limiting beliefs and quiet the thoughts that keep dreams at arm's length, so the visions you came here to live can take shape. Paired with Artivive, the magic literally moves.
 *Published by Keyhole Mystic Publishing.*
 
-**Through the Keyhole** — *coming soon*
-Sixteen years of hand-painted artworks (2010–2026), born during deep Shipibo dietas in the Peruvian Amazon and from Kent's visionary journeys through Colombia, Mexico, California, and beyond. The deck takes its name from the third eye — the inner aperture through which the visionary realms come into view, and which each card is a small key for. Built to open that door for anyone walking a path of spiritual growth, creative awakening, or inner exploration — no prior plant-medicine experience required. A guidebook, also by Kent, carries the meanings; the cards themselves carry a tidal wave of vivid artistic inspiration.
+**Worlds Within · Mundos Interiores** — *pre-order*
+Sixteen years of hand-painted artworks (2010–2026), born during deep Shipibo dietas in the Peruvian Amazon and from Kent's visionary journeys through Colombia, Mexico, California, and beyond. The deck's name points to where its doors open: the worlds within — the visionary realms that come into view through the inner aperture of the third eye. Each card is a small key to one of them. Built to open that door for anyone walking a path of spiritual growth, creative awakening, or inner exploration — no prior plant-medicine experience required. A guidebook, also by Kent, carries the meanings; the cards themselves carry a tidal wave of vivid artistic inspiration.
 *Forthcoming from Keyhole Mystic Publishing.*
 
-> **Visual treatment recommendation for Through the Keyhole.** Use the placeholder card Kent provided at `public/images/through-the-keyhole-preview.jpg` (1085 × 1600, ~137 KB, well within the project image-size cap). The piece is a Gothic-arched frame with a glowing keyhole and a staircase descending through it — portrait orientation, deep teal-to-purple, very on-brand and a pleasant rhyme with the Keyhole Mystic Publishing logo's own keyhole motif. Display it at roughly 60–70% the visual weight of the Shinan Oracle / Magnetic Magi product photos (this is a placeholder for an unreleased deck and shouldn't compete with the finished products), with a soft *Coming soon* pill in the corner.
+> **Visual treatment for Worlds Within.** The deck's real box cover now exists and replaces the earlier keyhole-staircase placeholder: `https://res.cloudinary.com/dmzx8w015/image/upload/v1785524243/Worlds_within_cover_image_vaafyq.jpg` (1054 × 1458). It is bilingual — "Worlds Within / Mundos Interiores · Oracle Deck · Oráculo" — with gold display lettering on an indigo starfield; the section's heading gradient leads with amber to echo that gold. Shown with a *Pre-Order* pill in the corner; primary CTA deep-links to the RFQ form (`/order?item=worlds-within`).
 
-> **Trivia (not for the visitor).** The whole Visionary Art gallery on this site is artwork from *Through the Keyhole*. The site has been previewing the deck without saying so. We deliberately don't surface this on-page — it's a delightful detail that rewards curious eyes rather than something to announce — but the design team should know it in case future copy wants to wink at it.
+> **Trivia (not for the visitor).** The whole Visionary Art gallery on this site is artwork from *Worlds Within*. The site has been previewing the deck without saying so. We deliberately don't surface this on-page — it's a delightful detail that rewards curious eyes rather than something to announce — but the design team should know it in case future copy wants to wink at it.
 
 > **Canonical source — Kentchi's own words on the decks.**
 > The on-site copy above is a creative interpretation. The text below is what Kentchi provided verbatim and is the source of truth — any future rewrites must remain consistent with it (don't contradict the Shipibo lineage, the Kené / icaro relationship, the manifestation framing, etc.).
@@ -178,12 +178,12 @@ Sixteen years of hand-painted artworks (2010–2026), born during deep Shipibo d
 > **Magnetic Magi (verbatim):**
 > This oracle is rooted in the teachings of the Shipibo shamans of the Peruvian Amazon rainforest. It was created as a tool to help people attract the reality they desire into their lives, allowing their dreams to come true. This oracle can help you overcome your limiting beliefs and inhibiting thoughts, so that you can be more successful in manifesting your visions, dreams, and desires.
 >
-> **Through the Keyhole (verbatim):**
+> **Worlds Within — formerly "Through the Keyhole" (verbatim, written under the old name; deck renamed July 2026):**
 > Through the Keyhole Oracle is a collection of hand-painted artworks created by Kent Osborn between 2010 and 2026. Many of the paintings were completed in the Peruvian Amazon during Shipibo ayahuasca dietas, while others emerged throughout his colorful journeys in Colombia, Mexico, California, and beyond.
 >
 > While plant medicines played an influential role in the creation of this oracle, the accompanying guidebook—also written by the artist—offers meanings and messages intended for anyone walking a path of spiritual growth, creative awakening, and inner exploration. Whether or not one has experience with plant medicines, the wisdom and symbolism within these cards are designed to be accessible to all who are open to receiving a tidal wave of vivid artistic inspiration.
 >
-> **Through the Keyhole — additional context (from a voice message, not the written description above):** Kent indicated the deck's name — and its underlying intention — is a "visionary third-eye-activating" theme. The keyhole, in other words, is the inner aperture / third eye, and the deck is a set of keys for it. This framing isn't in the verbatim text, but Kent supplied it as additional source-of-truth context.
+> **Worlds Within — additional context (from a voice message, not the written description above):** Kent indicated the deck's name — and its underlying intention — is a "visionary third-eye-activating" theme. The keyhole, in other words, is the inner aperture / third eye, and the deck is a set of keys for it. This framing isn't in the verbatim text, but Kent supplied it as additional source-of-truth context. The deck was later renamed Worlds Within / Mundos Interiores — the keyhole/third-eye framing now describes what the name points to (the worlds seen through that inner aperture) rather than the title itself.
 >
 > **El Estimado — book teaser (verbatim):**
 > Weary and frustrated by the emptiness of his home-office life in Los Angeles, Taylor impulsively escapes to the tropical paradise of Playa del Carmen, Mexico, hoping a change of scenery will transform his life. But before long, he realizes that no matter how far he travels, he cannot outrun himself. The same dissatisfaction, negativity, and restless dissatisfaction that haunted him back home continue to follow him beneath the palm trees and turquoise skies.
@@ -214,7 +214,7 @@ Every oracle deck and book on this page comes through one door: **Keyhole Mystic
 
 - ***Shinan Oracle*** — bilingual deck rooted in the Shipibo tradition.
 - ***Magnetic Magi*** — manifestation deck, AR-enhanced.
-- ***Through the Keyhole*** — Kent's next oracle deck, coming soon. (Eagle-eyed visitors may notice the artwork in this site's Visionary Art gallery has been quietly previewing it.)
+- ***Worlds Within · Mundos Interiores*** — Kent's next oracle deck, open for pre-order. (Eagle-eyed visitors may notice the artwork in this site's Visionary Art gallery has been quietly previewing it.)
 - ***El Estimado · Un viaje inesperado en México*** — Kent's new book: an illustrated memoir of an unexpected journey through Mexico, where every page is visionary art.
 - ***Shinan · Cosmology of the Shipibo Tribe*** — Kent's anthropological-mystical study of the Shipibo people, gathered over four years with elders in the Peruvian Amazon. The source material behind the Shinan Oracle, brought under the imprint retroactively (see "Shinan (the book)" below).
 
@@ -258,7 +258,7 @@ Keyhole Mystic Publishing isn't just Kent's home — it's becoming a home for ot
 > **1. Featured Decks subsection (this same page).** Already drafted above: each of the two existing deck descriptions now carries a single italic line — *"Published by Keyhole Mystic Publishing."* — directly beneath it. The minimum visible signal that those titles belong to the imprint without disturbing the existing prose.
 >
 > **2. Home page — `home.decksText` (i18n key).** Update the existing "Oracle Decks & Mystic Books" offer card. Replace the current closing sentence (*"…dreams of becoming a publishing home for visionary creators like you."*) with:
-> > **New ending:** "These decks — including the forthcoming *Through the Keyhole* — and Kent's new book all come from his own imprint, **Keyhole Mystic Publishing** (KMP), and its doors are opening for other visionary makers too."
+> > **New ending:** "These decks — including the forthcoming *Worlds Within* — and Kent's new book all come from his own imprint, **Keyhole Mystic Publishing** (KMP), and its doors are opening for other visionary makers too."
 >
 > **3. About page — `about.body3` (i18n key).** Add one sentence near the end:
 > > **New sentence:** "Today his oracle decks, his paintings, and his new book *El Estimado* all live under his own imprint, **Keyhole Mystic Publishing** — an open door for other visionary makers too."
@@ -432,7 +432,7 @@ How the site appears when shared on Facebook, LinkedIn, iMessage, Slack, Discord
 
 **Per-page `og:description` copy (approved):**
 - **Home:** Kent Osborn — Kentchi — weaves visionary paintings, augmented-reality (AR) oracle decks, and the illustrated memoir El Estimado into experiences that spark joy and wonder.
-- **Decks:** Shinan Oracle, Magnetic Magi, and the forthcoming Through the Keyhole — hand-painted, AR-enhanced oracle decks from Kent's imprint, Keyhole Mystic Publishing.
+- **Decks:** Shinan Oracle, Magnetic Magi, and Worlds Within (now open for pre-order) — hand-painted, AR-enhanced oracle decks from Kent's imprint, Keyhole Mystic Publishing.
 - **Visionary Art:** Kentchi's visionary paintings fuse sacred aesthetics with augmented reality (AR) — point your phone at the art and watch it breathe, dance, and sparkle.
 - **Experiences:** Live painting, murals, and AR-enhanced art events — gather with Kentchi for workshops, circles, and creative experiences full of color and connection.
 - **Music:** Original songs and soundscapes by Kentchi — another doorway into the playful mystic realm that accompanies the visual magic.

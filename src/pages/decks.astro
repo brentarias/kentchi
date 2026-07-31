@@ -31,9 +31,10 @@ const decksSchema = {
     },
     {
       '@type': 'Product',
-      name: 'Through the Keyhole',
-      image: abs('/images/through-the-keyhole-preview.jpg'),
-      description: i.decks.keyholeText,
+      name: 'Worlds Within',
+      alternateName: 'Mundos Interiores',
+      image: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1785524243/Worlds_within_cover_image_vaafyq.jpg',
+      description: i.decks.worldsWithinText,
       brand,
       category: 'Oracle Deck',
     },
@@ -226,7 +227,7 @@ const decksSchema = {
   </section>
 
   <!-- ============================================================ -->
-  <!-- THROUGH THE KEYHOLE — coming soon. Image left, content right -->
+  <!-- WORLDS WITHIN — pre-order. Image left, content right         -->
   <!-- Cosmic teal/violet palette to match the preview card.        -->
   <!-- ============================================================ -->
   <section class="relative py-24 px-4 md:px-8 overflow-hidden bg-linear-to-br from-[#0a1f3a] via-[#1c1854] to-[#2a0a3a] text-white">
@@ -237,9 +238,9 @@ const decksSchema = {
       <div class="relative">
         <div class="absolute -inset-4 rounded-4xl bg-linear-to-br from-teal-300/30 via-cyan-400/20 to-violet-500/30 blur-2xl" aria-hidden="true"></div>
         <div class="relative overflow-hidden rounded-4xl ring-1 ring-cyan-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)] mx-auto max-w-sm">
-          <img src="/images/through-the-keyhole-preview.jpg" alt="Through the Keyhole — placeholder card art" class="block w-full aspect-2/3 object-cover" loading="lazy" />
-          <!-- "Coming Soon" pill in the corner -->
-          <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-amber-300 text-brand-dark text-[10px] uppercase tracking-[0.25em] font-heading shadow-lg">{i.decks.keyholeStatus}</span>
+          <img src="https://res.cloudinary.com/dmzx8w015/image/upload/f_auto,q_auto/v1785524243/Worlds_within_cover_image_vaafyq.jpg" alt="Worlds Within oracle deck box cover — a meditating figure glowing among cosmic trees" class="block w-full aspect-[1054/1458] object-cover" loading="lazy" />
+          <!-- "Pre-Order" pill in the corner -->
+          <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-amber-300 text-brand-dark text-[10px] uppercase tracking-[0.25em] font-heading shadow-lg">{i.decks.worldsWithinStatus}</span>
         </div>
       </div>
 
@@ -248,18 +249,20 @@ const decksSchema = {
           Visionary 3rd-Eye Oracle
         </span>
         <h2 class="text-3xl md:text-5xl font-heading mb-5">
-          <span class="bg-linear-to-r from-teal-200 via-cyan-200 to-violet-300 bg-clip-text text-transparent">{i.decks.keyholeTitle}</span>
+          <span class="bg-linear-to-r from-amber-200 via-teal-200 to-violet-300 bg-clip-text text-transparent">{i.decks.worldsWithinTitle}</span>
         </h2>
-        <p class="text-white/90 leading-relaxed mb-2 text-base md:text-lg">{i.decks.keyholeText}</p>
-        <p class="text-cyan-200/85 italic text-sm mb-6">{i.decks.keyholePublisherLine}</p>
+        <p class="text-white/90 leading-relaxed mb-2 text-base md:text-lg">{i.decks.worldsWithinText}</p>
+        <p class="text-cyan-200/85 italic text-sm mb-6">{i.decks.worldsWithinPublisherLine}</p>
         <div class="flex flex-wrap gap-2 mb-7">
           <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Hand-Painted</span>
           <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">2010 – 2026</span>
           <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Guidebook Included</span>
           <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Open to All</span>
+          <span class="px-3 py-1 rounded-full text-xs bg-white/10 ring-1 ring-white/20">Bilingual</span>
         </div>
         <div class="flex flex-wrap gap-3">
-          <a href="/contact" class="btn-outline">Get word when it lands</a>
+          <a href="/order?item=worlds-within" class="btn-glow">Pre-order Worlds Within</a>
+          <a href="/contact" class="btn-outline">Reach Kent Osborn</a>
         </div>
       </div>
     </div>
@@ -342,7 +345,7 @@ const decksSchema = {
           </li>
           <li class="flex items-start gap-3">
             <span class="text-brand-gold mt-1 shrink-0">✦</span>
-            <span><strong class="text-white">Through the Keyhole</strong> — Kent's next oracle deck, coming soon.</span>
+            <span><strong class="text-white">Worlds Within · Mundos Interiores</strong> — Kent's next oracle deck, open for pre-order.</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="text-brand-gold mt-1 shrink-0">✦</span>
