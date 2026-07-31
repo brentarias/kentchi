@@ -1,0 +1,181 @@
+---
+/*
+  Always-visible strip of card thumbnails beneath a deck's main image.
+  Clicking a card opens a native-<dialog> lightbox with prev/next arrows
+  (ArrowLeft/ArrowRight while open; Escape closes natively). Captions show
+  only where the card has a real name; alt/captions fall back to deckName.
+  Same interaction vocabulary as the OrderForm lightbox and peek modal.
+*/
+import type { DeckCard } from '../data/deckCards';
+import { t, type Lang, defaultLang } from '../i18n';
+
+interface Props {
+  id: string;        // unique per instance — scopes the dialog wiring
+  deckName: string;  // caption/aria fallback
+  cards: DeckCard[];
+  lang?: Lang;
+}
+
+const { id, deckName, cards, lang = defaultLang } = Astro.props;
+const i = t(lang);
+const caption = (c: DeckCard) => (lang === 'es' ? c.titleEs : c.titleEn) ?? deckName;
+---
+
+<div class="mt-6" data-deck-carousel={id}>
+  <p class="text-[11px] uppercase tracking-[0.3em] text-white/60 mb-3">{i.decks.peekCards}</p>
+  <div class="flex gap-3 overflow-x-auto pb-2 snap-x">
+    {cards.map((card) => (
+      <button
+        type="button"
+        data-card-open
+        data-full={card.src}
+        data-caption={caption(card)}
+        aria-label={`${caption(card)} — ${i.decks.peekCardsView}`}
+        class="deck-thumb shrink-0 w-20 md:w-24 aspect-[17/24] snap-start overflow-hidden rounded-lg ring-1 ring-white/25 bg-black/30 cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
+      >
+        <img src={card.thumbSrc} alt={caption(card)} loading="lazy" class="w-full h-full object-cover" />
+      </button>
+    ))}
+  </div>
+
+  <dialog data-card-modal class="card-modal" aria-label={`${deckName} — ${i.decks.peekCards}`}>
+    <div class="card-modal-inner">
+      <button type="button" data-card-close class="card-modal-close" aria-label={i.decks.peekCardsClose}>
+        <span aria-hidden="true">×</span>
+      </button>
+      <img data-card-pic src="" alt="" />
+      <div class="card-modal-bar">
+        <button type="button" data-card-prev class="card-modal-nav" aria-label={i.decks.peekCardsPrev}>‹</button>
+        <p data-card-caption class="card-modal-caption"></p>
+        <button type="button" data-card-next class="card-modal-nav" aria-label={i.decks.peekCardsNext}>›</button>
+      </div>
+    </div>
+  </dialog>
+</div>
+
+<style>
+  .deck-thumb img { transition: transform 0.3s ease; }
+  .deck-thumb:hover img { transform: scale(1.06); }
+
+  .card-modal {
+    /* Tailwind preflight zeroes margins, which breaks native dialog centering */
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 92vw;
+    max-height: 90vh;
+    overflow: visible;
+  }
+  .card-modal::backdrop {
+    background: rgba(20, 6, 36, 0.78);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .card-modal[open] { animation: card-modal-in 0.25s ease-out both; }
+  @keyframes card-modal-in {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .card-modal-inner { position: relative; }
+  .card-modal img[data-card-pic] {
+    display: block;
+    max-width: 92vw;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+  }
+  .card-modal-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+  .card-modal-caption {
+    color: #fff;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    min-width: 8rem;
+    text-align: center;
+  }
+  .card-modal-nav {
+    width: 42px;
+    height: 42px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.92);
+    color: #2a1e10;
+    font-size: 1.5rem;
+    line-height: 1;
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5);
+  }
+  .card-modal-nav:hover { background: #ffd773; }
+  .card-modal-nav:focus-visible,
+  .card-modal-close:focus-visible { outline: 2px solid #ffd773; outline-offset: 3px; }
+  .card-modal-close {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    width: 42px;
+    height: 42px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background: #fff;
+    color: #2a1e10;
+    font-size: 1.5rem;
+    line-height: 1;
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+  }
+  .card-modal-close:hover { background: #ffd773; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .deck-thumb img { transition: none; }
+    .deck-thumb:hover img { transform: none; }
+    .card-modal[open] { animation: none; }
+  }
+</style>
+
+<script>
+  // One script instance handles every carousel on the page; each is scoped
+  // to its [data-deck-carousel] root so the three decks don't cross-wire.
+  document.querySelectorAll<HTMLElement>('[data-deck-carousel]').forEach((root) => {
+    const modal = root.querySelector<HTMLDialogElement>('[data-card-modal]');
+    const pic = root.querySelector<HTMLImageElement>('[data-card-pic]');
+    const captionEl = root.querySelector<HTMLElement>('[data-card-caption]');
+    const thumbs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-card-open]'));
+    if (!modal || !pic || !captionEl || thumbs.length === 0) return;
+
+    let index = 0;
+    function show(next: number) {
+      index = (next + thumbs.length) % thumbs.length;
+      const thumb = thumbs[index];
+      pic!.src = thumb.dataset.full ?? '';
+      pic!.alt = thumb.dataset.caption ?? '';
+      captionEl!.textContent = thumb.dataset.caption ?? '';
+    }
+
+    thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => {
+        show(i);
+        if (typeof modal.showModal === 'function') modal.showModal();
+      });
+    });
+    root.querySelector('[data-card-prev]')?.addEventListener('click', () => show(index - 1));
+    root.querySelector('[data-card-next]')?.addEventListener('click', () => show(index + 1));
+    root.querySelector('[data-card-close]')?.addEventListener('click', () => modal.close());
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) modal.close();
+    });
+    modal.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') show(index - 1);
+      if (event.key === 'ArrowRight') show(index + 1);
+    });
+  });
+</script>
