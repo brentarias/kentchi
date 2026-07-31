@@ -66,38 +66,25 @@ const i = t('en');
   </section>
 
   <!-- ============================================================ -->
-  <!-- EXPERIENCE 1 — Live Interactive Painting (video left, copy right) -->
+  <!-- EXPERIENCE 1 — Live Interactive Painting: full-bleed         -->
+  <!-- landscape video, full text in a frosted glass card           -->
   <!-- ============================================================ -->
-  <section
-    id="experiences"
-    data-parallax-section
-    class="relative py-24 px-4 md:px-8 overflow-hidden bg-linear-to-br from-[#10261c] via-[#13363a] to-[#1a1028] text-white"
-  >
-    <div data-parallax="1.05" class="pointer-events-none absolute inset-0" aria-hidden="true">
-      <span class="absolute -top-20 -left-24 w-96 h-96 rounded-full bg-amber-300/15 blur-3xl orb-drift-a"></span>
-      <span class="absolute -bottom-24 right-0 w-md h-112 rounded-full bg-emerald-500/15 blur-3xl orb-drift-b"></span>
-    </div>
+  <section id="experiences" class="relative min-h-[80vh] overflow-hidden flex items-center text-white">
+    <video
+      src={videos.livePaintingLandscape}
+      poster="/images/posters/live-painting-poster.jpg"
+      class="absolute inset-0 w-full h-full object-cover"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-hidden="true"
+    ></video>
+    <div class="absolute inset-0 bg-linear-to-r from-[#0f0b1a]/85 via-[#0f0b1a]/50 to-[#0f0b1a]/30" aria-hidden="true"></div>
 
-    <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-      <!-- VIDEO -->
-      <div class="relative">
-        <div class="absolute -inset-4 rounded-4xl bg-linear-to-br from-amber-300/30 via-rose-400/20 to-emerald-500/30 blur-2xl" aria-hidden="true"></div>
-        <div class="relative overflow-hidden rounded-4xl ring-1 ring-amber-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.65)]">
-          <video
-            src={videos.livePaintingLandscape}
-            poster="/images/posters/live-painting-poster.jpg"
-            class="block w-full aspect-video object-cover"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-          ></video>
-        </div>
-      </div>
-
-      <!-- CONTENT -->
-      <div>
+    <div class="relative z-10 w-full max-w-6xl mx-auto px-4 md:px-8 py-20">
+      <div class="hero-glass rounded-4xl px-6 py-10 md:px-12 md:py-12 max-w-xl mx-auto md:mx-0 text-center md:text-left">
         <span class="inline-block px-3 py-1 rounded-full bg-amber-300/15 text-amber-200 text-[11px] uppercase tracking-[0.25em] mb-4 ring-1 ring-amber-200/30">
           {i.experiences.livePaintingBadge}
         </span>
@@ -105,7 +92,7 @@ const i = t('en');
           <span class="bg-linear-to-r from-amber-200 via-rose-300 to-emerald-300 bg-clip-text text-transparent">{i.experiences.livePaintingTitle}</span>
         </h2>
         <p class="text-white/90 leading-relaxed text-base md:text-lg mb-7">{i.experiences.livePaintingBody}</p>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap justify-center md:justify-start gap-3">
           <a href="/contact" class="btn-glow">Find Kent's next pop-up</a>
         </div>
       </div>
@@ -156,27 +143,43 @@ const i = t('en');
   </section>
 
   <!-- ============================================================ -->
-  <!-- CINEMATIC INTERLUDE — full-bleed art-promo video with overlay -->
+  <!-- PAINTING THAT BREATHES — portrait studio-promo video tile    -->
+  <!-- with adjacent copy (was the full-bleed interlude)            -->
   <!-- ============================================================ -->
-  <section class="relative min-h-[70vh] overflow-hidden flex items-center justify-center text-white">
-    <video
-      src={videos.artPromo}
-      poster="/images/posters/art-promo-poster.jpg"
-      class="absolute inset-0 w-full h-full object-cover"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      aria-hidden="true"
-    ></video>
-    <div class="absolute inset-0 bg-linear-to-b from-[#0f0b1a]/55 via-[#0f0b1a]/35 to-[#0f0b1a]/85" aria-hidden="true"></div>
+  <section data-parallax-section class="relative py-24 px-4 md:px-8 overflow-hidden bg-linear-to-br from-[#0f0b1a] via-[#1a0f2b] to-[#10261c] text-white">
+    <div data-parallax="1.05" class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <span class="absolute -top-20 -right-24 w-96 h-96 rounded-full bg-amber-300/15 blur-3xl orb-drift-a"></span>
+      <span class="absolute -bottom-24 -left-20 w-md h-112 rounded-full bg-teal-400/15 blur-3xl orb-drift-b"></span>
+    </div>
 
-    <div class="relative z-10 text-center max-w-2xl px-6">
-      <p class="text-xs uppercase tracking-[0.35em] text-amber-200 mb-4 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">{i.experiences.interludeEyebrow}</p>
-      <h2 class="text-3xl md:text-5xl font-heading drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
-        <span class="bg-linear-to-r from-amber-200 via-rose-300 to-violet-300 bg-clip-text text-transparent">{i.experiences.interludeHeading}</span>
-      </h2>
+    <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 md:gap-16 items-center">
+      <!-- portrait video tile -->
+      <div class="relative mx-auto md:mx-0 w-full max-w-70 md:max-w-80">
+        <div class="absolute -inset-4 rounded-3xl bg-linear-to-br from-amber-300/25 via-rose-300/25 to-teal-400/25 blur-2xl" aria-hidden="true"></div>
+        <div class="relative overflow-hidden rounded-3xl ring-1 ring-amber-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.65)]">
+          <video
+            src={videos.artPromo}
+            poster="/images/posters/art-promo-poster.jpg"
+            class="block w-full aspect-9/16 object-cover bg-black"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label={i.experiences.interludeHeading}
+          ></video>
+        </div>
+      </div>
+
+      <!-- copy -->
+      <div class="text-center md:text-left">
+        <p class="text-xs uppercase tracking-[0.35em] text-amber-200 mb-4">{i.experiences.interludeEyebrow}</p>
+        <h2 class="text-3xl md:text-5xl font-heading mb-5">
+          <span class="bg-linear-to-r from-amber-200 via-rose-300 to-violet-300 bg-clip-text text-transparent">{i.experiences.interludeHeading}</span>
+        </h2>
+        <p class="text-white/90 leading-relaxed text-base md:text-lg mb-7 max-w-xl mx-auto md:mx-0">{i.experiences.interludeBody}</p>
+        <a href="/art" class="text-xs uppercase tracking-[0.3em] text-amber-200 hover:text-white transition-colors">{i.experiences.interludeLink} →</a>
+      </div>
     </div>
   </section>
 

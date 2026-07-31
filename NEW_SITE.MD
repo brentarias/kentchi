@@ -304,10 +304,10 @@ From childhood drawings to a decades-long self-taught mastery, Kentchi's art flo
 > **Renamed and refocused.** The page is now **ImaginArte Experiences**, served at `/experiences` (route + i18n key both renamed via `git mv` to preserve file history; English nav label is "Experiences"). The earlier offerings list (Oracle Deck Creation Workshops, Mystic Book Making Circles, Visionary Art & AR Play Sessions, Community Gatherings & Sound Circles, Private or Group Mentorship) was retired — at Kent's request the page now focuses tightly on **two collaborative art experiences**, with a deliberate "…and more on the horizon" footer so future offerings (sound circles, retreats) can be reintroduced without redesign.
 >
 > **Two design variants exist** for Kent to pick from (same pattern as the home-page experiments):
-> - `experiences.astro` — *Festival Night.* Cosmic immersive: featured art bleeds behind a glass-card hero anchored by the ImaginArte logo, two large alternating experience blocks each pair a video (or art piece) with a content card, a full-bleed cinematic interlude with the art-promo video sits between content and CTA.
+> - `experiences.astro` — *Festival Night.* Cosmic immersive: featured art bleeds behind a glass-card hero anchored by the ImaginArte logo; Live Interactive Painting is a full-bleed landscape-video band with its full copy in a frosted-glass card; Mural Painting pairs art with a content card; "Painting that breathes." is a two-column section pairing the portrait studio-promo video tile with its copy and a link to the Visionary Art page.
 > - `experiences1.astro` — *Atelier Daylight.* Bright editorial: cream/warm-white masthead with the ImaginArte logo as a magazine banner, two magazine spreads (video + editorial sidebar), polaroid-style frames, hand-drawn squiggle dividers, wax-seal CTA.
 >
-> Two videos are used (live-painting + art-promo). They live in `public/videos/` and are git-ignored — they're staged manually for now and will migrate to Contentful when wired.
+> Two videos are used (live-painting landscape cut + art-promo portrait cut). They are served from Cloudinary via src/data/videos.ts.
 
 **Hero:**
 **ImaginArte Experiences**
@@ -330,8 +330,10 @@ Got a wall (or a ceiling, or anywhere unexpected) that's been waiting for a stor
 
 CTA: *Commission a mural →*
 
-**Cinematic interlude (design A only):**
+**Painting that breathes (design A only):**
 *Kent's work in motion · Painting that breathes.*
+A slow drift through Kent's studio, where finished canvases and works-in-progress share every wall — the same living color that flows into the decks, the murals, and the prints. The paintings rarely sit still for long.
+Link: *See the art up close →* (Visionary Art page)
 
 **…and more on the horizon (footer hint):**
 Brushes and walls aren't the only doorways. Sound circles, retreats, and other gatherings unfold throughout the year — ask Kent what's brewing.
