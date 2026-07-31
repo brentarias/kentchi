@@ -2,7 +2,11 @@
 
 **Date:** 2026-07-31
 **Branch:** `feature/order-inquiry-flow`
-**Status:** Approved (user-selected options recorded inline)
+**Status:** Approved (user-selected options recorded inline); revised after
+frontend-design skill review 2026-07-31 — bilingual title correction
+(ES "Mundos Interiores", from the box cover itself), pre-order vocabulary
+unified across the flow, cover-derived styling refinements, caption rule,
+carousel a11y/restraint notes.
 
 Three independent features, each its own commit. Every copy/content change is
 mirrored into `NEW_SITE.MD` in the same commit that changes the site, and into
@@ -32,14 +36,20 @@ through the RFQ form.
 
 1. **i18n (`en.json` / `es.json`, `decks` section):** rename the `keyhole*`
    keys to `worldsWithin*` and rewrite values:
-   - Title: "Worlds Within" (product name; untranslated in ES, consistent
-     with Shinan Oracle / Magnetic Magi).
+   - Title: "Worlds Within" (EN). The box cover itself is bilingual —
+     "Worlds Within / Mundos Interiores · Oracle Deck · Oráculo" — so the
+     ES pages use the official Spanish name **"Mundos Interiores"**, and the
+     JSON-LD `Product` carries the other name as `alternateName` (same
+     pattern as El Estimado).
    - Status pill: "Coming Soon" → "Pre-Order" (ES "Pre-Venta").
    - Body copy: the name-origin sentence is rewritten to motivate the new
      name while keeping Kent's third-eye framing. Draft (EN):
      > "The deck's name points to where its doors open: the worlds within —
      > the visionary realms that come into view through the inner aperture
      > of the third eye. Each card is a small key to one of them."
+     The "small key" phrase is kept deliberately: it now winks at the
+     imprint (Keyhole Mystic Publishing) instead of the retired deck name,
+     preserving the innuendo's lineage.
    - Publisher line "Forthcoming from Keyhole Mystic Publishing." stays.
    - Decks `metaDescription`: "the forthcoming Through the Keyhole" → "Worlds
      Within (now open for pre-order)" phrasing.
@@ -48,9 +58,20 @@ through the RFQ form.
      transform), alt text updated, image aspect adjusted to the new cover's
      ratio (~1054/1458) instead of the old `aspect-2/3` crop.
    - CTA: "Get word when it lands" (btn-outline) → primary `btn-glow`
-     "Reserve your copy" linking `/order?item=worlds-within`; contact button
-     kept as secondary outline.
-   - JSON-LD `Product`: `name` → "Worlds Within", `image` → new Cloudinary URL.
+     "Pre-order Worlds Within" linking `/order?item=worlds-within`; contact
+     button kept as secondary outline. The verb "pre-order" is used
+     consistently through the whole flow — status pill, CTA, and the RFQ
+     product note all say "pre-order" (one action, one name), and the CTA's
+     verb-first form matches its siblings ("Get the Shinan Oracle").
+   - Section styling refinements from the cover art: the heading gradient
+     leads with amber (echoing the cover's gold lettering) before flowing
+     into the existing teal→violet; a "Bilingual" tag chip is added (true of
+     the product, and consistent with Shinan's chips); alt text describes
+     the actual cover ("Worlds Within oracle deck box cover — a meditating
+     figure glowing among cosmic trees"). The section's indigo/teal/violet
+     palette already harmonizes with the cover and stays.
+   - JSON-LD `Product`: `name` → "Worlds Within", `alternateName` →
+     "Mundos Interiores", `image` → new Cloudinary URL.
    - KMP catalog list (hardcoded `<li>` items in both language files):
      "Through the Keyhole — Kent's next oracle deck, coming soon." → Worlds
      Within, open for pre-order.
@@ -98,7 +119,12 @@ the presentation orientation swaps.
    his work in motion — drafted at implementation, subject to user review)
    and a quiet text link to `/art` so the section no longer dead-ends.
    New copy lands in `en.json`/`es.json` and `NEW_SITE.MD`.
-3. `es/experiences.astro` mirrors exactly. The `experiences1.astro` variant
+3. **Restraint:** the full-bleed live-painting band becomes the page's one
+   big moment; the rebuilt sections reuse only the page's existing ambient
+   vocabulary (orbs, glass, glow rings) and add no new decoration. The
+   scrim behind the glass card must guarantee text contrast over the moving
+   video at its brightest frames.
+4. `es/experiences.astro` mirrors exactly. The `experiences1.astro` variant
    pages are experiments and stay untouched. Parallax/reduced-motion
    behavior of the page is preserved.
 
@@ -114,10 +140,24 @@ modal gate), for all three decks.
 
 - New component `src/components/DeckCarousel.astro`: an always-visible strip
   of 6–8 card thumbnails under each deck's main image, small "Peek at the
-  cards" label (i18n key), horizontal scroll on narrow screens. Clicking a
-  card opens a lightbox (dialog) showing the card large, with prev/next
-  arrows, captions, backdrop-click and × to close — same interaction
-  vocabulary as the site's existing lightbox/dialog patterns.
+  cards" label (i18n key — deliberately extends the page's existing "Peek
+  Inside" preview verb), horizontal scroll on narrow screens. Clicking a
+  card opens a lightbox (native `<dialog>`) showing the card large, with
+  prev/next arrows (keyboard ←/→ supported, Esc closes via the dialog),
+  captions, backdrop-click and × to close — same interaction vocabulary as
+  the site's existing lightbox/dialog patterns. Visible keyboard focus on
+  thumbnails and controls; hover zoom matches `Gallery.astro` and is
+  disabled under `prefers-reduced-motion`.
+- Thumbnails are uniform portrait tiles (cards are ~2:3; the Magnetic Magi
+  scans vary slightly in ratio, so `object-cover` absorbs the difference
+  with a minor crop). The strip stays quiet — thin ring, no per-thumbnail
+  glow; the sections' glowing main-image frames remain the bold element.
+- **Captions encode information only where it exists:** Shinan cards carry
+  their real subjects as captions (Mapacho, Bobinsana, Oni, Pino, Otorongo,
+  Xawan, Ronin — derived from filenames); Worlds Within cards carry their
+  gallery titles. Magnetic Magi filenames are just numbers, so MM shows no
+  per-card caption ("Card 44" would be noise) — its lightbox caption falls
+  back to the deck name.
 - Used three times on `decks.astro` (Shinan, Magnetic Magi, Worlds Within)
   and mirrored on `es/decks.astro`.
 
@@ -135,11 +175,11 @@ modal gate), for all three decks.
   `public/images/deck-cards/mm/`. **These files are never committed:**
   `public/images/deck-cards/` is added to `.gitignore` in the same commit.
 - New `src/data/deckCards.ts` exports one array per deck of
-  `{ src, title }`. Shinan/MM entries are static local paths for now;
-  titles derived from filename slugs ("mapacho" → "Mapacho"; MM numbers →
-  "Card 44"). Worlds Within pulls a curated list of 6 slugs from the
-  existing `galleryPieces` (already on Cloudinary, watermarked) — the slug
-  list is a plain editable array.
+  `{ src, title? }`. Shinan/MM entries are static local paths for now;
+  Shinan titles derived from filename slugs ("mapacho" → "Mapacho"), MM
+  entries have no title (see caption rule above). Worlds Within pulls a
+  curated list of 6 slugs from the existing `galleryPieces` (already on
+  Cloudinary, watermarked) — the slug list is a plain editable array.
 
 **Phase B (deferred — after user approves the look from desktop):**
 
