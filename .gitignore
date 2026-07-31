@@ -45,3 +45,6 @@ art-pipeline/
 # Files are dropped manually for staging deploys; posters and source-of-truth
 # live in the POD provider / Kentchi's personal archive (and art-pipeline/masters/).
 public/videos/
+
+# Phase-A local carousel images — never committed; superseded by Cloudinary in Phase B
+public/images/deck-cards/
