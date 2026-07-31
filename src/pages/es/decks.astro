@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { t } from '../../i18n';
 import { videos } from '../../data/videos';
+import DeckCarousel from '../../components/DeckCarousel.astro';
+import { deckCards } from '../../data/deckCards';
 
 const i = t('es');
 
@@ -154,6 +156,7 @@ const decksSchema = {
           <img src="https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-oracle-deck_uked7k.png" alt="Oráculo Shinan" class="w-full aspect-square object-cover" loading="lazy" />
           <div class="absolute inset-0 mix-blend-overlay opacity-35 bg-linear-to-br from-amber-300 via-rose-300 to-emerald-400" aria-hidden="true"></div>
         </div>
+        <DeckCarousel id="shinan-cards" deckName={i.decks.shinanTitle} cards={deckCards.shinan} lang="es" />
       </div>
 
       <div>
@@ -216,6 +219,7 @@ const decksSchema = {
           <img src="/images/magnetic-magi-product.jpg" alt="Magnetic Magi" class="w-full aspect-square object-cover" loading="lazy" />
           <div class="absolute inset-0 mix-blend-overlay opacity-30 bg-linear-to-br from-amber-300 via-fuchsia-400 to-violet-500" aria-hidden="true"></div>
         </div>
+        <DeckCarousel id="mm-cards" deckName={i.decks.magneticTitle} cards={deckCards.magneticMagi} lang="es" />
       </div>
     </div>
   </section>
@@ -231,6 +235,9 @@ const decksSchema = {
         <div class="relative overflow-hidden rounded-4xl ring-1 ring-cyan-300/30 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)] mx-auto max-w-sm">
           <img src="https://res.cloudinary.com/dmzx8w015/image/upload/f_auto,q_auto/v1785524243/Worlds_within_cover_image_vaafyq.jpg" alt="Portada de la caja del oráculo Mundos Interiores — una figura meditando que brilla entre árboles cósmicos" class="block w-full aspect-[1054/1458] object-cover" loading="lazy" />
           <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-amber-300 text-brand-dark text-[10px] uppercase tracking-[0.25em] font-heading shadow-lg">{i.decks.worldsWithinStatus}</span>
+        </div>
+        <div class="mx-auto max-w-sm">
+          <DeckCarousel id="worlds-within-cards" deckName={i.decks.worldsWithinTitle} cards={deckCards.worldsWithin} lang="es" />
         </div>
       </div>
 
