@@ -10,7 +10,7 @@ import type { DeckCard } from '../data/deckCards';
 import { t, type Lang, defaultLang } from '../i18n';
 
 interface Props {
-  id: string;        // unique per instance — scopes the dialog wiring
+  id: string;        // unique per instance — debugging/anchor hook (wiring scopes via DOM traversal)
   deckName: string;  // caption/aria fallback
   cards: DeckCard[];
   lang?: Lang;
@@ -46,7 +46,7 @@ const caption = (c: DeckCard) => (lang === 'es' ? c.titleEs : c.titleEn) ?? deck
       <img data-card-pic src="" alt="" />
       <div class="card-modal-bar">
         <button type="button" data-card-prev class="card-modal-nav" aria-label={i.decks.peekCardsPrev}>‹</button>
-        <p data-card-caption class="card-modal-caption"></p>
+        <p data-card-caption class="card-modal-caption" aria-live="polite"></p>
         <button type="button" data-card-next class="card-modal-nav" aria-label={i.decks.peekCardsNext}>›</button>
       </div>
     </div>

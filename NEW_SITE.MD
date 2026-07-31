@@ -436,7 +436,7 @@ Every deck and book travels from the studio to your hands personally. Tell us wh
 **Form Behavior:**
 - Subtotal calculated for items with prices; pre-order and book items (no pricing) excluded from subtotal but included in the request
 - Deep-linking: `/order?item=<product-key>` scrolls to and highlights the specified product group. For single-variant groups (books and Worlds Within pre-order), the item is also auto-checked; multi-variant groups (Shinan Oracle, Magnetic Magi) are highlighted only, allowing the buyer to choose format without auto-selection
-- Netlify form submission; confirmation email sent to customer with a unique reference ID
+- Netlify form submission; on-screen confirmation displays a unique reference ID (format ORD-XXXXXX) for the customer to keep and mention in follow-up emails
 
 ---
 
