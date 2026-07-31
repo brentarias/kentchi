@@ -422,16 +422,16 @@ Every deck and book travels from the studio to your hands personally. Tell us wh
 
 **Form Fields:**
 - Product selection (checkboxes, multi-select allowed)
-- Quantity per item
-- Country to ship to
+- Quantity per item (1–9, disabled until variant is checked)
+- Country to ship to (required)
+- Name (required)
+- Email (required)
 - Shipping address (optional)
-- Name
-- Email
-- Additional notes (optional)
+- Anything else / notes (optional)
 
 **Form Behavior:**
 - Subtotal calculated for items with prices; pre-order and book items (no pricing) excluded from subtotal but included in the request
-- Deep-linking: `/order?item=<product-key>` scrolls to the specified product group and auto-checks the first variant
+- Deep-linking: `/order?item=<product-key>` scrolls to and highlights the specified product group. For single-variant groups (books and Worlds Within pre-order), the item is also auto-checked; multi-variant groups (Shinan Oracle, Magnetic Magi) are highlighted only, allowing the buyer to choose format without auto-selection
 - Netlify form submission; confirmation email sent to customer with a unique reference ID
 
 ---
