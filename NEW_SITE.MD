@@ -418,11 +418,21 @@ Every deck and book travels from the studio to your hands personally. Tell us wh
 
 **Available Products (in order on the form):**
 
-- **Shinan Oracle** — Bilingual deck rooted in the Shipibo tradition · AR-enhanced (Hardcase box: $50 USD / 900 MXN; Cinch bag · Wine: $40 USD / 700 MXN)
-- **Magnetic Magi** — Manifestation deck · AR-enhanced (Hardcase box: $50 USD / 900 MXN; Cinch bag · Wine: $40 USD / 700 MXN; Cinch bag · Purple: $40 USD / 700 MXN)
-- **Worlds Within · Mundos Interiores** — Deck · Pre-order (no price shown; Kent confirms pricing and timing in his reply; excluded from the estimated subtotal)
-- **El Estimado** — Illustrated memoir · every page is visionary art (Spanish) (no price shown; excluded from the estimated subtotal)
-- **Shinan: Cosmology of the Shipibo Tribe** — The anthropological study behind the Shinan Oracle (no price shown; excluded from the estimated subtotal)
+Variant labels name the product before its packaging, so a buyer scanning the form sees a deck rather than a container.
+
+- **Shinan Oracle** — Bilingual deck rooted in the Shipibo tradition · AR-enhanced (Oracle deck in hardcase box: $50 USD / 900 MXN; Oracle deck in cinch bag · Wine: $40 USD / 700 MXN)
+- **Magnetic Magi** — Manifestation deck · AR-enhanced (Oracle deck in hardcase box: $50 USD / 900 MXN; Oracle deck in cinch bag · Wine: $40 USD / 700 MXN; Oracle deck in cinch bag · Purple: $40 USD / 700 MXN)
+- **Worlds Within · Mundos Interiores** — Oracle deck in cinch bag · Pre-order ($40 USD / 700 MXN, matching the other cinch-bag decks; included in the estimated subtotal. Kent confirms timing — not pricing — in his reply)
+- **El Estimado** — Illustrated memoir · every page is visionary art · English & Spanish editions (no price shown; excluded from the estimated subtotal)
+- **Shinan: Cosmology of the Shipibo Tribe** — The anthropological study behind the Shinan Oracle · English & Spanish editions (no price shown; excluded from the estimated subtotal)
+
+Both book notes name the two editions explicitly. The El Estimado note previously read "(Spanish)", which the English Amazon pill beneath it contradicts; stating both editions also tells a buyer using the *direct-order* route that a translation exists. The form does not yet ask *which* edition a direct order wants — buyers use the notes field, or Kent asks in his reply.
+
+**Amazon links on the two book tiles.** Both books exist in English and Spanish editions, and both editions are linked from both locales — hiding one per page would obscure that a translation exists. The links are an *alternate route*, not a replacement: the checkbox above still sends "two copies of El Estimado" straight to Kent, which remains the better path outside the U.S.
+
+Each book's card carries a footnote strip below the checkbox row, under a hairline: the invite *"In the U.S.? It's also on Amazon:"* followed by outline `English ↗` / `Español ↗` pills. Two constraints drove that placement — the row's text sits inside a `<label>` wrapping the checkbox, so an inline `<a>` would tick the order box on the way to Amazon; and once the 96px thumbnail and quantity box take their share, the row has no horizontal room left on a phone. The pills are outline rather than filled so they never out-shout the one real submit button, and are sized `px-3 py-2` for a ~36px tap target. No Amazon logo — their brand guidelines restrict it, and a marketplace badge breaks the tone of the form.
+
+All four URLs carry the `tag=axis0d-20` Amazon Associates affiliate tag, so a disclosure line sits once at the foot of the products fieldset (`order.amazonDisclosure`), as their operating agreement requires. The URLs live in the `groups` const in `OrderForm.astro`, not in the i18n JSON — they are identical on both locales, and duplicating them would only invite drift.
 
 **Form Fields:**
 - Product selection (checkboxes, multi-select allowed)
@@ -434,7 +444,7 @@ Every deck and book travels from the studio to your hands personally. Tell us wh
 - Anything else / notes (optional)
 
 **Form Behavior:**
-- Subtotal calculated for items with prices; pre-order and book items (no pricing) excluded from subtotal but included in the request
+- Subtotal calculated for items with prices; the two books (no pricing) are excluded from the subtotal but included in the request. Worlds Within was previously excluded too and now contributes, having been priced with the other cinch-bag decks
 - Deep-linking: `/order?item=<product-key>` scrolls to and highlights the specified product group. For single-variant groups (books and Worlds Within pre-order), the item is also auto-checked; multi-variant groups (Shinan Oracle, Magnetic Magi) are highlighted only, allowing the buyer to choose format without auto-selection
 - Netlify form submission; on-screen confirmation displays a unique reference ID (format ORD-XXXXXX) for the customer to keep and mention in follow-up emails
 

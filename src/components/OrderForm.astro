@@ -16,12 +16,46 @@ const FULL = 'f_auto,q_auto,w_1000';
 const cld = (url: string, transform: string) =>
   url.includes('res.cloudinary.com') ? url.replace('/upload/', `/upload/${transform}/`) : url;
 
+// Amazon editions for the two books. Both titles exist in English and Spanish,
+// and both pills render on both locales — hiding one edition per page would
+// obscure that a translation exists at all. These live here rather than in the
+// i18n JSON precisely because they are identical on both locales: duplicating
+// four URLs across en.json/es.json would only invite drift. Each edition is
+// named in its own language. All are amazon.com (US), which is why the invite
+// copy leads with the country.
+//
+// The `tag=axis0d-20` in every URL is an Amazon Associates affiliate tag; the
+// disclosure required by their operating agreement sits at the foot of the
+// products fieldset below.
+type AmazonEdition = { label: string; url: string };
+type Variant = {
+  slug: string;
+  label: string;
+  usd: number | null;
+  mxn: number | null;
+  box: boolean;
+  img: string;
+  amazon?: AmazonEdition[];
+};
+type Group = { key: string; name: string; note: string; variants: Variant[] };
+
+const amazonElEstimado: AmazonEdition[] = [
+  { label: 'English', url: 'https://www.amazon.com/Estimado-Unexpected-Encounter-Kent-Osborn/dp/B0H7BL1HNM?crid=1EK7DLEERAMMT&dib=eyJ2IjoiMSJ9.ftiKW8aOA0dxG10prX2WRtWzNmIkwlwe680ZuAJaGuGnQ5v0m5oDAfmHDAzVp2t4y6bghgUmquZy30uC2sQUCX_RAARly1uB-O2RR8Hv0nwBwGDzqc2rzJc50Nd7hi19sDPzbrQZYOD9eLthGZhFZwZ3dAfW1r7nEWXoyodkIDcy_9qlLftFEr571eGI6NYa.QTx7yEAaxiOGR0QFkxJYLkDku-n6aG9UcF95G_ipRr0&dib_tag=se&keywords=el%2Bestimado&qid=1785557966&sprefix=el%2Bestimado%2Caps%2C195&sr=8-1&linkCode=ll2&tag=axis0d-20&linkId=434bcec51ffd9a257bb67f4f9cada9ff&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl' },
+  { label: 'Español', url: 'https://www.amazon.com/Estimado-Encuentro-Inesperado-Kent-Osborn/dp/B0H6PVH4RC?crid=1EK7DLEERAMMT&dib=eyJ2IjoiMSJ9.ftiKW8aOA0dxG10prX2WRtWzNmIkwlwe680ZuAJaGuGnQ5v0m5oDAfmHDAzVp2t4y6bghgUmquZy30uC2sQUCesex1G4_VCv2Pviq9dZhsws2r8oQPSxNek_0wJRJzoW7zPeFpUXyMLiCOFW3zq-pwZ3dAfW1r7nEWXoyodkIDcy_9qlLftFEr571eGI6NYa.Gon3VLFxrITyNIhlxsQWA93UsCXGzFDjC1s5fEWn1DQ&dib_tag=se&keywords=el%2Bestimado&qid=1785558657&sprefix=el%2Bestimado%2Caps%2C195&sr=8-2&linkCode=ll2&tag=axis0d-20&linkId=775d1b7212c51569ea627cc79a9b87eb&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl' },
+];
+const amazonShinanCosmology: AmazonEdition[] = [
+  { label: 'English', url: 'https://www.amazon.com/Shinan-Cosmology-Shipibo-Kent-Osborn/dp/B0CVLM8LK3?crid=2KHQS2XNISLID&dib=eyJ2IjoiMSJ9.L0BaeCKDFUXbqcz-KeYLSKvsP0Ba7yspGB2gIVJ3EWkVPFdl3AytDFXUMHH3UOLt.LrrwXr7l9behB9EOdbK9p5n4H8XR1864VeuPYeJhmu0&dib_tag=se&keywords=Shinan%2Bcosmology&qid=1785558738&sprefix=shinan%2Bcosmology%2Caps%2C190&sr=8-1&linkCode=ll2&tag=axis0d-20&linkId=c099e577b1faf3dcb6432774ec449e57&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl' },
+  { label: 'Español', url: 'https://www.amazon.com/Shinan-Cosmolog%C3%ADa-Tribu-Shipibo-Spanish/dp/B0D11LWD44?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.L0BaeCKDFUXbqcz-KeYLSKvsP0Ba7yspGB2gIVJ3EWkVPFdl3AytDFXUMHH3UOLt.LrrwXr7l9behB9EOdbK9p5n4H8XR1864VeuPYeJhmu0&qid=1785558820&sr=8-5&linkCode=ll2&tag=axis0d-20&linkId=2c42fd2b1c85c64cd683fc9b6185856e&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl' },
+];
+
 // Each purchasable variant is its own row: its own photo, price, and quantity.
 // This keeps "box vs bag (and which bag colour)" unambiguous, lets a buyer pick
 // more than one variant of the same title, and puts the exact photo next to the
 // exact thing being ordered. Slugs are the values used by ?item= deep-links and
 // the GA event. `group` ties variants to a title (used by ?item= scroll/preselect).
-const groups = [
+// `amazon` (books only) adds an alternate-route strip under the row; it never
+// replaces the checkbox, so "send me two copies" still goes straight to Kent.
+const groups: Group[] = [
   {
     key: 'shinan',
     name: i.order.productShinan,
@@ -51,7 +85,7 @@ const groups = [
     name: i.order.productWorldsWithin,
     note: i.order.productWorldsWithinNote,
     variants: [
-      { slug: 'worlds-within', label: i.order.variantDeckPreorder, usd: null, mxn: null, box: false,
+      { slug: 'worlds-within', label: i.order.variantDeckPreorder, usd: 40, mxn: 700, box: false,
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1785524243/Worlds_within_cover_image_vaafyq.jpg' },
     ],
   },
@@ -61,7 +95,7 @@ const groups = [
     note: i.order.productElEstimadoNote,
     variants: [
       { slug: 'el-estimado', label: i.order.variantBook, usd: null, mxn: null, box: false,
-        img: '/images/el-estimado-front.jpg' },
+        img: '/images/el-estimado-front.jpg', amazon: amazonElEstimado },
     ],
   },
   {
@@ -70,7 +104,8 @@ const groups = [
     note: i.order.productShinanCosmologyNote,
     variants: [
       { slug: 'shinan-cosmology', label: i.order.variantBook, usd: null, mxn: null, box: false,
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-cosmology_hdr7in.jpg' },
+        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-cosmology_hdr7in.jpg',
+        amazon: amazonShinanCosmology },
     ],
   },
 ];
@@ -107,7 +142,8 @@ const inputClass =
           <p class="text-sm text-brand-dark/60 mb-3">{group.note}</p>
           <div class="space-y-3">
             {group.variants.map((v) => (
-              <div class="flex items-center gap-3 rounded border border-brand-warm-gray/60 px-3 py-3" data-variant-row>
+              <div class="rounded border border-brand-warm-gray/60 px-3 py-3" data-variant-row>
+                <div class="flex items-center gap-3">
                 <button
                   type="button"
                   data-img-trigger
@@ -161,6 +197,33 @@ const inputClass =
                     class="w-16 border border-brand-warm-gray rounded px-2 py-1 text-center disabled:opacity-40"
                   />
                 </label>
+                </div>
+                {v.amazon && (
+                  /* Alternate route, not a replacement: the checkbox above still sends
+                     "two copies of El Estimado" straight to Kent. This sits below the row
+                     rather than beside the label for two reasons — the label wraps the
+                     checkbox, so an <a> inside it would tick the box on the way out, and
+                     the row has no horizontal room left once the thumbnail and quantity
+                     box take their share on a phone. Outline pills, never filled: solid
+                     buttons here would out-shout the one real submit button. */
+                  <div class="mt-3 pt-3 border-t border-brand-warm-gray/30 flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <span class="text-sm text-brand-dark/70">{i.order.amazonInvite}</span>
+                    <span class="flex gap-2 shrink-0">
+                      {v.amazon.map((edition) => (
+                        <a
+                          href={edition.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center gap-1.5 rounded border border-brand-warm-gray/60 px-3 py-2 text-sm leading-5 text-brand-dark/80 transition-colors hover:border-brand-gold hover:text-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold"
+                        >
+                          {edition.label}
+                          <span aria-hidden="true">↗</span>
+                          <span class="sr-only">({i.order.amazonNewTab})</span>
+                        </a>
+                      ))}
+                    </span>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -177,6 +240,10 @@ const inputClass =
     </div>
 
     <p data-product-error hidden class="text-sm text-red-700 mt-2">{i.order.productRequired}</p>
+
+    <!-- Required by the Amazon Associates operating agreement wherever a `tag=`
+         affiliate link appears. Stated once for the page, not per book tile. -->
+    <p class="mt-5 text-xs text-brand-dark/55">{i.order.amazonDisclosure}</p>
   </fieldset>
 
   <div>

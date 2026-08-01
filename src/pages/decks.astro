@@ -48,7 +48,8 @@ const decksSchema = {
       description: i.decks.elEstimadoBody,
       author: { '@type': 'Person', name: 'Kent Osborn', alternateName: 'Kentchi' },
       publisher,
-      inLanguage: 'es',
+      // Both books ship in English and Spanish editions (both are on Amazon).
+      inLanguage: ['en', 'es'],
       bookFormat: 'https://schema.org/Paperback',
     },
     {
@@ -59,6 +60,7 @@ const decksSchema = {
       description: i.decks.shinanBookBody,
       author: { '@type': 'Person', name: 'Kent Osborn', alternateName: 'Kentchi' },
       publisher,
+      inLanguage: ['en', 'es'],
       bookFormat: 'https://schema.org/Paperback',
     },
   ],

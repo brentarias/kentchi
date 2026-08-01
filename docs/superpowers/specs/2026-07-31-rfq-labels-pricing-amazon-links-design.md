@@ -84,6 +84,11 @@ pills give ~36px, and this audience is largely on phones.
 No Amazon logo or smile mark — their brand guidelines restrict it, and a marketplace badge breaks
 the tone of a hand-made imprint's order form. The word "Amazon" in the page's own type suffices.
 
+**Book notes name both editions.** `productElEstimadoNote` claimed the memoir was Spanish, which
+an English pill directly beneath it would contradict. Both book notes now end in "· English &
+Spanish editions" (`· ediciones en inglés y español`), so the bilingual availability is stated for
+the *direct-order* route too rather than only implied by the Amazon pills.
+
 **Both editions on both locales.** Each book tile shows English and Español pills on `/order` and
 `/es/order` alike. Both books genuinely exist in both languages and hiding one from each page
 would obscure that. Each edition is named in its own language.
@@ -129,10 +134,32 @@ Live Amazon links contradict claims made on other pages:
 - **`NEW_SITE.MD`** lines 419–425 document the old variant labels and Worlds Within's
   "no price shown; excluded from the estimated subtotal." Updated, plus a note on the Amazon links.
 
+### 6. Book CTA verbs on `/decks`
+
+The deck cards say "Get the Shinan Oracle" / "Get the Magi Oracle" (`Obtén el Oráculo …`), but the
+two book cards said "Request the Book" (`Solicitar el Libro`) — a different verb and a generic
+noun for the same destination, the RFQ form. The books now follow the deck pattern:
+
+| Key | English | Spanish |
+|---|---|---|
+| `elEstimadoOrderCta` | Get El Estimado | Obtén El Estimado |
+| `shinanBookOrderCta` | Get the Shinan Book | Obtén el Libro Shinan |
+
+"Get the Shinan Book" rather than "Get Shinan" because "Get the Shinan Oracle" already appears on
+the same page; book-vs-oracle is the distinction a reader needs there.
+
+Note the deck CTAs are hardcoded English/Spanish strings in `decks.astro` and `es/decks.astro`
+while the book CTAs are i18n keys. Only the key values changed; the inconsistency in where those
+five strings live is left alone as out of scope.
+
 ## Out of scope
 
-The `/decks` book cards keep their "Request the Book" CTAs pointing at the RFQ form. Amazon links
-are added to the RFQ page only, as requested.
+Amazon links are added to the RFQ page only, as requested — the `/decks` book cards still point at
+the RFQ form rather than Amazon.
+
+The RFQ form does not ask *which* edition a direct book order wants. Buyers can say so in the notes
+field, or Kent asks in his reply. Splitting each book into English/Spanish variant rows, the way the
+decks split by packaging, would be the consistent fix if that turns out to matter.
 
 ## Verification
 
