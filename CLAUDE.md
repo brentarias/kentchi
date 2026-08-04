@@ -95,7 +95,7 @@ Without these set, `npm run build` and `npm run dev` will fail with a clear "Clo
 Kent Osborn's original artwork drives print-on-demand revenue, so web copies must be too small to enable unauthorized commercial print reproduction. All images served by the public site MUST satisfy:
 
 - **Default cap: long side ≤ 1600 px**, JPEG ~82–85% quality (or equivalent WebP/AVIF). No watermark required.
-- **Exception:** images may go up to **long side ≤ 2000 px** *only if* they carry the Posture B watermark (small "© Kent Osborn" or signature glyph in a lower corner, low opacity).
+- **Exception:** images may go up to **long side ≤ 2000 px** *only if* they carry the Posture B watermark — "© KENT OSBORN" set along the rising diagonal, through the centre of the composition, at ~30% opacity. It must not be moved to a corner or edge: a corner mark was the standard until 2026-08 and was removable by trimming 3–4% off the bottom, which on landscape work did not even reduce the long side.
 - **Hard ceiling: 2000 px on the longest side.** Nothing public exceeds this, watermarked or not.
 
 Scope: everything in `public/images/`, `src/assets/`, and anything fetched from Cloudinary (or any other external image CDN) at build time. Print-quality masters live in the POD provider and Kentchi's personal archive — **never** in this repo, on Cloudinary, or anywhere else reachable from the public web.

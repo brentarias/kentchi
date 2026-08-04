@@ -9,7 +9,12 @@ and [./superpowers/specs/2026-05-22-image-protection-design.md](./superpowers/sp
 - `art-pipeline/masters/` — gitignored. Print-quality originals from Kentchi.
   **Sensitive.** Never commit, never serve from the web.
 - `art-pipeline/ready/featured/` — gitignored. CLI output, ≤1000 px, no watermark.
-- `art-pipeline/ready/gallery/` — gitignored. CLI output, ≤2000 px, watermarked.
+- `art-pipeline/ready/gallery/` — gitignored. CLI output, ≤2000 px, watermarked
+  across the centre diagonal.
+- `art-pipeline/cloudinary-backup/` — gitignored. Whatever was live on Cloudinary
+  immediately before the last `rewatermark-gallery` run. Overwriting an asset is
+  not reversible from Cloudinary alone, so this is the only copy of the outgoing
+  bytes. Delete only once the replacement has been reviewed.
 - `art-pipeline/archive/` — gitignored. Older or rejected images that should
   stay on disk for possible later use.
 - `public/images/featured/` — committed. The featured-tier images actually
@@ -74,5 +79,34 @@ The gallery tier is fetched from Cloudinary at build time. Source of truth: the 
 Each gallery image is fetched at two derived URLs:
 - Thumbnail (grid view): the original URL with `c_fill,w_800,h_800,q_auto,f_auto` inserted as a Cloudinary transformation — a square crop at 800px in auto-optimized format.
 - Lightbox (expanded view): the original `secure_url` — the full uploaded watermarked image.
+
+Note that the thumbnail is a square crop *of the watermarked upload*, so since the
+mark moved to the centre diagonal in 2026-08 the grid thumbnails carry it too.
+That is a change from the original Posture B intent of clean thumbnails, and it is
+unavoidable with a centre mark — a crop through the middle always contains it.
+Restoring clean thumbnails would mean uploading a second, unmarked ≤800 px
+derivative per piece and teaching `gallery.ts` to pair them.
+
+## Changing the watermark standard
+
+`process-art.mjs` only affects art processed *after* the change; everything already
+published keeps the old mark. To re-issue the whole gallery from masters:
+
+```bash
+node scripts/rewatermark-gallery.mjs            # dry run — backs up, regenerates, reports
+node scripts/rewatermark-gallery.mjs --commit   # overwrite the Cloudinary assets
+npm run build                                   # gallery.ts picks up the new versions
+```
+
+It aborts if any published asset has no master on disk, rather than leaving a
+partial mix of old and new marks. Uploads target each asset's exact existing
+`public_id` — including the random 6-character suffix Cloudinary appended at first
+upload — so assets are replaced in place and every URL stays valid. Nothing in
+`src/` needs editing: `gallery.ts` discovers the folder at build time and no
+gallery asset is hardcoded anywhere.
+
+Do **not** use `cld sync --push` for this. It uploads each file as a *new* asset
+with a *new* random suffix, which would leave the folder holding two copies of
+every piece and the gallery showing doubles.
 
 The featured tier remains in `public/images/featured/` (committed to git). If/when featured-tier scale demands move it to Cloudinary too, mirror the gallery pattern: a separate Cloudinary folder (e.g. `featured/`) and a build-time fetch in a new module.

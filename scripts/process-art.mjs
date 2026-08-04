@@ -11,7 +11,7 @@
  *   node scripts/process-art.mjs --tier=gallery  <input>...
  *
  * featured: long side <= 1000 px, no watermark, JPEG q85.
- * gallery:  long side <= 2000 px, watermark composited bottom-right, JPEG q85.
+ * gallery:  long side <= 2000 px, watermark across the centre diagonal, JPEG q85.
  *
  * Outputs to art-pipeline/ready/featured/ or art-pipeline/ready/gallery/.
  * Output filename = lowercase, ASCII-only base name + ".jpg".
@@ -53,14 +53,27 @@ function safeName(input) {
 }
 
 function watermarkSvg(width, height) {
-  // Bottom-right "© Kent Osborn" at low opacity.
-  // Font-size scales with image width so it reads similarly at any size.
-  const fontSize = Math.max(14, Math.round(width * 0.022));
-  const padX = Math.round(width * 0.022);
-  const padY = Math.round(height * 0.022);
+  // "© KENT OSBORN" set along the rising diagonal, through the middle of the
+  // composition.
+  //
+  // This replaced a small bottom-right corner mark in 2026-08. That mark
+  // covered ~0.12% of the image and sat hard against the edge: trimming 3–4%
+  // off the bottom erased it completely, and on a landscape piece that trim
+  // does not even reduce the long side — so the result was a clean, unmarked
+  // 2000px file, exactly what the 2000px tier is supposed to never yield.
+  // A centre mark cannot be cropped away without destroying ~80% of the
+  // picture and dropping the long side below the cap.
+  //
+  // Opacity is deliberately higher than the 0.10–0.20 stock-photo convention:
+  // Kent's work is densely painted and highly saturated, and marks at those
+  // values vanished into it entirely during testing.
+  const fontSize = Math.round(Math.min(width, height) * 0.105);
+  const angle = (Math.atan2(height, width) * 180) / Math.PI;  // follow the frame's own diagonal
   return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
-    <style>.wm{font:600 ${fontSize}px -apple-system,system-ui,'Segoe UI',Roboto,sans-serif;fill:#fff;fill-opacity:0.55;}</style>
-    <text class="wm" x="${width - padX}" y="${height - padY}" text-anchor="end" paint-order="stroke" stroke="#000" stroke-opacity="0.35" stroke-width="1.5">© Kent Osborn</text>
+    <style>.wm{font:600 ${fontSize}px 'Segoe UI',-apple-system,system-ui,Roboto,sans-serif;fill:#fff;fill-opacity:0.30;letter-spacing:${fontSize * 0.1}px;}</style>
+    <g transform="rotate(${-angle} ${width / 2} ${height / 2})">
+      <text class="wm" x="${width / 2}" y="${height / 2}" text-anchor="middle" dominant-baseline="middle" paint-order="stroke" stroke="#000" stroke-opacity="0.18" stroke-width="${fontSize * 0.05}">© KENT OSBORN</text>
+    </g>
   </svg>`);
 }
 
@@ -81,8 +94,10 @@ async function processOne(inputPath, tier) {
     const scale = longSide > cap ? cap / longSide : 1;
     const outW = Math.round(meta.width * scale);
     const outH = Math.round(meta.height * scale);
+    // The overlay is generated at the exact output size, so it is pinned at the
+    // origin rather than gravity-placed.
     pipeline = pipeline.composite([
-      { input: watermarkSvg(outW, outH), gravity: 'southeast' },
+      { input: watermarkSvg(outW, outH), top: 0, left: 0 },
     ]);
   }
 

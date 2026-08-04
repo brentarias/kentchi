@@ -81,6 +81,21 @@ The "view large" tier is the only one where the resolution cap alone is borderli
 
 Postures A (no visible marks anywhere) and C (watermark on everything above thumbnail) were considered and rejected. A relies entirely on the resolution cap, which is borderline at the 2000px tier. C is unnecessarily ugly for a personal artist portfolio.
 
+### Amendment, 2026-08-04 — the corner placement was defeated by a 4% crop
+
+The corner treatment specified above was measured against the images it was actually protecting and found not to work. On the two live pieces tested, the mark covered 0.10–0.15% of the image and sat hard against the edge: **trimming 3.4–4.3% off the bottom erased it entirely, leaving 95.7% of the art.** Worse, on landscape work that trim does not reduce the long side at all — `23-alchemical-key` went from a watermarked 2000×1568 to a clean 2000×1500, still exactly at the ceiling this document permits *only* for watermarked images. The crop produced precisely the artifact the rule exists to prevent, and it defeated what line 76 above calls "the actual barrier."
+
+**Revised treatment:** "© KENT OSBORN" set along the rising diagonal through the centre of the composition, at ~30% fill opacity with a low-opacity dark stroke, sized at 10.5% of the short edge. Removing it now costs ~80% of the picture and drops the long side below the cap.
+
+Two findings from the study behind this change:
+
+- **Opacity had to exceed the stock-photo convention.** The usual 0.10–0.20 values assume muted photography. Against Kent's densely painted, highly saturated work, marks at those values disappeared completely.
+- **The keyhole emblem was tried and rejected.** At any size unobtrusive enough to use, it read as an unidentifiable smudge against this much detail. The wordmark alone survives.
+
+**Consequence accepted:** the grid thumbnail is a square crop of the watermarked upload, so thumbnails now carry the mark. This contradicts "thumbnails and editorial views are clean" above. It is unavoidable with a centre mark — any crop through the middle contains it — and the alternative (a second unmarked ≤800 px derivative per piece, paired in `gallery.ts`) was judged not worth the complexity. The featured tier (≤1000 px, `public/images/featured/`) remains unwatermarked and is unaffected.
+
+Rejected alternatives, with the cost each imposes on a thief (percentage of the picture that must be destroyed): inset corner at 9% (12.9%), inset corner at 16% (20.5%), corner plus faint centre mark (56.2%), centre glyph (59.6%), full-frame tiled lattice (no crop clears it, but too intrusive for a portfolio). Comparison renders are kept in `scratch_pad/watermark-study/`.
+
 ## Components
 
 ### 1. CLAUDE.md addition
