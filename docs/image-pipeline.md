@@ -87,6 +87,45 @@ unavoidable with a centre mark — a crop through the middle always contains it.
 Restoring clean thumbnails would mean uploading a second, unmarked ≤800 px
 derivative per piece and teaching `gallery.ts` to pair them.
 
+## Auditing what is actually exposed
+
+```bash
+node scripts/audit-cloudinary.mjs
+```
+
+Walks every Cloudinary folder and reports assets over the 1600 px default cap
+and the 2000 px hard ceiling.
+
+The rule applies to the **stored asset, not the derivative a page requests.** A
+transformed URL is only a suggestion: deleting the transform segment returns the
+untransformed original. So a page asking for `w_1000` of a 4032 px upload is
+still publishing a 4032 px image to anyone who edits the URL. The August 2026
+audit found exactly that — the wine-bag product photo was a 3024×4032 HEIC
+reachable in full at 2.2 MB — plus the Shinan card faces at 1654 px, roughly
+350 DPI at physical card size. Both were re-issued in place.
+
+## Deck-carousel cards
+
+The three carousels on `/decks` resolve to Cloudinary at build time via
+[src/data/deckCards.ts](../src/data/deckCards.ts):
+
+- **Shinan** and **Magnetic Magi** — `Kentchi/Assets/shinan` and
+  `Kentchi/Assets/mm`.
+- **Worlds Within** — no upload of its own. Every piece in the site gallery *is*
+  Worlds Within artwork, so its carousel is a curated pick from `galleryPieces`.
+  The `Kentchi/Assets/ww` folder is not used.
+
+`deckCards.ts` keeps explicit, ordered name lists and looks each one up rather
+than rendering whatever the folder returns. That is deliberate: the order is
+curated, `Kentchi/Assets/mm` also holds a promo **video** that a blind listing
+would drag into an `<img>`, and a stray upload should not silently appear on a
+public page. A name with no matching asset fails the build with the list of what
+*is* in the folder.
+
+To add a card: upload to the relevant folder, then add its name to the list in
+`deckCards.ts`. Names are the public_id minus Cloudinary's random 6-character
+upload suffix — `shinan_16_xawan_od6oen` is referenced as `shinan_16_xawan`.
+
 ## Changing the watermark standard
 
 `process-art.mjs` only affects art processed *after* the change; everything already

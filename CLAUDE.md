@@ -97,6 +97,7 @@ Kent Osborn's original artwork drives print-on-demand revenue, so web copies mus
 - **Default cap: long side ≤ 1600 px**, JPEG ~82–85% quality (or equivalent WebP/AVIF). No watermark required.
 - **Exception:** images may go up to **long side ≤ 2000 px** *only if* they carry the Posture B watermark — "© KENT OSBORN" set along the rising diagonal, through the centre of the composition, at ~30% opacity. It must not be moved to a corner or edge: a corner mark was the standard until 2026-08 and was removable by trimming 3–4% off the bottom, which on landscape work did not even reduce the long side.
 - **Hard ceiling: 2000 px on the longest side.** Nothing public exceeds this, watermarked or not.
+- **The cap applies to the stored asset, not the derivative a page requests.** A Cloudinary transform is only a suggestion — deleting it from the URL returns the untransformed original. Requesting `w_1000` of a 4000 px upload still publishes a 4000 px image. Run `node scripts/audit-cloudinary.mjs` to check every asset against these limits.
 
 Scope: everything in `public/images/`, `src/assets/`, and anything fetched from Cloudinary (or any other external image CDN) at build time. Print-quality masters live in the POD provider and Kentchi's personal archive — **never** in this repo, on Cloudinary, or anywhere else reachable from the public web.
 

@@ -8,9 +8,11 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const i = t(lang);
 
-// Cloudinary on-the-fly transforms: f_auto transcodes HEIC → a browser-safe
-// format (Chrome/Firefox/Edge can't render .heic natively), q_auto compresses,
-// and the width cap keeps us under the image-protection ceiling automatically.
+// Cloudinary on-the-fly transforms: f_auto picks a modern format per browser,
+// q_auto compresses, and the width cap keeps the delivered bytes small. Note
+// the cap here is a payload optimisation, not the protection boundary — the
+// untransformed original is always reachable, so the stored asset itself has to
+// satisfy the size rule (see scripts/audit-cloudinary.mjs).
 const THUMB = 'f_auto,q_auto,c_fit,w_320,h_320';
 const FULL = 'f_auto,q_auto,w_1000';
 const cld = (url: string, transform: string) =>
@@ -64,7 +66,7 @@ const groups: Group[] = [
       { slug: 'shinan-box', label: i.order.variantBox, usd: 50, mxn: 900, box: true,
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782523000/shinan_oracle_hardcase_orange_vy4kmr.jpg' },
       { slug: 'shinan-bag-wine', label: i.order.variantBagWine, usd: 40, mxn: 700, box: false,
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782523000/shinan_oracle_bag_wine_br7ny1.heic' },
+        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/shinan_oracle_bag_wine_br7ny1.jpg' },
     ],
   },
   {
