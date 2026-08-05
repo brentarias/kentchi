@@ -1,18 +1,21 @@
 // Card-preview images for the three deck carousels on /decks and /es/decks.
 //
-// All three decks now resolve to Cloudinary at build time. The Shinan and
-// Magnetic Magi cards live in Kentchi/Assets/{shinan,mm}; Worlds Within needs
-// no upload of its own, because every piece in the site gallery IS Worlds
-// Within artwork, so its carousel is a curated pick from galleryPieces.
+// All three decks resolve to Cloudinary at build time, from
+// Kentchi/Assets/{shinan,mm,ww}.
+//
+// Every entry is a finished CARD FACE — frame, artwork crop, name and number —
+// because these carousels are a product brochure: a shopper is deciding whether
+// to buy the deck, so they need to see the cards. The loose paintings on /art
+// are the originals *before* cropping and card layout, and differ enough to
+// misrepresent the product.
 //
 // This deliberately keeps explicit, ordered name lists and looks each one up,
 // rather than rendering whatever a folder fetch happens to return:
 //   - the order is curated (mm_44 opens the Magi strip, not mm_7),
 //   - Kentchi/Assets/mm also holds a promo video, which a blind folder listing
 //     would drag into the carousel,
-//   - a stray upload into either folder should not silently appear on the page.
+//   - a stray upload into any folder should not silently appear on the page.
 // A missing name is a build error rather than a gap in the strip.
-import { galleryPieces } from './gallery';
 import { assetsInFolder, transform, type CloudinaryAsset } from './cloudinaryAssets';
 
 export interface DeckCard {
@@ -38,8 +41,25 @@ const shinanFiles: Array<[string, string]> = [
 // falls back to the deck name for alt text).
 const mmFiles = ['mm_44', 'mm_7', 'mm_11', 'mm_12', 'mm_15', 'mm_18', 'mm_32'];
 
+// Curated Worlds Within picks — edit this list to change the carousel. Names
+// are card faces in Kentchi/Assets/ww, rendered from the deck PDF by
+// scripts/extract-card-faces.py; the numbers are the printed card numbers.
+//
+// These were previously the loose gallery paintings. Card 23 shows why that was
+// wrong: the painting includes a cow the card crop leaves out entirely. The
+// paintings stay in the gallery on /art — only this carousel moved.
+const worldsWithinCards: Array<[string, string]> = [
+  ['ww_1_ankh_aperture', 'Ankh Aperture'],
+  ['ww_7_firebird', 'Firebird'],
+  ['ww_14_feathered_serpent', 'Feathered Serpent'],
+  ['ww_23_alchemical_key', 'Alchemical Key'],
+  ['ww_30_heart_of_the_mother', 'Heart of the Mother'],
+  ['ww_39_master_plant_codes', 'Master Plant Codes'],
+];
+
 const shinanAssets = await assetsInFolder('Kentchi/Assets/shinan');
 const mmAssets = await assetsInFolder('Kentchi/Assets/mm');
+const wwAssets = await assetsInFolder('Kentchi/Assets/ww');
 
 // The strip renders each card at ~96px CSS in a 17:24 portrait frame; 300px
 // covers 3x displays. f_auto/q_auto let Cloudinary pick format and compression.
@@ -67,29 +87,8 @@ function card(
   };
 }
 
-// Curated Worlds Within picks — edit this list to change the carousel.
-const worldsWithinSlugs = [
-  '1-ankh-aperture',
-  '7-firebird',
-  '14-feathered-serpent',
-  '23-alchemical-key',
-  '30-heart-of-the-mother',
-  '39-master-plant-codes',
-];
-
-const bySlug = new Map(galleryPieces.map((p) => [p.slug, p]));
-
 export const deckCards = {
   shinan: shinanFiles.map(([name, title]) => card(shinanAssets, 'Kentchi/Assets/shinan', name, title)),
   magneticMagi: mmFiles.map((name) => card(mmAssets, 'Kentchi/Assets/mm', name)),
-  worldsWithin: worldsWithinSlugs.map((slug): DeckCard => {
-    const piece = bySlug.get(slug);
-    if (!piece) {
-      throw new Error(
-        `deckCards: gallery slug "${slug}" not found in the Cloudinary gallery — ` +
-        `update worldsWithinSlugs in src/data/deckCards.ts.`
-      );
-    }
-    return { src: piece.src, thumbSrc: piece.thumbnailSrc, titleEn: piece.titleEn, titleEs: piece.titleEs };
-  }),
+  worldsWithin: worldsWithinCards.map(([name, title]) => card(wwAssets, 'Kentchi/Assets/ww', name, title)),
 } as const;

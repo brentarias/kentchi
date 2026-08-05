@@ -107,13 +107,42 @@ reachable in full at 2.2 MB — plus the Shinan card faces at 1654 px, roughly
 ## Deck-carousel cards
 
 The three carousels on `/decks` resolve to Cloudinary at build time via
-[src/data/deckCards.ts](../src/data/deckCards.ts):
+[src/data/deckCards.ts](../src/data/deckCards.ts), one folder per deck:
+`Kentchi/Assets/shinan`, `Kentchi/Assets/mm`, `Kentchi/Assets/ww`.
 
-- **Shinan** and **Magnetic Magi** — `Kentchi/Assets/shinan` and
-  `Kentchi/Assets/mm`.
-- **Worlds Within** — no upload of its own. Every piece in the site gallery *is*
-  Worlds Within artwork, so its carousel is a curated pick from `galleryPieces`.
-  The `Kentchi/Assets/ww` folder is not used.
+**Carousels show card faces, not paintings.** These strips are a product
+brochure — a shopper is deciding whether to buy the deck, so they need to see
+the cards: frame, artwork crop, name and number. The gallery on `/art` holds
+Kent's *original paintings*, before cropping and card layout, and the two differ
+enough to misrepresent the product. Worlds Within card 23 is the clearest case:
+the painting includes a cow that the card crop leaves out entirely.
+
+Worlds Within originally pointed at the gallery paintings for this reason —
+every gallery piece *is* Worlds Within artwork — and was switched to real card
+faces in August 2026. The paintings stayed in the gallery; only the carousel
+moved. Magnetic Magi still shows loose artwork and wants the same treatment
+once a card PDF exists for it.
+
+### Rendering card faces from a deck PDF
+
+The deck PDFs lay out one finished card per page. `extract-card-faces.py`
+renders whole pages — not the embedded images, which are only the artwork layer
+with no frame, title or number:
+
+```bash
+python scripts/extract-card-faces.py <deck.pdf> --list          # card numbers and names
+python scripts/extract-card-faces.py <deck.pdf> --prefix ww --out DIR --cards 1,7,14
+```
+
+Card numbers and names are read from each page's own text, so the output is
+named `ww_14_feathered_serpent.jpg` and needs no manual matching. Upload the
+results to the deck's folder, then add the names to the list in `deckCards.ts`.
+
+Output is 1200 px on the long side, matching the Shinan card assets. Note that
+is an upscale for Worlds Within: the raster inside that PDF is native to a card
+height of roughly 830 px. The frame and lettering are vector and genuinely
+sharpen; the painting itself is interpolated. Re-run against higher-resolution
+card exports if they ever surface.
 
 `deckCards.ts` keeps explicit, ordered name lists and looks each one up rather
 than rendering whatever the folder returns. That is deliberate: the order is

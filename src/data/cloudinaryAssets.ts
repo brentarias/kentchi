@@ -37,8 +37,16 @@ export interface CloudinaryAsset {
   height: number;
 }
 
+// Cloudinary appends a random 6-character suffix when it assigns the public_id
+// itself ("mm_44" -> "mm_44_bcdndu"), but not when one is supplied explicitly.
+// Detecting that suffix is inherently ambiguous: a real name can end in six
+// characters after an underscore, and "ww_30_heart_of_the_mother" does exactly
+// that. So assets are indexed under BOTH spellings and callers may use either;
+// a genuine name always wins because it is registered last.
 const stripUploadSuffix = (publicId: string): string =>
   (publicId.split('/').pop() ?? publicId).replace(/_[a-z0-9]{6}$/, '');
+
+const basename = (publicId: string): string => publicId.split('/').pop() ?? publicId;
 
 /** Insert a Cloudinary transformation into an upload URL. */
 export const transform = (url: string, t: string): string =>
@@ -70,12 +78,17 @@ export async function assetsInFolder(folder: string): Promise<Map<string, Cloudi
   const map = new Map<string, CloudinaryAsset>();
   for (const r of res.resources) {
     if (r.resource_type !== 'image') continue;
-    map.set(stripUploadSuffix(r.public_id), {
+    const full = basename(r.public_id);
+    const asset: CloudinaryAsset = {
       stem: stripUploadSuffix(r.public_id),
       src: r.secure_url,
       width: r.width,
       height: r.height,
-    });
+    };
+    // Stripped spelling first, exact name second: if a name only *looks* like it
+    // carries a suffix, the exact spelling overwrites the mangled guess.
+    map.set(asset.stem, asset);
+    map.set(full, asset);
   }
   return map;
 }
