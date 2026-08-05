@@ -87,22 +87,40 @@ const caption = (c: DeckCard) => (lang === 'es' ? c.titleEs : c.titleEn) ?? deck
     border-radius: 8px;
     box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
   }
+  /* The bar is a FIXED width so prev/next keep their positions as the caption
+     changes. It previously centred a caption carrying only `min-width: 8rem` —
+     a floor, not a fixed size — so any caption wider than the floor shoved both
+     arrows outward and they visibly chased the text card to card.
+     That stayed hidden for a long time because it depends entirely on the data:
+     every Shinan name renders under the floor, and Magnetic Magi has no per-card
+     names so every card falls back to one constant deck name. Worlds Within was
+     the first deck whose names cross the floor and vary (ANKH APERTURE 124px ->
+     HEART OF THE MOTHER 173px), which moved each arrow ~25px per step.
+     24rem fits the longest current name on one line and sits at roughly the
+     width of a displayed card, so the arrows line up with the image edges. */
   .card-modal-bar {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 1rem;
-    margin-top: 0.75rem;
+    width: min(24rem, 92vw);
+    margin: 0.75rem auto 0;
   }
   .card-modal-caption {
     color: #fff;
     font-size: 0.9rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    min-width: 8rem;
+    /* Takes the space between the arrows instead of dictating it. min-width:0
+       lets it shrink rather than push the arrows out on a narrow viewport. */
+    flex: 1;
+    min-width: 0;
     text-align: center;
   }
   .card-modal-nav {
+    /* flex-shrink:0 — without it the arrows would absorb the squeeze on a
+       narrow viewport and turn into ovals. */
+    flex: 0 0 auto;
     width: 42px;
     height: 42px;
     border-radius: 9999px;
