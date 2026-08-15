@@ -48,3 +48,6 @@ public/videos/
 
 # Phase-A local carousel images — never committed; superseded by Cloudinary in Phase B
 public/images/deck-cards/
+
+# Local Netlify folder
+.netlify
