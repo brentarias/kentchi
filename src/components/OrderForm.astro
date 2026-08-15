@@ -668,13 +668,19 @@ const inputClass =
 
       if (idField) idField.value = enquiryId;
       // Netlify uses a field literally named "subject" as the notification's
-      // subject line. The estimate goes here so a full inbox can be triaged
-      // without opening anything — a $600 order and a $40 one should not look
-      // alike in the list. USD only: both currencies push the line past the
-      // ~60 characters most clients show, and the body carries both anyway.
+      // subject line.
+      //
+      // Kept short on purpose. Gmail on a phone shows roughly 35 characters, and
+      // the estimate is the whole point of putting money here — it must survive
+      // truncation, not be the first thing cut. "ORDER REQUEST [ID] — Country —
+      // $100 USD" ran to 46 and lost exactly that. "RFQ" also filters and
+      // searches cleanly, which "Order" does not: every shop on earth sends mail
+      // with "Order" in the subject.
+      //
+      // USD only: both currencies push it long again, and the body carries both.
       if (subjectField) {
         const estimate = usdTotal ? ` — $${usdTotal} USD` : '';
-        subjectField.value = `ORDER REQUEST [${enquiryId}] — ${country}${estimate}`;
+        subjectField.value = `RFQ [${enquiryId}]: ${country}${estimate}`;
       }
 
       try {
