@@ -61,7 +61,49 @@ Key components:
 - **`Hero.astro`** — full-width section with a semi-transparent background image, heading, and optional text. Used at the top of every page.
 - **`SectionBlock.astro`** — a centered `<section>` wrapper with optional heading and a `class` prop for background overrides (e.g. `class="bg-brand-light"`).
 - **`Gallery.astro`** — responsive CSS grid of square-cropped images with hover zoom.
-- **`ContactForm.astro`** — non-functional placeholder form (no submission handler wired up).
+- **`ContactForm.astro`** — general enquiries (events, publishing, anything that isn't an order). Fully wired: submits to Netlify Forms and shows an inline success/error state. See "Forms and notifications" below.
+- **`OrderForm.astro`** — the order-request (RFQ) form on `/order` and `/es/order`. Also Netlify Forms. See below.
+- **`DeckCarousel.astro`** — the card-preview strip and lightbox used by all three decks on `/decks`; card images come from Cloudinary via [src/data/deckCards.ts](src/data/deckCards.ts).
+
+### Forms and notifications
+
+Both forms are Netlify Forms, submitted by `fetch` to `/` as
+`application/x-www-form-urlencoded`. Three things about them are non-obvious
+enough to be worth stating, because each caused a real failure:
+
+- **One form NAME per locale.** `/order` declares `order-request`, `/es/order`
+  declares `order-request-es`; contact likewise. Netlify registers a form once
+  per name and resolves the labels in its notification emails from whichever
+  page it parsed — so while both locales shared a name, every notification came
+  out with Spanish labels no matter which language the buyer used. The form name
+  now also identifies which page an order came from.
+- **Netlify prints every registered field, empty ones included.** A field per
+  purchasable variant therefore buried the real order under a dozen blank rows.
+  The per-variant controls in `OrderForm.astro` are deliberately **nameless** —
+  they drive the UI through `data-` attributes only — and hidden fields filled on
+  submit carry the payload instead: `order_summary` (the order as readable
+  lines with a subtotal), `subject`, `enquiry_id`, and `how_they_arrived`.
+  Adding a named input to that form adds a row to every future email.
+- **Email notification is a site-level hook, not part of the repo.** It is a
+  `submission_created` hook with `form_id: null`, so it covers every form on the
+  site. Inspect or change it with the Netlify API — there is no CLI subcommand:
+  `netlify api listHooksBySiteId --data '{"site_id":"<id>"}'`. Creating one needs
+  `site_id` as a **query parameter**, which `netlify api` cannot do; POST to
+  `https://api.netlify.com/api/v1/hooks?site_id=<id>` directly. Without a hook,
+  submissions land silently in the dashboard and nobody is told — which is how
+  the first real order sat unread for nine days.
+
+`how_they_arrived` is assembled from a first-touch record that
+[Layout.astro](src/layouts/Layout.astro) writes into `sessionStorage` on the
+visitor's first pageview (external referrer, any `utm_*` tags, landing page).
+It runs on every page because the page someone lands on is rarely the page they
+order from. Search terms are deliberately not attempted: Google has stripped
+them from referrers since 2011, so they cannot be recovered client-side.
+
+`netlify.toml` 301s `kentchi.netlify.app` to the canonical domain. Netlify does
+**not** do this on its own once a custom domain is set; leaving it split SEO
+across two hostnames and silently lost analytics for those visitors, since the
+gtag snippet in `Layout.astro` is host-gated on purpose.
 
 ### Static assets
 
@@ -106,6 +148,39 @@ Full rationale and architecture: [docs/superpowers/specs/2026-05-22-image-protec
 ### Cloudinary (active) and Contentful (deferred)
 
 Cloudinary now hosts the gallery tier. The flow is: pre-process locally via `npm run process-art:gallery`, upload the result to the Cloudinary `Kentchi/Gallery` folder, and the build picks it up. Cloudinary URLs are functionally public; the watermark on each gallery image is what makes them safe to expose. Print-quality masters still live only in `art-pipeline/masters/` (gitignored) and the POD provider.
+
+Folders the build reads, all via [src/data/cloudinaryAssets.ts](src/data/cloudinaryAssets.ts) or `gallery.ts`:
+
+| Folder | Used by | Notes |
+|---|---|---|
+| `Kentchi/Gallery` | `/art` lightbox gallery | 43 watermarked pieces, ≤2000 px |
+| `Kentchi/Assets/shinan` | Shinan deck carousel | card faces, 1200 px |
+| `Kentchi/Assets/mm` | Magnetic Magi carousel | **also holds a promo video** — filter to images |
+| `Kentchi/Assets/ww` | Worlds Within carousel | card faces rendered from the deck PDF |
+| `Kentchi/Assets` (root) | product photos on `/order`, `/decks` | hardcoded URLs in those files |
+
+This account runs in Cloudinary's **dynamic-folder mode**: `asset_folder` is
+display metadata and `public_id` stays flat, so a card filed under
+`Kentchi/Assets/shinan` has the public_id `shinan_16_xawan_od6oen`, not a path.
+Cloudinary appends a random 6-character suffix only when it assigns the
+public_id itself; detecting that suffix is ambiguous (a real name can end in six
+characters after an underscore), so `assetsInFolder` indexes assets under both
+the stripped and exact spellings.
+
+Useful scripts:
+
+- `node scripts/audit-cloudinary.mjs` — checks every asset against the size rule.
+- `node scripts/rewatermark-gallery.mjs` — re-issues the whole gallery from
+  masters after a watermark change (dry run by default; backs up first).
+- `python scripts/extract-card-faces.py <deck.pdf> --prefix ww` — renders
+  finished card faces from a deck PDF for the carousels.
+
+Deck carousels show **card faces**, not the original paintings: the gallery
+holds Kent's uncropped originals, which misrepresent the product in a strip
+whose job is showing a shopper the cards. Magnetic Magi still shows loose
+artwork and wants the same treatment once a card PDF exists for it.
+`public/images/deck-cards/` is dead — it was the Phase A local-path source and
+nothing references it now.
 
 Contentful integration is no longer planned. If a structured-content CMS becomes useful later (e.g., for art piece metadata, descriptions, year created), Contentful or similar can be added on top of Cloudinary without conflict — but the rule "publish-safe derivatives only on the public web" still applies regardless of where they live.
 
