@@ -51,3 +51,6 @@ public/images/deck-cards/
 
 # Local Netlify folder
 .netlify
+
+# Local scratch that may hold credentials — never commit.
+untracked_work/
