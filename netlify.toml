@@ -1,0 +1,29 @@
+# Netlify site configuration.
+#
+# Redirect the free netlify.app subdomain to the canonical domain. Netlify does
+# NOT do this on its own once a custom domain is set — kentchi.netlify.app keeps
+# serving the production deploy independently, so the site answers on two
+# hostnames. That costs three things:
+#
+#   * SEO is split between two hostnames serving identical content.
+#   * Analytics silently miss those visitors: the gtag snippet in Layout.astro is
+#     gated to `location.hostname === 'www.kentosborn.studio'` on purpose, so a
+#     session on the netlify.app host is never recorded.
+#   * Absolute canonical / Open Graph URLs are baked from Netlify's URL env var,
+#     so a shared netlify.app link advertises the other domain.
+#
+# This is not hypothetical: the first real order this site ever received arrived
+# from https://kentchi.netlify.app/order/?item=shinan.
+#
+# Only the bare production subdomain is redirected. Branch and preview builds get
+# their own hostnames (master--kentchi.netlify.app,
+# deploy-preview-12--kentchi.netlify.app) and are deliberately left alone so
+# review deploys keep working.
+#
+# `force = true` is required: without it the rule yields to the static file that
+# already exists at that path, and nothing would ever redirect.
+[[redirects]]
+  from = "https://kentchi.netlify.app/*"
+  to = "https://www.kentosborn.studio/:splat"
+  status = 301
+  force = true

@@ -212,7 +212,8 @@ const inputClass =
           <div class="space-y-3">
             {group.variants.map((v) => (
               <div class="rounded border border-brand-warm-gray/60 px-3 py-3" data-variant-row>
-                <div class="flex items-center gap-3">
+                <div class="sm:flex sm:items-center sm:gap-4">
+                <div class="flex items-center gap-3 sm:grow sm:min-w-0">
                 <button
                   type="button"
                   data-img-trigger
@@ -241,19 +242,26 @@ const inputClass =
                 </span>
                 </div>
 
-                {/* Edition shelf. Quantity lives beside the edition it belongs to,
-                    which is what lets one order mix languages. Every row carries
-                    this shelf, even where there is only one edition — a lone
-                    "Bilingual" token answers "which language is this?" in place,
-                    and makes the neighbouring rows' choices legible by contrast.
-                    Full width below the row for the same reason the Amazon strip
-                    is: at 375px the row has no horizontal space left once the
-                    96px thumbnail is placed. */}
-                <div class="mt-3 pt-3 border-t border-brand-warm-gray/30 bg-brand-light/60 -mx-3 -mb-3 px-3 pb-3 rounded-b">
+                {/* Editions. Quantity sits beside the edition it belongs to, which
+                    is what lets one order mix languages.
+                    From sm up these stack in the row's right-hand column — the
+                    gutter the old single quantity box used to occupy. Stacked
+                    rather than in a line, because a vertical stack of up to three
+                    tokens is shorter than the 112px thumbnail, so the row costs no
+                    extra height at all; a horizontal line of them would not fit
+                    beside the label.
+                    Below sm they drop under the row: at 375px only ~210px remains
+                    once the thumbnail is placed, and a token column needs ~160px
+                    of that, which would leave nothing for the product name.
+                    Every row carries this, even where only one edition exists — a
+                    lone "Bilingual" token answers "which language is this?" in
+                    place, and makes the neighbouring rows' choices legible by
+                    contrast. */}
+                <div class="mt-3 pt-3 border-t border-brand-warm-gray/30 sm:mt-0 sm:pt-0 sm:border-t-0 sm:shrink-0">
                   <span class="block text-[11px] uppercase tracking-wide text-brand-dark/55 mb-2">
                     {i.order.editionLabel}
                   </span>
-                  <div class="flex flex-wrap gap-x-5 gap-y-3">
+                  <div class="flex flex-wrap gap-x-5 gap-y-3 sm:flex-col sm:flex-nowrap sm:items-start sm:gap-2">
                     {v.editions.map((edition) => (
                       <span class="flex items-center gap-2">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -283,14 +291,17 @@ const inputClass =
                     ))}
                   </div>
                 </div>
+                </div>
                 {v.amazon && (
-                  /* Alternate route, not a replacement: the checkbox above still sends
-                     "two copies of El Estimado" straight to Kent. This sits below the row
-                     rather than beside the label for two reasons — the label wraps the
-                     checkbox, so an <a> inside it would tick the box on the way out, and
-                     the row has no horizontal room left once the thumbnail and quantity
-                     box take their share on a phone. Outline pills, never filled: solid
-                     buttons here would out-shout the one real submit button. */
+                  /* Alternate route, not a replacement: the checkboxes above still send
+                     "two copies of El Estimado" straight to Kent. This stays full width
+                     BELOW the row at every breakpoint, deliberately not joining the
+                     editions in the right-hand column: an edition token is a selection
+                     that belongs to this row, while these are a route away from the form
+                     entirely, and the two should not read as the same kind of control.
+                     It also cannot sit inside a label — the label wraps the checkbox, so
+                     an <a> there would tick the box on the way out. Outline pills, never
+                     filled: solid buttons would out-shout the one real submit button. */
                   <div class="mt-3 pt-3 border-t border-brand-warm-gray/30 flex flex-wrap items-center gap-x-3 gap-y-2">
                     <span class="text-sm text-brand-dark/70">{i.order.amazonInvite}</span>
                     <span class="flex gap-2 shrink-0">
