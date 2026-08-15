@@ -30,6 +30,25 @@ const cld = (url: string, transform: string) =>
 // disclosure required by their operating agreement sits at the foot of the
 // products fieldset below.
 type AmazonEdition = { label: string; url: string };
+
+// Which language editions a given packaging is actually sold in. This is a
+// ragged matrix, not a clean product, and the raggedness is real:
+//   Shinan Oracle  — bilingual only, both packagings (one guidebook, both languages)
+//   Magnetic Magi  — the hardcase box IS the bilingual edition; the cinch bags
+//                    are single-language only
+//   Worlds Within  — not bilingual at all; you buy one language or the other
+//   both books     — English or Spanish
+// Rendering one row per language would have turned 8 rows into 15, most of them
+// near-duplicates, so edition is a choice *within* a row instead. That also lets
+// one submission mix languages — "2 in Spanish and 1 in English" — which a buyer
+// otherwise had to split across two visits to two different pages.
+type EditionCode = 'bilingual' | 'en' | 'es';
+const editionLabels: Record<EditionCode, string> = {
+  bilingual: i.order.editionBilingual,
+  en: i.order.editionEn,   // endonyms on both locales: a Spanish speaker on the
+  es: i.order.editionEs,   // English page still recognises "Español" instantly
+};
+
 type Variant = {
   slug: string;
   label: string;
@@ -37,6 +56,7 @@ type Variant = {
   mxn: number | null;
   box: boolean;
   img: string;
+  editions: EditionCode[];
   amazon?: AmazonEdition[];
 };
 type Group = { key: string; name: string; note: string; variants: Variant[] };
@@ -50,13 +70,16 @@ const amazonShinanCosmology: AmazonEdition[] = [
   { label: 'Español', url: 'https://www.amazon.com/Shinan-Cosmolog%C3%ADa-Tribu-Shipibo-Spanish/dp/B0D11LWD44?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.L0BaeCKDFUXbqcz-KeYLSKvsP0Ba7yspGB2gIVJ3EWkVPFdl3AytDFXUMHH3UOLt.LrrwXr7l9behB9EOdbK9p5n4H8XR1864VeuPYeJhmu0&qid=1785558820&sr=8-5&linkCode=ll2&tag=axis0d-20&linkId=2c42fd2b1c85c64cd683fc9b6185856e&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl' },
 ];
 
-// Each purchasable variant is its own row: its own photo, price, and quantity.
-// This keeps "box vs bag (and which bag colour)" unambiguous, lets a buyer pick
-// more than one variant of the same title, and puts the exact photo next to the
-// exact thing being ordered. Slugs are the values used by ?item= deep-links and
-// the GA event. `group` ties variants to a title (used by ?item= scroll/preselect).
+// One row per PACKAGING — its own photo and price — with the language editions
+// it is sold in listed inside the row. Packaging is what the photo shows and
+// what the price depends on; language changes neither, so it earns a token
+// rather than a duplicate row.
+//
+// Slugs identify a packaging; a selectable item is packaging + edition, keyed
+// `<slug>--<edition>`. `group` ties variants to a title and is what ?item=
+// deep-links target, so existing links like /order?item=shinan still work.
 // `amazon` (books only) adds an alternate-route strip under the row; it never
-// replaces the checkbox, so "send me two copies" still goes straight to Kent.
+// replaces the checkboxes, so "send me two copies" still goes straight to Kent.
 const groups: Group[] = [
   {
     key: 'shinan',
@@ -64,8 +87,10 @@ const groups: Group[] = [
     note: i.order.productShinanNote,
     variants: [
       { slug: 'shinan-box', label: i.order.variantBox, usd: 50, mxn: 900, box: true,
+        editions: ['bilingual'],
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782523000/shinan_oracle_hardcase_orange_vy4kmr.jpg' },
       { slug: 'shinan-bag-wine', label: i.order.variantBagWine, usd: 40, mxn: 700, box: false,
+        editions: ['bilingual'],
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/shinan_oracle_bag_wine_br7ny1.jpg' },
     ],
   },
@@ -74,11 +99,15 @@ const groups: Group[] = [
     name: i.order.productMagneticMagi,
     note: i.order.productMagneticMagiNote,
     variants: [
+      // The box IS the bilingual edition — which is what the higher price pays for.
       { slug: 'mm-box', label: i.order.variantBox, usd: 50, mxn: 900, box: true,
+        editions: ['bilingual'],
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_hardcase_rs5wco.jpg' },
       { slug: 'mm-bag-wine', label: i.order.variantBagWine, usd: 40, mxn: 700, box: false,
+        editions: ['es', 'en'],
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_wine_bag_mixed_background_o4ydod.jpg' },
       { slug: 'mm-bag-purple', label: i.order.variantBagPurple, usd: 40, mxn: 700, box: false,
+        editions: ['es', 'en'],
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_purple_bag_gray_background_wrlixz.jpg' },
     ],
   },
@@ -88,6 +117,7 @@ const groups: Group[] = [
     note: i.order.productWorldsWithinNote,
     variants: [
       { slug: 'worlds-within', label: i.order.variantDeckPreorder, usd: 40, mxn: 700, box: false,
+        editions: ['es', 'en'],
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1785524243/Worlds_within_cover_image_vaafyq.jpg' },
     ],
   },
@@ -96,7 +126,8 @@ const groups: Group[] = [
     name: i.order.productElEstimado,
     note: i.order.productElEstimadoNote,
     variants: [
-      { slug: 'el-estimado', label: i.order.variantBook, usd: null, mxn: null, box: false,
+      { slug: 'el-estimado', label: i.order.variantBook, usd: 20, mxn: 340, box: false,
+        editions: ['en', 'es'],
         img: '/images/el-estimado-front.jpg', amazon: amazonElEstimado },
     ],
   },
@@ -105,7 +136,8 @@ const groups: Group[] = [
     name: i.order.productShinanCosmology,
     note: i.order.productShinanCosmologyNote,
     variants: [
-      { slug: 'shinan-cosmology', label: i.order.variantBook, usd: null, mxn: null, box: false,
+      { slug: 'shinan-cosmology', label: i.order.variantBook, usd: 20, mxn: 340, box: false,
+        editions: ['en', 'es'],
         img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-cosmology_hdr7in.jpg',
         amazon: amazonShinanCosmology },
     ],
@@ -154,6 +186,11 @@ const inputClass =
     data-subtotal-note={i.order.subtotalNote}
     value=""
   />
+  <!-- Where this enquiry came from, assembled from the first-touch record that
+       Layout.astro writes on the visitor's first pageview. One field rather than
+       four, for the same reason order_summary is one field: Netlify prints every
+       registered field including the empty ones. -->
+  <input type="hidden" name="how_they_arrived" data-arrival-field value="" />
   <p class="hidden" aria-hidden="true">
     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
   </p>
@@ -161,7 +198,11 @@ const inputClass =
   <fieldset>
     <legend class="block font-heading text-lg mb-2">{i.order.productsLegend}</legend>
     <p class="text-sm text-brand-dark/85 mb-1">{i.order.availabilityNote}</p>
-    <p class="text-sm text-brand-dark/85 mb-5">{i.order.batchNote}</p>
+    <p class="text-sm text-brand-dark/85 mb-1">{i.order.batchNote}</p>
+    <!-- Stated up front AND repeated in every deck label. A buyer read this page
+         end to end and still had to write in asking whether the deck came with
+         the book, so once is demonstrably not enough. -->
+    <p class="text-sm font-medium text-brand-dark mb-5">{i.order.guidebookNote}</p>
 
     <div class="space-y-8">
       {groups.map((group) => (
@@ -189,40 +230,58 @@ const inputClass =
                     class="w-24 h-24 md:w-28 md:h-28 object-contain"
                   />
                 </button>
-                <label class="flex items-start gap-3 grow cursor-pointer">
-                  <input
-                    type="checkbox"
-                    value={`${group.name} — ${v.label}${v.usd ? ` ($${v.usd} USD / $${v.mxn} MXN)` : ''}`}
-                    data-item={v.slug}
-                    data-group={group.key}
-                    data-usd={v.usd ?? 0}
-                    data-mxn={v.mxn ?? 0}
-                    class="mt-1 h-4 w-4 accent-brand-purple"
-                  />
-                  <span>
-                    <span class="block font-medium leading-tight">{v.label}</span>
-                    {v.usd && <span class="block text-sm text-brand-dark/70">${v.usd} USD · ${v.mxn} MXN</span>}
-                    {v.box && (
-                      <span class="inline-block mt-1 text-[11px] uppercase tracking-wide text-brand-rust">
-                        {i.order.availabilityTag}
-                      </span>
-                    )}
+                <span class="grow">
+                  <span class="block font-medium leading-tight">{v.label}</span>
+                  {v.usd && <span class="block text-sm text-brand-dark/70">${v.usd} USD · ${v.mxn} MXN</span>}
+                  {v.box && (
+                    <span class="inline-block mt-1 text-[11px] uppercase tracking-wide text-brand-rust">
+                      {i.order.availabilityTag}
+                    </span>
+                  )}
+                </span>
+                </div>
+
+                {/* Edition shelf. Quantity lives beside the edition it belongs to,
+                    which is what lets one order mix languages. Every row carries
+                    this shelf, even where there is only one edition — a lone
+                    "Bilingual" token answers "which language is this?" in place,
+                    and makes the neighbouring rows' choices legible by contrast.
+                    Full width below the row for the same reason the Amazon strip
+                    is: at 375px the row has no horizontal space left once the
+                    96px thumbnail is placed. */}
+                <div class="mt-3 pt-3 border-t border-brand-warm-gray/30 bg-brand-light/60 -mx-3 -mb-3 px-3 pb-3 rounded-b">
+                  <span class="block text-[11px] uppercase tracking-wide text-brand-dark/55 mb-2">
+                    {i.order.editionLabel}
                   </span>
-                </label>
-                <label class="flex items-center gap-2 text-sm shrink-0">
-                  <span class="sr-only">{i.order.quantityLabel}</span>
-                  <input
-                    type="number"
-                    value="1"
-                    min="1"
-                    max="9"
-                    inputmode="numeric"
-                    disabled
-                    data-qty={v.slug}
-                    aria-label={`${i.order.quantityLabel} — ${group.name} ${v.label}`}
-                    class="w-16 border border-brand-warm-gray rounded px-2 py-1 text-center disabled:opacity-40"
-                  />
-                </label>
+                  <div class="flex flex-wrap gap-x-5 gap-y-3">
+                    {v.editions.map((edition) => (
+                      <span class="flex items-center gap-2">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            value={`${group.name} — ${v.label} (${editionLabels[edition]})${v.usd ? ` ($${v.usd} USD / $${v.mxn} MXN)` : ''}`}
+                            data-item={`${v.slug}--${edition}`}
+                            data-group={group.key}
+                            data-usd={v.usd ?? 0}
+                            data-mxn={v.mxn ?? 0}
+                            class="h-4 w-4 accent-brand-purple"
+                          />
+                          <span class="text-sm">{editionLabels[edition]}</span>
+                        </label>
+                        <input
+                          type="number"
+                          value="1"
+                          min="1"
+                          max="9"
+                          inputmode="numeric"
+                          disabled
+                          data-qty={`${v.slug}--${edition}`}
+                          aria-label={`${i.order.quantityLabel} — ${group.name} ${v.label} ${editionLabels[edition]}`}
+                          class="w-14 border border-brand-warm-gray rounded px-2 py-1 text-center text-sm disabled:opacity-40"
+                        />
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 {v.amazon && (
                   /* Alternate route, not a replacement: the checkbox above still sends
@@ -472,12 +531,12 @@ const inputClass =
       qty.addEventListener('input', recomputeSubtotal);
     });
 
-    // ?item=<group key> scrolls to and highlights the title. For a single-variant
-    // title (the books and the Worlds Within pre-order) we also auto-check it; decks have a format choice to make,
-    // so we only bring the buyer to the right block rather than guessing box vs bag.
+    // ?item=<group key> scrolls to and highlights the title. It no longer
+    // auto-checks anything: now that every item carries a language edition,
+    // even the single-packaging titles offer a real choice, and picking one for
+    // the buyer would mean guessing which language they read.
     const preselect = new URLSearchParams(location.search).get('item');
     if (preselect) {
-      const groupVariants = boxes.filter((b) => b.dataset.group === preselect);
       const block = document.getElementById(`group-${preselect}`);
       if (block) {
         block.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -485,10 +544,6 @@ const inputClass =
           [{ backgroundColor: 'rgba(208,172,104,0.25)' }, { backgroundColor: 'transparent' }],
           { duration: 1600, easing: 'ease-out' }
         );
-      }
-      if (groupVariants.length === 1) {
-        groupVariants[0].checked = true;
-        groupVariants[0].dispatchEvent(new Event('change'));
       }
     }
 
@@ -546,6 +601,42 @@ const inputClass =
           lines.push(`— ${subtotalLabel}: $${usdTotal} USD / $${mxnTotal} MXN (${subtotalNote})`);
         }
         summaryField.value = lines.join('\n');
+      }
+
+      // Where they came from, as one readable block.
+      const arrivalField = form.querySelector<HTMLInputElement>('[data-arrival-field]');
+      if (arrivalField) {
+        let visit: { host?: string; utm?: Record<string, string>; landing?: string; at?: string; pages?: number } | null = null;
+        try {
+          const raw = sessionStorage.getItem('kentchi:first-touch');
+          if (raw) visit = JSON.parse(raw);
+        } catch {
+          /* storage unavailable — fall through to the unknown case */
+        }
+        const rows: string[] = [];
+        const utm = visit?.utm ?? {};
+        if (utm.source) {
+          // A tagged link: exact attribution, so report it and nothing vaguer.
+          rows.push(`Source:       ${[utm.source, utm.medium, utm.campaign].filter(Boolean).join(' · ')} (tagged link)`);
+        } else if (visit?.host) {
+          const searchEngine = /(^|\.)(google|bing|duckduckgo|yahoo|ecosia|brave)\./.test(`${visit.host}.`);
+          rows.push(
+            `Source:       ${visit.host}` +
+              (searchEngine ? ' (organic — search engines do not disclose the terms)' : '')
+          );
+        } else {
+          rows.push('Source:       direct or in-app link (no referrer)');
+        }
+        if (visit?.landing) rows.push(`Landed on:    ${visit.landing}`);
+        rows.push(`Ordered from: ${location.pathname}${location.search}`);
+        if (visit?.at) {
+          const when = new Date(visit.at);
+          const pages = visit.pages ?? 1;
+          rows.push(
+            `First visit:  ${when.toLocaleString()} (${pages} page${pages === 1 ? '' : 's'} this visit)`
+          );
+        }
+        arrivalField.value = rows.join('\n');
       }
 
       if (idField) idField.value = enquiryId;

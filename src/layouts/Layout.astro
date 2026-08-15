@@ -96,6 +96,51 @@ const ogSquareUrl = new URL(ogSquarePath, origin).toString();
         gtag('config', 'G-FEGK7PWBTV');
       }
     </script>
+
+    <!-- First-touch attribution, recorded once per visit and read by the order
+         form so Kent can see where an enquiry came from.
+         Runs on every page because the page someone LANDS on is rarely the page
+         they order from, and document.referrer only holds the external source on
+         that first pageview — one hop in and it just says kentosborn.studio.
+         sessionStorage (not localStorage) so it expires with the visit rather
+         than crediting a months-old click.
+         Note on search terms: Google has stripped them from the referrer since
+         2011, so a visitor from search yields "google.com" and nothing more.
+         That is not a gap to close later — it cannot be recovered client-side.
+         UTM tags on links we control are the only exact attribution available. -->
+    <script is:inline>
+      (function () {
+        try {
+          var KEY = 'kentchi:first-touch';
+          var store = window.sessionStorage;
+          var seen = store.getItem(KEY);
+          var visit = seen ? JSON.parse(seen) : null;
+          if (!visit) {
+            var params = new URLSearchParams(location.search);
+            var utm = {};
+            params.forEach(function (value, key) {
+              if (key.indexOf('utm_') === 0 && value) utm[key.slice(4)] = value;
+            });
+            var ref = document.referrer || '';
+            var host = '';
+            try { host = ref ? new URL(ref).hostname.replace(/^www\./, '') : ''; } catch (e) {}
+            // Our own pages are not a traffic source.
+            if (host && host === location.hostname.replace(/^www\./, '')) { ref = ''; host = ''; }
+            visit = {
+              host: host,
+              utm: utm,
+              landing: location.pathname + location.search,
+              at: new Date().toISOString(),
+              pages: 0,
+            };
+          }
+          visit.pages = (visit.pages || 0) + 1;
+          store.setItem(KEY, JSON.stringify(visit));
+        } catch (e) {
+          /* private mode or storage disabled — attribution is a nice-to-have */
+        }
+      })();
+    </script>
   </head>
   <body class="min-h-screen flex flex-col">
     <Header lang={lang} />
