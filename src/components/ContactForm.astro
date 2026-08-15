@@ -7,17 +7,24 @@ interface Props {
 
 const { lang = defaultLang } = Astro.props;
 const i = t(lang);
+
+// One Netlify form per locale — see the same note in OrderForm.astro. Netlify
+// resolves a form's notification labels once per NAME, so sharing one across
+// /contact and /es/contact meant every notification carried one locale's labels
+// whatever language the sender used. English keeps the original name so its
+// submission history stays put.
+const formName = lang === 'es' ? 'contact-es' : 'contact';
 ---
 
 <form
-  name="contact"
+  name={formName}
   method="POST"
   data-netlify="true"
   netlify-honeypot="bot-field"
   class="max-w-xl mx-auto space-y-6"
   data-contact-form
 >
-  <input type="hidden" name="form-name" value="contact" />
+  <input type="hidden" name="form-name" value={formName} />
   <p class="hidden" aria-hidden="true">
     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
   </p>

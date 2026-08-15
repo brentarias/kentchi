@@ -112,22 +112,48 @@ const groups: Group[] = [
   },
 ];
 
-const fieldName = (slug: string) => slug.replace(/-/g, '_');
+// One Netlify form per locale. Netlify registers a form once per NAME and then
+// resolves the pretty labels in its notification emails from whichever page it
+// parsed — so while /order and /es/order shared the name "order-request", every
+// notification came out with Spanish labels regardless of the language the
+// buyer actually used, and nothing in the email said which it was. Separate
+// names give each locale its own labels, and the form name itself now tells you
+// which page the order came from.
+//
+// English deliberately keeps the original name so its submission history stays
+// on the existing form.
+const formName = lang === 'es' ? 'order-request-es' : 'order-request';
+
 const inputClass =
   'w-full border border-brand-warm-gray rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-gold';
 ---
 
 <form
-  name="order-request"
+  name={formName}
   method="POST"
   data-netlify="true"
   netlify-honeypot="bot-field"
   class="max-w-2xl mx-auto space-y-8"
   data-order-form
 >
-  <input type="hidden" name="form-name" value="order-request" />
+  <input type="hidden" name="form-name" value={formName} />
   <input type="hidden" name="subject" data-subject-field value="" />
   <input type="hidden" name="enquiry_id" data-enquiry-field value="" />
+  <!-- What was actually ordered, as one readable block. Netlify prints every
+       registered field in its notification email, empty ones included, so a
+       field per variant meant the real order sat buried under a dozen blank
+       "Item …"/"Qty …" rows — and worsened with every product added. The
+       per-variant inputs are therefore nameless (they drive the UI only, via
+       their data- attributes) and this single field carries the order. Filled
+       on submit, same as the two hidden fields above. -->
+  <input
+    type="hidden"
+    name="order_summary"
+    data-summary-field
+    data-subtotal-label={i.order.subtotalLabel}
+    data-subtotal-note={i.order.subtotalNote}
+    value=""
+  />
   <p class="hidden" aria-hidden="true">
     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
   </p>
@@ -166,7 +192,6 @@ const inputClass =
                 <label class="flex items-start gap-3 grow cursor-pointer">
                   <input
                     type="checkbox"
-                    name={`item_${fieldName(v.slug)}`}
                     value={`${group.name} — ${v.label}${v.usd ? ` ($${v.usd} USD / $${v.mxn} MXN)` : ''}`}
                     data-item={v.slug}
                     data-group={group.key}
@@ -188,7 +213,6 @@ const inputClass =
                   <span class="sr-only">{i.order.quantityLabel}</span>
                   <input
                     type="number"
-                    name={`qty_${fieldName(v.slug)}`}
                     value="1"
                     min="1"
                     max="9"
@@ -497,6 +521,33 @@ const inputClass =
       const country = form.querySelector<HTMLInputElement>('[name="country"]')?.value.trim() ?? '';
       const idField = form.querySelector<HTMLInputElement>('[data-enquiry-field]');
       const subjectField = form.querySelector<HTMLInputElement>('[data-subject-field]');
+
+      // The order itself, as the one field a human actually reads. Each checkbox
+      // still carries its full "Title — Variant ($X USD / $Y MXN)" string as its
+      // value; it just no longer has a name, so it never reaches Netlify on its
+      // own. Priced lines get a running total appended.
+      const summaryField = form.querySelector<HTMLInputElement>('[data-summary-field]');
+      if (summaryField) {
+        let usdTotal = 0;
+        let mxnTotal = 0;
+        const lines = checked.map((box) => {
+          const qtyInput = form.querySelector<HTMLInputElement>(`[data-qty="${box.dataset.item}"]`);
+          const qty = Math.max(1, Number(qtyInput?.value || 1));
+          usdTotal += Number(box.dataset.usd || 0) * qty;
+          mxnTotal += Number(box.dataset.mxn || 0) * qty;
+          return `${qty} × ${box.value}`;
+        });
+        if (usdTotal || mxnTotal) {
+          // Localised via data- attributes: this runs as a plain client script
+          // and has no access to the i18n helper. Reuses the same two strings
+          // the on-page subtotal row shows.
+          const subtotalLabel = summaryField.dataset.subtotalLabel ?? 'Estimated deck subtotal';
+          const subtotalNote = summaryField.dataset.subtotalNote ?? 'before shipping';
+          lines.push(`— ${subtotalLabel}: $${usdTotal} USD / $${mxnTotal} MXN (${subtotalNote})`);
+        }
+        summaryField.value = lines.join('\n');
+      }
+
       if (idField) idField.value = enquiryId;
       if (subjectField) subjectField.value = `ORDER REQUEST [${enquiryId}] — ${country}`;
 
