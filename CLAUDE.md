@@ -65,6 +65,31 @@ Key components:
 - **`OrderForm.astro`** — the order-request (RFQ) form on `/order` and `/es/order`. Also Netlify Forms. See below.
 - **`DeckCarousel.astro`** — the card-preview strip and lightbox used by all three decks on `/decks`; card images come from Cloudinary via [src/data/deckCards.ts](src/data/deckCards.ts).
 
+### What is for sale
+
+[src/data/catalogue.ts](src/data/catalogue.ts) is the single source for price,
+photo and language editions, keyed by packaging slug. Change a price there and
+nowhere else. Two consumers read it:
+
+- `OrderForm.astro` spreads a `sku` entry into each variant row and adds only
+  the i18n label — so a row's price and photo are never typed out on the page.
+- [src/data/productSchema.ts](src/data/productSchema.ts) builds the `/decks`
+  JSON-LD from the same entries, and both `decks.astro` and `es/decks.astro`
+  call it rather than each hand-rolling a copy.
+
+This exists because the copies drifted. The Spanish deck page told crawlers all
+three decks were `inLanguage: "es"` — the page's language leaking onto the
+product, when the decks are bilingual — and both deck pages advertised
+Shinan: Cosmology as a single paperback long after a hardcover at a different
+price was on sale. A buyer saw one thing and a crawler another.
+
+A title with several packagings gets one `AggregateOffer` per currency rather
+than a single price, because a bare `Offer` cannot carry two, and picking one
+price for a deck sold at $40 and $50 would misstate it. Books use `workExample`,
+one entry per binding × language, each with its own `bookFormat` and price; the
+parent `Book` deliberately states no `bookFormat`, since that property is
+single-valued and any value there would be wrong for the other binding.
+
 ### Forms and notifications
 
 Both forms are Netlify Forms, submitted by `fetch` to `/` as

@@ -1,5 +1,8 @@
 ---
 import { t, type Lang, defaultLang } from '../i18n';
+// Prices, photos and language editions come from the catalogue so this form and
+// the JSON-LD on /decks cannot disagree about what is for sale.
+import { sku, type EditionCode } from '../data/catalogue';
 
 interface Props {
   lang?: Lang;
@@ -48,13 +51,12 @@ type AmazonEdition = { label: string; url: string };
 //   Shinan Oracle  — bilingual only, both packagings (one guidebook, both languages)
 //   Magnetic Magi  — the hardcase box IS the bilingual edition; the cinch bags
 //                    are single-language only
-//   Worlds Within  — not bilingual at all; you buy one language or the other
+//   Worlds Within  — one bilingual edition, same as the Shinan Oracle
 //   both books     — English or Spanish
 // Rendering one row per language would have turned 8 rows into 15, most of them
 // near-duplicates, so edition is a choice *within* a row instead. That also lets
 // one submission mix languages — "2 in Spanish and 1 in English" — which a buyer
 // otherwise had to split across two visits to two different pages.
-type EditionCode = 'bilingual' | 'en' | 'es';
 const editionLabels: Record<EditionCode, string> = {
   bilingual: i.order.editionBilingual,
   en: i.order.editionEn,   // endonyms on both locales: a Spanish speaker on the
@@ -66,12 +68,22 @@ type Variant = {
   label: string;
   usd: number | null;
   mxn: number | null;
-  box: boolean;
   img: string;
-  editions: EditionCode[];
+  editions: readonly EditionCode[];
+};
+// `amazon` hangs off the GROUP, not a variant: the listing is for the TITLE.
+// Shinan: Cosmology sells in two bindings, and which of them Amazon stocks is
+// not something this repo knows — putting the strip on one row would assert an
+// answer, and putting it on both would assert a different one. Once per title
+// claims only what is true, and it reads correctly for the single-binding books
+// too, where it lands in the same place it always did.
+type Group = {
+  key: string;
+  name: string;
+  note: string;
+  variants: Variant[];
   amazon?: AmazonEdition[];
 };
-type Group = { key: string; name: string; note: string; variants: Variant[] };
 
 const amazonElEstimado: AmazonEdition[] = [
   { label: 'English', url: 'https://www.amazon.com/Estimado-Unexpected-Encounter-Kent-Osborn/dp/B0H7BL1HNM?crid=1EK7DLEERAMMT&dib=eyJ2IjoiMSJ9.ftiKW8aOA0dxG10prX2WRtWzNmIkwlwe680ZuAJaGuGnQ5v0m5oDAfmHDAzVp2t4y6bghgUmquZy30uC2sQUCX_RAARly1uB-O2RR8Hv0nwBwGDzqc2rzJc50Nd7hi19sDPzbrQZYOD9eLthGZhFZwZ3dAfW1r7nEWXoyodkIDcy_9qlLftFEr571eGI6NYa.QTx7yEAaxiOGR0QFkxJYLkDku-n6aG9UcF95G_ipRr0&dib_tag=se&keywords=el%2Bestimado&qid=1785557966&sprefix=el%2Bestimado%2Caps%2C195&sr=8-1&linkCode=ll2&tag=axis0d-20&linkId=434bcec51ffd9a257bb67f4f9cada9ff&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl' },
@@ -98,12 +110,8 @@ const groups: Group[] = [
     name: i.order.productShinan,
     note: i.order.productShinanNote,
     variants: [
-      { slug: 'shinan-box', label: i.order.variantBox, usd: 50, mxn: 900, box: true,
-        editions: ['bilingual'],
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782523000/shinan_oracle_hardcase_orange_vy4kmr.jpg' },
-      { slug: 'shinan-bag-wine', label: i.order.variantBagWine, usd: 40, mxn: 700, box: false,
-        editions: ['bilingual'],
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/shinan_oracle_bag_wine_br7ny1.jpg' },
+      { slug: 'shinan-box', label: i.order.variantBox, ...sku['shinan-box'] },
+      { slug: 'shinan-bag-wine', label: i.order.variantBagWine, ...sku['shinan-bag-wine'] },
     ],
   },
   {
@@ -112,15 +120,9 @@ const groups: Group[] = [
     note: i.order.productMagneticMagiNote,
     variants: [
       // The box IS the bilingual edition — which is what the higher price pays for.
-      { slug: 'mm-box', label: i.order.variantBox, usd: 50, mxn: 900, box: true,
-        editions: ['bilingual'],
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_hardcase_rs5wco.jpg' },
-      { slug: 'mm-bag-wine', label: i.order.variantBagWine, usd: 40, mxn: 700, box: false,
-        editions: ['es', 'en'],
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_wine_bag_mixed_background_o4ydod.jpg' },
-      { slug: 'mm-bag-purple', label: i.order.variantBagPurple, usd: 40, mxn: 700, box: false,
-        editions: ['es', 'en'],
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1782522608/mm_purple_bag_gray_background_wrlixz.jpg' },
+      { slug: 'mm-box', label: i.order.variantBox, ...sku['mm-box'] },
+      { slug: 'mm-bag-wine', label: i.order.variantBagWine, ...sku['mm-bag-wine'] },
+      { slug: 'mm-bag-purple', label: i.order.variantBagPurple, ...sku['mm-bag-purple'] },
     ],
   },
   {
@@ -128,9 +130,8 @@ const groups: Group[] = [
     name: i.order.productWorldsWithin,
     note: i.order.productWorldsWithinNote,
     variants: [
-      { slug: 'worlds-within', label: i.order.variantDeckPreorder, usd: 40, mxn: 700, box: false,
-        editions: ['es', 'en'],
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1785524243/Worlds_within_cover_image_vaafyq.jpg' },
+      // One bilingual edition, not one per language — same as the Shinan Oracle.
+      { slug: 'worlds-within', label: i.order.variantDeckPreorder, ...sku['worlds-within'] },
     ],
   },
   {
@@ -138,21 +139,27 @@ const groups: Group[] = [
     name: i.order.productElEstimado,
     note: i.order.productElEstimadoNote,
     variants: [
-      { slug: 'el-estimado', label: i.order.variantBook, usd: 20, mxn: 340, box: false,
-        editions: ['en', 'es'],
-        img: '/images/el-estimado-front.jpg', amazon: amazonElEstimado },
+      { slug: 'el-estimado', label: i.order.variantBook, ...sku['el-estimado'] },
     ],
+    amazon: amazonElEstimado,
   },
   {
     key: 'shinan-cosmology',
     name: i.order.productShinanCosmology,
     note: i.order.productShinanCosmologyNote,
+    // Two bindings, each sold in both languages — the four editions of this
+    // title. Binding is packaging like any other: it owns the photo and the
+    // price, so it earns a row, while language stays a token inside the row.
+    // The covers genuinely differ (the hardcover is the pale Shipibo-pattern
+    // artwork, the softcover the purple starfield), which is exactly why each
+    // binding needs its own photo rather than a shared one.
     variants: [
-      { slug: 'shinan-cosmology', label: i.order.variantBook, usd: 20, mxn: 340, box: false,
-        editions: ['en', 'es'],
-        img: 'https://res.cloudinary.com/dmzx8w015/image/upload/v1781919010/shinan-cosmology_hdr7in.jpg',
-        amazon: amazonShinanCosmology },
+      { slug: 'shinan-cosmology-hardcover', label: i.order.variantHardcover,
+        ...sku['shinan-cosmology-hardcover'] },
+      { slug: 'shinan-cosmology-softcover', label: i.order.variantSoftcover,
+        ...sku['shinan-cosmology-softcover'] },
     ],
+    amazon: amazonShinanCosmology,
   },
 ];
 
@@ -217,7 +224,6 @@ const inputClass =
 
   <fieldset>
     <legend class="block font-heading text-lg mb-2">{i.order.productsLegend}</legend>
-    <p class="text-sm text-brand-dark/85 mb-1">{i.order.availabilityNote}</p>
     <p class="text-sm text-brand-dark/85 mb-1">{i.order.batchNote}</p>
     <!-- Stated up front AND repeated in every deck label. A buyer read this page
          end to end and still had to write in asking whether the deck came with
@@ -254,11 +260,6 @@ const inputClass =
                 <span class="grow">
                   <span class="block font-medium leading-tight">{v.label}</span>
                   {v.usd && <span class="block text-sm text-brand-dark/70">${v.usd} USD · ${v.mxn} MXN</span>}
-                  {v.box && (
-                    <span class="inline-block mt-1 text-[11px] uppercase tracking-wide text-brand-rust">
-                      {i.order.availabilityTag}
-                    </span>
-                  )}
                 </span>
                 </div>
 
@@ -316,37 +317,39 @@ const inputClass =
                   </div>
                 </div>
                 </div>
-                {v.amazon && (
-                  /* Alternate route, not a replacement: the checkboxes above still send
-                     "two copies of El Estimado" straight to Kent. This stays full width
-                     BELOW the row at every breakpoint, deliberately not joining the
-                     editions in the right-hand column: an edition token is a selection
-                     that belongs to this row, while these are a route away from the form
-                     entirely, and the two should not read as the same kind of control.
-                     It also cannot sit inside a label — the label wraps the checkbox, so
-                     an <a> there would tick the box on the way out. Outline pills, never
-                     filled: solid buttons would out-shout the one real submit button. */
-                  <div class="mt-3 pt-3 border-t border-brand-warm-gray/30 flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <span class="text-sm text-brand-dark/70">{i.order.amazonInvite}</span>
-                    <span class="flex gap-2 shrink-0">
-                      {v.amazon.map((edition) => (
-                        <a
-                          href={edition.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="inline-flex items-center gap-1.5 rounded border border-brand-warm-gray/60 px-3 py-2 text-sm leading-5 text-brand-dark/80 transition-colors hover:border-brand-gold hover:text-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold"
-                        >
-                          {edition.label}
-                          <span aria-hidden="true">↗</span>
-                          <span class="sr-only">({i.order.amazonNewTab})</span>
-                        </a>
-                      ))}
-                    </span>
-                  </div>
-                )}
               </div>
             ))}
           </div>
+          {group.amazon && (
+            /* Alternate route, not a replacement: the checkboxes above still send
+               "two copies of El Estimado" straight to Kent. Full width BELOW the
+               rows at every breakpoint, deliberately not joining the editions in
+               the right-hand column: an edition token is a selection that belongs
+               to a row, while these are a route away from the form entirely, and
+               the two should not read as the same kind of control.
+               It also cannot sit inside a label — the label wraps the checkbox, so
+               an <a> there would tick the box on the way out. Outline pills, never
+               filled: solid buttons would out-shout the one real submit button.
+               Sits outside the bordered rows because it belongs to the TITLE, not
+               to any one binding — see the `amazon` field on Group. */
+            <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span class="text-sm text-brand-dark/70">{i.order.amazonInvite}</span>
+              <span class="flex gap-2 shrink-0">
+                {group.amazon.map((edition) => (
+                  <a
+                    href={edition.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 rounded border border-brand-warm-gray/60 px-3 py-2 text-sm leading-5 text-brand-dark/80 transition-colors hover:border-brand-gold hover:text-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold"
+                  >
+                    {edition.label}
+                    <span aria-hidden="true">↗</span>
+                    <span class="sr-only">({i.order.amazonNewTab})</span>
+                  </a>
+                ))}
+              </span>
+            </div>
+          )}
         </div>
       ))}
     </div>
