@@ -184,10 +184,23 @@ function kentEmail({ id, country, name, email, address, notes, items, arrived })
   // parse a recipient from, so the compose window opens with an empty To field.
   // Only subject and body are encoded; those are query parameters, where
   // reserved characters genuinely must be escaped.
+  //
+  // No body by default, and that is the point: Gmail only inserts the sender's
+  // signature when it composes a blank message. Supplying a body tells it the
+  // message is already written, and the signature is silently dropped. An opener
+  // is worth far less than Kent's real signature — which can carry formatting
+  // and links a mailto body never could, since mailto bodies are plain text.
+  //
+  // Set REPLY_BODY_TEMPLATE (Netlify env var) to override, accepting {name} and
+  // {id}. Doing so reintroduces the signature loss; that is the trade.
+  const template = process.env.REPLY_BODY_TEMPLATE;
+  const body = template
+    ? template.replace(/\{name\}/g, (name || '').split(' ')[0] || 'there').replace(/\{id\}/g, id)
+    : '';
   const mailto =
     `mailto:${email}` +
     `?subject=${encodeURIComponent(threadSubject(id))}` +
-    `&body=${encodeURIComponent(`Hi ${(name || '').split(' ')[0] || 'there'},\n\nThank you for your request (${id}).\n\n`)}`;
+    (body ? `&body=${encodeURIComponent(body)}` : '');
 
   const html = shell(`
   <tr><td style="padding:24px 28px 4px;font:13px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#9F8C82;">
