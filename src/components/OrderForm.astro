@@ -18,6 +18,18 @@ const FULL = 'f_auto,q_auto,w_1000';
 const cld = (url: string, transform: string) =>
   url.includes('res.cloudinary.com') ? url.replace('/upload/', `/upload/${transform}/`) : url;
 
+// Thumbnails for the confirmation emails. These must be absolute — an email
+// client has no page origin to resolve against — and small, because a
+// first-contact email that is image-heavy reads as spam. 200px covers a 100px
+// display box on a retina screen.
+const EMAIL_THUMB = 'f_auto,q_auto,c_fit,w_200,h_200';
+const emailImg = (url: string) => {
+  const sized = cld(url, EMAIL_THUMB);
+  return sized.startsWith('http')
+    ? sized
+    : new URL(sized, Astro.site ?? 'https://www.kentosborn.studio').href;
+};
+
 // Amazon editions for the two books. Both titles exist in English and Spanish,
 // and both pills render on both locales — hiding one edition per page would
 // obscure that a translation exists at all. These live here rather than in the
@@ -191,6 +203,14 @@ const inputClass =
        four, for the same reason order_summary is one field: Netlify prints every
        registered field including the empty ones. -->
   <input type="hidden" name="how_they_arrived" data-arrival-field value="" />
+  <!-- The order in machine-readable form, so the confirmation emails can lay it
+       out properly with thumbnails and per-line prices. order_summary above is
+       the human-readable twin and is what Netlify's own fallback notification
+       shows; this one exists because a Netlify function only ever receives
+       REGISTERED fields — verified: an undeclared field is silently dropped, so
+       there is no way to pass the function data without it also appearing in
+       that fallback email. Declared last so it sits at the bottom of it. -->
+  <input type="hidden" name="order_items" data-items-field value="" />
   <p class="hidden" aria-hidden="true">
     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
   </p>
@@ -272,6 +292,10 @@ const inputClass =
                             data-group={group.key}
                             data-usd={v.usd ?? 0}
                             data-mxn={v.mxn ?? 0}
+                            data-title={group.name}
+                            data-variant={v.label}
+                            data-edition={editionLabels[edition]}
+                            data-img={emailImg(v.img)}
                             class="h-4 w-4 accent-brand-purple"
                           />
                           <span class="text-sm">{editionLabels[edition]}</span>
@@ -398,6 +422,11 @@ const inputClass =
   <p class="text-sm uppercase tracking-[0.2em] text-brand-dark/60 mb-1">{i.order.successIdLabel}</p>
   <p data-success-id class="text-3xl font-heading text-brand-purple mb-4"></p>
   <p class="text-sm text-brand-dark/70 max-w-md mx-auto">{i.order.successIdHint}</p>
+  <!-- Only truthful because the acknowledgement actually sends now. Hedged on
+       purpose ("if it doesn't arrive…"), and it closes by restating that the
+       personal reply comes regardless — so a mail that lands in spam never
+       reads as an order that failed. -->
+  <p class="text-sm text-brand-dark/70 max-w-md mx-auto mt-3">{i.order.successEmailNote}</p>
 </div>
 
 <dialog data-img-modal class="img-modal" aria-label={i.order.viewLarger}>
@@ -628,6 +657,26 @@ const inputClass =
           lines.push(`— ${subtotalLabel}: $${usdTotal} USD / $${mxnTotal} MXN (${subtotalNote})`);
         }
         summaryField.value = lines.join('\n');
+      }
+
+      // Same order, structured, for the emails to render. Keys are terse to keep
+      // the field small: title, variant, edition, qty, usd, mxn, image.
+      const itemsField = form.querySelector<HTMLInputElement>('[data-items-field]');
+      if (itemsField) {
+        itemsField.value = JSON.stringify(
+          checked.map((box) => {
+            const qtyInput = form.querySelector<HTMLInputElement>(`[data-qty="${box.dataset.item}"]`);
+            return {
+              t: box.dataset.title ?? '',
+              v: box.dataset.variant ?? '',
+              e: box.dataset.edition ?? '',
+              q: Math.max(1, Number(qtyInput?.value || 1)),
+              u: Number(box.dataset.usd || 0),
+              m: Number(box.dataset.mxn || 0),
+              i: box.dataset.img ?? '',
+            };
+          })
+        );
       }
 
       // Where they came from, as one readable block.

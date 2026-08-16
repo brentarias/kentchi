@@ -216,6 +216,7 @@
     "successText": "Gracias — Keyhole Mystic Publishing te responderá en breve con una cotización para tu país.",
     "successIdLabel": "Tu número de referencia:",
     "successIdHint": "Guarda este número — mencionarlo en cualquier correo posterior nos ayuda a encontrar tu solicitud rápidamente.",
+    "successEmailNote": "También enviamos una copia a tu correo, con esta referencia en el asunto. Si no llega en unos minutos, revisa tu carpeta de spam — y en cualquier caso, Kent te responderá personalmente.",
     "errorText": "Algo salió mal al enviar tu solicitud. Por favor intenta de nuevo, o escríbenos directamente."
   },
   "footer": {

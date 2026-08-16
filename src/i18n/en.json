@@ -216,6 +216,7 @@
     "successText": "Thank you — Keyhole Mystic Publishing will reply shortly with a quote for your country.",
     "successIdLabel": "Your reference ID:",
     "successIdHint": "Keep this ID handy — mentioning it in any follow-up email helps us find your request quickly.",
+    "successEmailNote": "We're also sending a copy to your email address, with this reference in the subject line. If it doesn't arrive within a few minutes, check your spam folder — and either way, Kent will still reply personally.",
     "errorText": "Something went wrong sending your request. Please try again, or email us directly."
   },
   "footer": {

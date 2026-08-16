@@ -6,10 +6,12 @@ import sitemap from '@astrojs/sitemap';
 
 // Netlify injects `URL` (the site's primary address) at build time. We read it
 // via globalThis so `// @ts-check` passes without pulling in @types/node.
-// This tracks the real domain automatically: kentchi.netlify.app today, and
-// Kentchi's custom domain the moment that's set as primary in Netlify — no code
-// change needed. Falls back to the staging URL for local builds.
-const SITE_URL = /** @type {any} */ (globalThis).process?.env?.URL ?? 'https://kentchi.netlify.app';
+//
+// The fallback is the canonical domain, not kentchi.netlify.app: that subdomain
+// now 301s here (see netlify.toml), so using it would bake a redirecting host
+// into absolute URLs that local builds emit — canonical tags, Open Graph images
+// and the order-confirmation email thumbnails.
+const SITE_URL = /** @type {any} */ (globalThis).process?.env?.URL ?? 'https://www.kentosborn.studio';
 
 // https://astro.build/config
 export default defineConfig({
