@@ -37,9 +37,15 @@ const EMBLEM = `${SITE}/og-keyhole-square-notext.jpg`;
 const FROM = 'Keyhole Mystic Publishing <orders@kentosborn.studio>';
 const KENT_INBOX = 'ayahuaskent@gmail.com';
 
-// Who receives the working notification. Kent is deliberately absent until the
-// flow has been exercised end to end by a human.
-const NOTIFY = ['barias@axiscode.com'];
+// Who receives the working notification — the one with the reply button.
+//
+// Kent gets this and nothing else. Brent additionally receives Netlify's own
+// notification, which runs on Netlify's infrastructure and therefore survives a
+// Resend outage: it is the fallback that proves a submission arrived even when
+// everything in this file has failed. That asymmetry is deliberate — one clean
+// working email for the person answering enquiries, plus an independent signal
+// for the person maintaining the site.
+const NOTIFY = ['ayahuaskent@gmail.com', 'barias@axiscode.com'];
 
 // Images are capped so a large order cannot turn the email into a wall of
 // pictures — the thing that makes a first-contact message read as spam.
