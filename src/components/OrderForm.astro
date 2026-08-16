@@ -369,14 +369,20 @@ const inputClass =
   {/* autocomplete tokens matter more than they look. Without them the browser
       falls back to guessing from the field name, and a field simply called
       "address" gets matched to address-line2 — the apartment/unit line — so
-      autofill drops in "int 303" and nothing else. These are the spec tokens;
-      "shipping" scopes the group so the browser offers a shipping address
-      rather than a billing one. Note street-address covers the street lines
-      ONLY: city, state and postcode have their own tokens and cannot autofill
-      into a single free-text box. */}
+      autofill drops in "int 303" and nothing else.
+
+      Deliberately NOT prefixed "shipping". That prefix is not decoration: it
+      places a field in a named autofill section. Prefixing only the country and
+      address split this form into two groups, and filling from the shipping
+      group then had no reason to touch name and email — which silently stopped
+      autofilling. One address, one person, no billing counterpart to
+      disambiguate, so the scope bought nothing and cost two fields.
+
+      Note street-address covers the street lines ONLY: city, state and postcode
+      have their own tokens and cannot autofill into a single free-text box. */}
   <div>
     <label for="order-country" class="block text-sm font-medium mb-1">{i.order.countryLabel}</label>
-    <input type="text" id="order-country" name="country" required autocomplete="shipping country-name" class={inputClass} />
+    <input type="text" id="order-country" name="country" required autocomplete="country-name" class={inputClass} />
   </div>
 
   <div>
@@ -391,7 +397,7 @@ const inputClass =
 
   <div>
     <label for="order-address" class="block text-sm font-medium mb-1">{i.order.addressLabel}</label>
-    <textarea id="order-address" name="address" rows="3" autocomplete="shipping street-address" class={inputClass}></textarea>
+    <textarea id="order-address" name="address" rows="3" autocomplete="street-address" class={inputClass}></textarea>
     <p class="text-sm text-brand-dark/60 mt-1">{i.order.addressHint}</p>
   </div>
 
