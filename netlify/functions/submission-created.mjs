@@ -179,8 +179,13 @@ function kentEmail({ id, country, name, email, address, notes, items, arrived })
   // stays one thread — and deliberately omits the estimate: it is a triage aid
   // for this inbox, not something to put in front of a customer, and it changes
   // the moment the order is adjusted.
+  // The address stays LITERAL. It sits in the mailto path, where "@" is legal —
+  // percent-encoding it to %40 yields a technically valid URI that Gmail cannot
+  // parse a recipient from, so the compose window opens with an empty To field.
+  // Only subject and body are encoded; those are query parameters, where
+  // reserved characters genuinely must be escaped.
   const mailto =
-    `mailto:${encodeURIComponent(email)}` +
+    `mailto:${email}` +
     `?subject=${encodeURIComponent(threadSubject(id))}` +
     `&body=${encodeURIComponent(`Hi ${(name || '').split(' ')[0] || 'there'},\n\nThank you for your request (${id}).\n\n`)}`;
 
