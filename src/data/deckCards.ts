@@ -11,9 +11,10 @@
 //
 // This deliberately keeps explicit, ordered name lists and looks each one up,
 // rather than rendering whatever a folder fetch happens to return:
-//   - the order is curated (mm_44 opens the Magi strip, not mm_7),
-//   - Kentchi/Assets/mm also holds a promo video, which a blind folder listing
-//     would drag into the carousel,
+//   - the order is curated, and only a subset of each deck is shown,
+//   - Kentchi/Assets/mm also holds a promo video, plus the superseded loose
+//     paintings the card faces replaced — a blind folder listing would drag
+//     both into the carousel,
 //   - a stray upload into any folder should not silently appear on the page.
 // A missing name is a build error rather than a gap in the strip.
 import { assetsInFolder, transform, type CloudinaryAsset } from './cloudinaryAssets';
@@ -37,9 +38,22 @@ const shinanFiles: Array<[string, string]> = [
   ['shinan_17_ronin_snake', 'Ronin'],
 ];
 
-// Magnetic Magi scans are numbered, not named — no captions (the carousel
+// Magnetic Magi cards are numbered, not named — no captions (the carousel
 // falls back to the deck name for alt text).
-const mmFiles = ['mm_44', 'mm_7', 'mm_11', 'mm_12', 'mm_15', 'mm_18', 'mm_32'];
+//
+// The `mm_card_` prefix is load-bearing, not decoration. These replaced an
+// earlier set of loose paintings whose public_ids were `mm_12_aoxnpg`,
+// `mm_15_qceoix` and so on, and those are still in the folder — displaced, not
+// deleted. Since assetsInFolder registers every asset under BOTH its exact and
+// suffix-stripped spelling, `mm_15_qceoix` already claims the key `mm_15`, so a
+// new upload named `mm_15` would have left the two fighting over one key with
+// Cloudinary's result order deciding the winner. Nothing strips to
+// `mm_card_15`, so the collision cannot arise. Do not "tidy" these back to
+// `mm_<n>` while the old assets remain.
+const mmFiles = [
+  'mm_card_1', 'mm_card_5', 'mm_card_6', 'mm_card_10',
+  'mm_card_12', 'mm_card_15', 'mm_card_27', 'mm_card_30',
+];
 
 // Curated Worlds Within picks — edit this list to change the carousel. Names
 // are card faces in Kentchi/Assets/ww, rendered from the deck PDF by
